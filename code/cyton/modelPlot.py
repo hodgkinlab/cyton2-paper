@@ -8,7 +8,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import lmfit as lmf
-# pd.set_option('display.max_rows', 999999)
 
 from src.parse import parse_data
 from src.utils import conf_iterval, lognorm_cdf, lognorm_pdf, norm_cdf, norm_pdf, lognorm_statistics

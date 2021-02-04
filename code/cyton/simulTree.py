@@ -315,7 +315,7 @@ if __name__ == "__main__":
 				total_cohort_norm_sem = store_data[key][cond]['total_cohort_norm_sem']
 
 				ax2[i].errorbar(mdn, total_cohort_norm, 
-								xerr=mdn_sem, yerr=total_cohorts_norm_sem, 
+								xerr=mdn_sem, yerr=total_cohort_norm_sem, 
 								fmt='o', c=cp[cond], label=f"{''.join(cond.split())}")
 				if cond == 'aCD27' or cond == 'aCD28':
 					ax2[i].plot(abm.mdn_times['avg'], np.array(abm.total_cohort_times['avg'])/abm.n0*100, c=cp[cond])

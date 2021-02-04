@@ -1,9 +1,6 @@
 """
-Cyton model application
 Last edit: 20-November-2020
-
-Data received from Dr. Julia M. Marchingo. (Fig.3 DOI:10.1126/science.1260044)
-OT-1/Bcl2l11-/- CD8+ T cells stimulated with [N4(medium), aCD27, aCD28, IL-12, aCD27+IL-12, aCD27+aCD28, aCD28+IL-12, aCD27+aCD28+IL-12]
+Cyton model application
 """
 import os, time, datetime, itertools
 import tqdm
@@ -15,7 +12,6 @@ import seaborn as sns
 import multiprocessing as mp
 import lmfit as lmf
 rng = np.random.RandomState(seed=89907530)
-# pd.set_option('display.max_rows', 999999)
 
 from src.parse import parse_data
 from src.utils import conf_iterval, norm_pdf, norm_cdf, lognorm_pdf, lognorm_cdf

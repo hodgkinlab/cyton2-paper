@@ -3,8 +3,7 @@ Last edit: 30-October-2020
 
 A script to process filming data for B and T cells
 """
-import os
-import itertools
+import os, itertools
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -17,7 +16,7 @@ import pymc3 as pm
 import theano.tensor as T
 # pd.set_option('display.max_rows', 999999)
 
-from _func import parse_data, save_dataframes, filter_data, rank_mean_fam
+from _func import parse_data, filter_data, rank_mean_fam, save_dataframes, save_cc_times
 
 # GLOBAL PLOT SETTINGS
 rc = {

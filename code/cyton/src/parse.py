@@ -1,6 +1,5 @@
-import os, sys, re
+import os, re
 import numpy as np
-from .utils import filter_hidden_and_sort
 from ._reader import ReadData
 from ._manager import compute_total_cells, sort_cell_generations, cohorts
 
@@ -142,14 +141,3 @@ def concatenate(df):
 					buffer_normed.append(normed)
 				concat_df[c]['cgens']['normed'][itpt].append(buffer_normed)
 	return concat_df
-
-
-# if __name__ == '__main__':
-# 	ABT_folder = os.path.join(path_data, 'ABT-737')  # data file location to ABT-737
-# 	ABT_files = filter_hidden_and_sort(ABT_folder)
-# 	abt_ma = ABT_files[0]  # BL-19 ABT-737: MPA + ABT
-# 	abt_ra = ABT_files[1]  # BL-19 ABT_737: RAPA + ABT
-# 	assert(abt_ma == 'BL-19 ABT(MA).xlsx')
-# 	assert(abt_ra == 'BL-19 ABT(RA).xlsx')
-# 	abt_parsed_df = parse_data(ABT_folder, [abt_ma, abt_ra])
-# 	abt_concat_df = concatenation(abt_parsed_df)

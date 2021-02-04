@@ -1,9 +1,4 @@
-import os
 import numpy as np
-import seaborn as sns
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
 import scipy.stats as sps
 
 def norm_pdf(x, mu, sig):
@@ -35,23 +30,6 @@ def lognorm_statistics(m, s, return_std=False):
 		return mean, np.sqrt(var)
 	return mean, var
 
-def optimal_bin(n, l):
-	"""
-	Calculate optimal bin number for a histogram.
-
-	:param n: (int): number of samples
-	:param l: (list): data    
-	"""
-	# R = max(l) - min(l)  # find range in data
-	# std = np.std(l)  # compute standard deviation
-	# return int(R * n ** (1. / 3.) / (3.49 * std))
-	
-	# Freedman–Diaconis rule
-	iqr = np.subtract(*np.percentile(l, [75, 25]))
-	h = 2. * iqr / (n**(1./3.))
-	bins = (max(l) - min(l))/h
-	return int(bins)
-
 def ecdf(x):
 	"""
 	Calculate empirical cumulative distribution.
@@ -59,8 +37,9 @@ def ecdf(x):
 	:param x: (list) data
 	:return: (tuple) x and y
 	"""
+	n = len(x)
 	xs = np.sort(x)
-	ys = np.arange(1, len(xs)+1)/float(len(xs))
+	ys = np.arange(1, n+1)/float(n)
 	return xs, ys
 
 def conf_iterval(l, rgs):
@@ -69,42 +48,9 @@ def conf_iterval(l, rgs):
 	high = np.percentile(l, rgs+alpha, interpolation='nearest', axis=0)
 	return (low, high)
 
-def filter_hidden_and_sort(folder_path):
-	""" filter hidden files and sort in alphabetical order
-
-	This is unnecessary if you're absolutely sure that there are no other unwanted files in the folder. However,
-	I often realised that when you copy over from Ubuntu to Mac or vice versa, the system automatically creates
-	'.DS_Store' file.
-
-	:param folder_path: (string) path to the data folder
-	:return: (list) alphabetically sorted list of data files in the input folder
-	"""
-	return sorted(list(filter(lambda fname: not fname.startswith("."), os.listdir(folder_path))))
-
 def remove_empty(l):
 	""" recursively remove empty array from nested array
 	:param l: (list) nested list with empty list(s)
 	:return: (list)
 	"""
 	return list(filter(lambda x: not isinstance(x, (str, list, list)) or x, (remove_empty(x) if isinstance(x, (list, list)) else x for x in l)))
-
-
-def set_share_axes(axs, target=None, sharex=False, sharey=False):
-	if target is None:
-		target = axs.flat[0]
-	# Manage share using grouper objects
-	for ax in axs.flat:
-		if sharex:
-			target._shared_x_axes.join(target, ax)
-		if sharey:
-			target._shared_y_axes.join(target, ax)
-	# Turn off x tick labels and offset text for all but the bottom row
-	if sharex and axs.ndim > 1:
-		for ax in axs[:-1,:].flat:
-			ax.xaxis.set_tick_params(which='both', labelbottom=False, labeltop=False)
-			ax.xaxis.offsetText.set_visible(False)
-	# Turn off y tick labels and offset text for all but the left most column
-	if sharey and axs.ndim > 1:
-		for ax in axs[:,1:].flat:
-			ax.yaxis.set_tick_params(which='both', labelleft=False, labelright=False)
-			ax.yaxis.offsetText.set_visible(False)

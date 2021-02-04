@@ -9,10 +9,8 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import scipy.stats as sps
-import arviz as az
 import pymc3 as pm
 import xarray as xr
-import multiprocessing as mp
 rng = np.random.RandomState(seed=61114724)
 # pd.set_option('display.max_rows', 999999)
 

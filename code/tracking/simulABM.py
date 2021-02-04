@@ -7,7 +7,7 @@ The simulation is semi-deterministic where,
 	The subseqeunt division time is set to equal for all generation > 0 (inherit).
 Main purpose of the simulation is to validate censorship property we observed in the microscope data. 
 """
-import sys, os, time, datetime, copy, itertools
+import os, time, datetime, copy, itertools
 import tqdm
 import numpy as np
 import pandas as pd

@@ -6,7 +6,7 @@ Data received from Dr. Julia M. Marchingo. (Fig.3 DOI:10.1126/science.1260044)
 OT-1/Bcl2l11-/- CD8+ T cells stimulated with [N4(medium), aCD27, aCD28, IL-12, aCD27+IL-12, aCD27+aCD28, aCD28+IL-12, aCD27+aCD28+IL-12]
 Joint fitting script for N4, aCD27, aCD28 with a shared subsequent division time
 """
-import os, sys, time, datetime, copy
+import os, time, datetime, copy
 import tqdm
 import numpy as np
 import pandas as pd
@@ -18,7 +18,6 @@ import multiprocessing as mp
 import lmfit as lmf
 mpl.use('Agg')  # switch plot backend to avoid fork errors for parallel processing
 rng = np.random.RandomState(seed=54755083)
-# pd.set_option('display.max_rows', 999999)
 
 from src.parse import parse_data
 from src.utils import conf_iterval, norm_pdf, norm_cdf, truncnorm_cdf, lognorm_pdf, lognorm_cdf, lognorm_statistics
@@ -53,9 +52,9 @@ LM_FIT_KWS = {      # [LMFIT/SciPy] Key-word arguements pass to LMFIT minimizer 
 # 	'seed': rng
 # }
 
-LOGNORM = True	 	# All variables ~ LN(m,s); Otherwisee, all variables ~ N(mu,sig)
+LOGNORM = False	 	# All variables ~ LN(m,s); Otherwisee, all variables ~ N(mu,sig)
 RGS = 95            # [BOOTSTRAP] alpha for confidence interval
-ITER_BOOTS = 100    # [BOOTSTRAP] Bootstrap samples
+ITER_BOOTS = 1000   # [BOOTSTRAP] Bootstrap samples
 
 ### CYTON MODEL: OBJECTIVE FUNCTION
 def residual(pars, x, data=None, model=None):
@@ -268,10 +267,10 @@ def joint_fit(inputs):
 	### ANALYSIS: ESTIMATE DIVISION PARAMETERS BY FITTING CYTON MODEL
 	pars = {  # Initial values
 			'mUns': 1000, 'sUns': 1E-3,  # Unstimulated death time (NOT USED HERE)
-			'mDiv0': 30, 'sDiv0': 0.2,      # Time to first division
-			'mDD': 60, 'sDD': 0.3,    		# Time to division destiny
-			'mDie': 80, 'sDie': 0.4,		# Time to death
-			'm': 10, 'p': 1					# Subseqeunt division time & Activation probability (ASSUME ALL CELLS ACTIVATED)
+			'mDiv0': 30, 'sDiv0': 0.2,   # Time to first division
+			'mDD': 60, 'sDD': 0.3,    	 # Time to division destiny
+			'mDie': 80, 'sDie': 0.4,	 # Time to death
+			'm': 10, 'p': 1				 # Subseqeunt division time & Activation probability (ASSUME ALL CELLS ACTIVATED)
 		}
 	bounds = {
 		'lb': {  # Lower bounds
@@ -858,7 +857,6 @@ if __name__ == "__main__":
 
 	PATH_TO_DATA = './data'
 	DATA = ["EX127.xlsx", "EX130b.xlsx"]
-	# DATA = ["EX127.xlsx"]
 	KEYS = [os.path.splitext(os.path.basename(data_key))[0] for data_key in DATA]
 	
 	df = parse_data(PATH_TO_DATA, DATA)
@@ -875,14 +873,6 @@ if __name__ == "__main__":
 			pbar.update()
 	p.close()
 	p.join()
-
-	# procs = []
-	# for key in KEYS:
-	# 	p = mp.Process(target=joint_fit, args=(key, df[key], LOGNORM))
-	# 	p.start()
-	# 	procs.append(p)
-	# for p in procs:
-	# 	p.join()
 
 	end = time.time()
 	hours, rem = divmod(end-start, 3600)

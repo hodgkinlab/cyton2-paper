@@ -4,8 +4,7 @@ Analyse model error with SH1.119 B cell data (9 replicates)
 (1) RMSE of model fits from removing the time points
 (2) Parameter errors as a function of replicate numbers
 """
-import itertools, functools
-from numpy.core.numeric import outer
+import itertools
 import tqdm
 import numpy as np
 import pandas as pd
