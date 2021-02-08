@@ -35,3 +35,4 @@
 
 # C extensions
 /code/**/*.so
+/code/**/*.c
