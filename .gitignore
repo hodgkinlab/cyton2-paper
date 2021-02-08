@@ -7,6 +7,9 @@
 /docs/ppt
 /docs/shared
 /docs/word
+/docs/*.tex
+/docs/*.bib
+/docs/*.pdf
 /docs/*.bcf
 /docs/*.synctex.gz
 /docs/*.run.xml
