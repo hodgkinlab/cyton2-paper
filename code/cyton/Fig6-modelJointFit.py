@@ -1,10 +1,11 @@
 """
-Cyton model application
-Last edit: 20-November-2020
+Cyton model application: T cell signal integration
+Last edit: 10-February-2021
 
 Data received from Dr. Julia M. Marchingo. (Fig.3 DOI:10.1126/science.1260044)
 OT-1/Bcl2l11-/- CD8+ T cells stimulated with [N4(medium), aCD27, aCD28, IL-12, aCD27+IL-12, aCD27+aCD28, aCD28+IL-12, aCD27+aCD28+IL-12]
 Joint fitting script for N4, aCD27, aCD28 with a shared subsequent division time
+Run this to get fit results for Fig6. Then, run "Fig6-modelPlot.py" for generating the plots (double check the path to fit results i.e. excel files).
 """
 import os, time, datetime, copy
 import tqdm

@@ -1,8 +1,10 @@
 """
-Last edit: 20-November-2020
-Cyton model application
+Last edit: 10-February-2021
+Scenario 1 of application of the Cyton2 model fitting CpG-stimulated B cell FACS data.
+Run this to get fit results for Fig5A1-3 and Fig5B. Then, run "Fig5-modelPlot-Bcell.py" for generating the plots (double check the path to fit results i.e. excel files).
+*Make sure to wait until "Fig5AB-modelFit-Bcell.py" & "Fig5C-modelFit-Bcell.py" to finish before attempting to plot.
 """
-import os, time, datetime, itertools
+import os, time, datetime
 import tqdm
 import numpy as np
 import pandas as pd
@@ -74,8 +76,8 @@ def subsample(df, n):
 
 	return pd.DataFrame(new_df, index=df.index)
 
-def fit_tps(inputs):
-	key, df, conv_df, conv_df_rm, comb, reader, lognorm = inputs
+def fit_reps(inputs):
+	key, df, reader, sl, lognorm = inputs
 	icnd = 0
 
 	hts = reader.harvested_times[icnd]
@@ -133,8 +135,11 @@ def fit_tps(inputs):
 		'm': [], 'p': [], 'N0': [],
 		'algo': [], 'mse-in': [], 'mse-out': [], 'rmse-in': [], 'rmse-out': []
 	}
-	
-	### PREPARE ORIGINAL DATA FOR RMSE CALCULATION
+
+	### PREPARE DATA
+	conv_df = pd.DataFrame(df['cgens']['rep'][icnd])
+	conv_df.index = hts
+
 	nreps = []
 	for idx, row in conv_df.iterrows():
 		nreps.append(len(row.dropna()))
@@ -152,15 +157,22 @@ def fit_tps(inputs):
 	orig_N0 = df['cells']['avg'][icnd][0]
 	orig_model = Cyton15Model(hts, orig_N0, mgen, DT, nreps, lognorm)
 
-	conv_df_rm.index = [t for j, t in enumerate(hts) if j not in comb]
+	## 14-Jan-2021: Consider removing half the time points [1,3,5,7]
+	## TODO: REMOVE THIS!!
+	# rmv_hts = [1, 3, 5, 7]
+	# conv_df_rm = pd.DataFrame(df['cgens']['rep'][icnd]).drop(rmv_hts, axis=0)
+	# conv_df_rm.index = [t for j, t in enumerate(hts) if j not in rmv_hts]
+	###############################################################
 
 	pos = mp.current_process()._identity[0]-1  # For progress bar
 	tqdm_trange1 = tqdm.trange(ITER_BOOTS, leave=False, position=2*pos+1)
 	for b in tqdm_trange1:
-		sample_df = subsample(conv_df_rm, 3)  # randomly sample replicates with replacement (sample "sl" samples per row independently)
+		# sample_df = conv_df.sample(sl, axis=1, replace=True, random_state=rng).copy()  # randomly sample replicate with replacement (column-wise)
+		# sample_df = subsample(conv_df, sl)  # randomly sample replicates with replacement (sample "sl" samples per row independently)
+		sample_df = subsample(conv_df, sl)
 		if sample_df.iloc[0].isnull().all(axis=None):  # check if all samples are None for first time point
 			while sample_df.iloc[0].isnull().all(axis=None):  # resample until at least one of data point is not None
-				sample_df = subsample(conv_df_rm, 3)
+				sample_df = subsample(conv_df, sl)
 
 		# Manually ravel the data. This allows asymmetric replicate numbers.
 		x_gens, y_cells = [], []
@@ -180,7 +192,6 @@ def fit_tps(inputs):
 				if init:
 					init = False
 					avgN0 = np.array(row.dropna().values.tolist()).mean(axis=0).sum()
-
 		_hts = np.unique(_hts)
 		x_gens = np.asfarray(x_gens)
 		y_cells = np.asfarray(y_cells)
@@ -194,6 +205,7 @@ def fit_tps(inputs):
 		model = Cyton15Model(_hts, avgN0, mgen, DT, _nreps, lognorm)
 
 		candidates = {'algo': [], 'result': [], 'residual': []}  # store fitted parameter and its residual
+		# for s in range(ITER_SEARCH):
 		tqdm_trange2 = tqdm.trange(ITER_SEARCH, leave=False, position=2*pos+2)
 		for s in tqdm_trange2:
 			# Random initial values
@@ -208,7 +220,7 @@ def fit_tps(inputs):
 				res_lm = mini_lm.minimize(method='leastsq', max_nfev=MAX_NFEV)  # Levenberg-Marquardt algorithm
 				# res_lm = mini_lm.minimize(method='least_squares', max_nfev=MAX_NFEV)  # Trust Region Reflective method
 
-				algo = 'LM'
+				algo = 'LM'  # just to spice up?
 				result = res_lm
 				resid = res_lm.chisqr
 
@@ -227,7 +239,8 @@ def fit_tps(inputs):
 				# 	result = res_de
 				# 	resid = resid_de
 
-				tqdm_trange2.set_description(f"[SEARCH] > {key} > {''.join(condition.split()) + f' {comb} TPS'}")
+				# print(f"[SEARCH][{s+1}/{ITER_SEARCH}:{(s+1)/ITER_SEARCH*100:.1f}%] > {key} > {condition} > [{algo}] {resid:.10e}")
+				tqdm_trange2.set_description(f"[SEARCH] > {key} > {''.join(condition.split()) + f' {sl} Reps'}")
 				tqdm_trange2.set_postfix({'RSS': f"{resid:.5e}"})
 				tqdm_trange2.refresh()
 
@@ -237,7 +250,8 @@ def fit_tps(inputs):
 			except ValueError as ve:
 				tqdm_trange2.update()
 			# except:
-			# 	tqdm_trange2.update()
+			# 	err_count += 1
+			# 	print(f"[{err_count}] Error on {key} > {condition} > {sys.exc_info()[0]}")
 
 		fit_results = pd.DataFrame(candidates)
 		fit_results.sort_values('residual', ascending=True, inplace=True)  # sort based on residual
@@ -262,7 +276,7 @@ def fit_tps(inputs):
 		boots['rmse-out'].append(rmse_out)
 	boots_all = pd.DataFrame(boots)
 	boots = pd.DataFrame(boots).drop(['mse-in', 'mse-out', 'rmse-in', 'rmse-out'], axis=1)
-	
+
 	## calculate average of parameters
 	means = boots.mean()
 	mUns, sUns = means['mUns'], means['sUns']
@@ -325,7 +339,7 @@ def fit_tps(inputs):
 		tdie_pdf_curves.append(b_tdie_pdf); tdie_cdf_curves.append(b_tdie_cdf)
 
 		# Calculate model prediction for each set of parameter
-		b_model = Cyton15Model(hts, b_N0, mgen, DT, _nreps, lognorm)
+		b_model = Cyton15Model(hts, b_N0, mgen, DT, nreps, lognorm)
 		b_extrapolate = b_model.extrapolate(times, b_params)  # get extrapolation for all "times" (discretised) and at harvested timepoints
 		b_ext_total_live_cells.append(b_extrapolate['ext']['total_live_cells'])
 		b_ext_total_cohorts = np.sum(np.transpose(b_extrapolate['ext']['cells_gen']) * np.power(2.,-gens), axis=1)
@@ -365,13 +379,13 @@ def fit_tps(inputs):
 		index=["mUns", "sUns", "mDiv0", "sDiv0", "mDD", "sDD", "mDie", "sDie", "m", "p", "N0"]) 
 	
 	if lognorm:
-		excel_path = f"./out/_all_Lognormal/indiv/tmp/{key}_{'_'.join(map(str, comb))}_result.xlsx"
+		excel_path = f"./out/_all_Lognormal/indiv/{key}_result.xlsx"
 	else:
-		excel_path = f"./out/_all_Normal/indiv/tmp/{key}_{'_'.join(map(str, comb))}_result.xlsx"
+		excel_path = f"./out/_all_Normal/indiv/{key}_result.xlsx"
 	if os.path.isfile(excel_path): writer = pd.ExcelWriter(excel_path, mode='a')
 	else: writer = pd.ExcelWriter(excel_path, mode='w')
-	save_best_fit.to_excel(writer, sheet_name=f"pars")
-	boots_all.to_excel(writer, sheet_name=f"boot")
+	save_best_fit.to_excel(writer, sheet_name=f"pars_{sl}reps")
+	boots_all.to_excel(writer, sheet_name=f"boot_{sl}reps")
 	writer.save()
 	writer.close()
 
@@ -397,7 +411,7 @@ def fit_tps(inputs):
 
 	### FIG 1: SUMMARY PLOT
 	fig1, ax1 = plt.subplots(nrows=2, ncols=2, sharex=True)
-	fig1.suptitle(f"[{key}][{condition}][{','.join(map(str, comb))} tps] Cyton parameters, Total cohort and cell numbers")
+	fig1.suptitle(f"[{key}][{condition}][{sl} Reps] Cyton parameters, Total cohort and cell numbers")
 	
 	## PROBABILITY DISTRIBUTION FUNCTION
 	ax1[0,0].set_title(f"$t_{{div}}={m:.2f}h \pm_{{{m-err_m[0]:.2f}}}^{{{err_m[1]-m:.2f}}}$")
@@ -442,19 +456,30 @@ def fit_tps(inputs):
 	## TOTAL COHORT NUMBER
 	ax1[0,1].set_title("Total cohort number")
 	ax1[0,1].set_ylabel("Cohort number")
-	tps1, tps2, total_cohorts1, total_cohorts2 = [], [], [], []
+
+	## 14-Jan-2021: Consider removing half the time points [1,3,5,7]
+	## TODO: REMOVE THIS!!
+	# tps1, tps2, total_cohorts1, total_cohorts2 = [], [], [], []
+	# for itpt, ht in enumerate(hts):
+	# 	if itpt in rmv_hts:
+	# 		for irep in range(nreps[itpt]):
+	# 			tps1.append(ht)
+	# 			total_cohorts1.append(np.sum(df['cohorts_gens']['rep'][icnd][itpt][irep]))
+	# 	else:
+	# 		for irep in range(nreps[itpt]):
+	# 			tps2.append(ht)
+	# 			total_cohorts2.append(np.sum(df['cohorts_gens']['rep'][icnd][itpt][irep]))
+	# ax1[0,1].plot(tps1, total_cohorts1, 'bx', label='removed')
+	# ax1[0,1].plot(tps2, total_cohorts2, 'r.', label='data')
+	###############################################################
+	tps, total_cohorts = [], []
 	for itpt, ht in enumerate(hts):
-		if itpt in comb:
-			for irep in range(nreps[itpt]):
-				tps1.append(ht)
-				total_cohorts1.append(np.sum(df['cohorts_gens']['rep'][icnd][itpt][irep]))
-		else:
-			for irep in range(nreps[itpt]):
-				tps2.append(ht)
-				total_cohorts2.append(np.sum(df['cohorts_gens']['rep'][icnd][itpt][irep]))
+		for irep in range(nreps[itpt]):
+			tps.append(ht)
+			total_cohorts.append(np.sum(df['cohorts_gens']['rep'][icnd][itpt][irep]))
+	ax1[0,1].plot(tps, total_cohorts, 'r.', label='data')
+
 	ext_total_cohorts = np.sum(np.transpose(ext_cells_per_gen) * np.power(2.,-gens), axis=1)
-	ax1[0,1].plot(tps1, total_cohorts1, 'bx', label='removed')
-	ax1[0,1].plot(tps2, total_cohorts2, 'r.', label='data')
 	ax1[0,1].plot(times, ext_total_cohorts, 'k-', label='model')
 	ax1[0,1].fill_between(times, conf['ext_total_cohorts'][0], conf['ext_total_cohorts'][1], fc='k', ec=None, alpha=0.3)
 	ax1[0,1].set_ylim(bottom=0)
@@ -466,18 +491,29 @@ def fit_tps(inputs):
 	ax1[1,1].set_title(f"Total cell number: $N_0 = {np.round(N0)}$")
 	ax1[1,1].set_ylabel("Cell number")
 	ax1[1,1].set_xlabel("Time (hour)")
-	tps1, tps2, total_cells1, total_cells2 = [], [], [], []
+
+	## 14-Jan-2021: Consider removing half the time points [1,3,5,7]
+	## TODO: REMOVE THIS!!
+	# tps1, tps2, total_cells1, total_cells2 = [], [], [], []
+	# for itpt, ht in enumerate(hts):
+	# 	if itpt in rmv_hts:
+	# 		for irep in range(nreps[itpt]):
+	# 			tps1.append(ht)
+	# 			total_cells1.append(df['cells']['rep'][icnd][itpt][irep])
+	# 	else:
+	# 		for irep in range(nreps[itpt]):
+	# 			tps2.append(ht)
+	# 			total_cells2.append(df['cells']['rep'][icnd][itpt][irep])
+	# ax1[1,1].plot(tps1, total_cells1, 'bx')
+	# ax1[1,1].plot(tps2, total_cells2, 'r.')
+	###############################################################
+	tps, total_cells = [], []
 	for itpt, ht in enumerate(hts):
-		if itpt in comb:
-			for irep in range(nreps[itpt]):
-				tps1.append(ht)
-				total_cells1.append(df['cells']['rep'][icnd][itpt][irep])
-		else:
-			for irep in range(nreps[itpt]):
-				tps2.append(ht)
-				total_cells2.append(df['cells']['rep'][icnd][itpt][irep])
-	ax1[1,1].plot(tps1, total_cells1, 'bx')
-	ax1[1,1].plot(tps2, total_cells2, 'r.')
+		for irep in range(nreps[itpt]):
+			tps.append(ht)
+			total_cells.append(df['cells']['rep'][icnd][itpt][irep])
+	ax1[1,1].plot(tps, total_cells, 'r.')
+
 	ax1[1,1].plot(times, ext_total_live_cells, 'k-', lw=1)
 	ax1[1,1].fill_between(times, conf['ext_total_live_cells'][0], conf['ext_total_live_cells'][1], fc='k', ec=None, alpha=0.3)
 	cp = sns.hls_palette(mgen+1, l=0.4, s=0.5)
@@ -541,6 +577,31 @@ def fit_tps(inputs):
 
 	### FIG 3: DISTRIBUTION OF BOOTSTRAP SAMPLES 
 	alpha = (1. - RGS/100.)/2
+	# quantiles = boots[['mUns', 'sUns', 'mDiv0', 'sDiv0', 'mDD', 'sDD', 'mDie', 'sDie', 'm', 'p']].quantile([alpha, alpha + RGS/100.], numeric_only=True, interpolation='nearest')
+	# titles = ["$T_{uns}$", "$T_{uns}$", "$T_{div}^0$", "$T_{div}^0$", "$T_{dd}$", "$T_{dd}$", "$T_{die}$", "$T_{die}$", "$t_{div}$", "$p$"]
+	# if lognorm:
+	# 	xlabs = ["median ($m$)", "shape ($s$)", "median ($m$)", "shape ($s$)", "median ($m$)", "shape ($s$)", "median ($m$)", "shape ($s$)", "Subsequent Division Time (hour)", "Prob."]
+	# else:
+	# 	xlabs = ["mean ($\mu$)", "std ($\sigma$)", "mean ($\mu$)", "std ($\sigma$)", "mean ($\mu$)", "std ($\sigma$)", "mean ($\mu$)", "std ($\sigma$)", "Subsequent Division Time (hour)", "Prob."]
+	# colors = ['orange', 'orange', 'blue', 'blue', 'green', 'green', 'red', 'red', 'navy', 'k']
+	# fig3, ax3 = plt.subplots(nrows=5, ncols=2, figsize=(9, 8))
+	# fig3.suptitle(f"[{sl} Reps] Bootstrap marginal distribution")
+	# ax3 = ax3.flat
+	# for i, obj in enumerate(boots.drop(['N0', 'algo'], axis=1)):
+	# 	best = best_fit[obj]
+	# 	b_sample = boots[obj].to_numpy()
+	# 	l_quant, h_quant = quantiles.iloc[0][obj], quantiles.iloc[1][obj]
+
+	# 	ax3[i].set_title(titles[i])
+	# 	ax3[i].axvline(best, ls='-', c='k', label=f"best-fit={best:.2f}")
+	# 	ax3[i].axvline(l_quant, ls=':', c='red', label=f"lo={l_quant:.2f}")
+	# 	ax3[i].axvline(h_quant, ls=':', c='red', label=f"hi={h_quant:.2f}")
+	# 	sns.distplot(b_sample, kde=False, hist_kws=dict(ec='k', lw=1), color=colors[i], ax=ax3[i])
+	# 	ax3[i].set_xlabel(xlabs[i])
+	# 	ax3[i].legend(fontsize=9, loc='upper right')
+	# fig3.tight_layout(rect=(0.01, 0, 1, 1))
+	# fig3.subplots_adjust(wspace=0.1, hspace=0.83)
+
 	quantiles = boots[['mDiv0', 'sDiv0', 'mDD', 'sDD', 'mDie', 'sDie', 'm', 'p']].quantile([alpha, alpha + RGS/100.], numeric_only=True, interpolation='nearest')
 	titles = ["$T_{div}^0$", "$T_{div}^0$", "$T_{dd}$", "$T_{dd}$", "$T_{die}$", "$T_{die}$", "$t_{div}$", "$p$"]
 	if lognorm:
@@ -549,7 +610,7 @@ def fit_tps(inputs):
 		xlabs = ["mean ($\mu$)", "std ($\sigma$)", "mean ($\mu$)", "std ($\sigma$)", "mean ($\mu$)", "std ($\sigma$)", "Subsequent Division Time (hour)", "Prob."]
 	colors = ['blue', 'blue', 'green', 'green', 'red', 'red', 'navy', 'k']
 	fig3, ax3 = plt.subplots(nrows=4, ncols=2, figsize=(9, 8))
-	fig3.suptitle(f"[{','.join(map(str, comb))} tps] Bootstrap marginal distribution")
+	fig3.suptitle(f"[{sl} Reps] Bootstrap marginal distribution")
 	ax3 = ax3.flat
 	for i, obj in enumerate(boots.drop(['mUns', 'sUns', 'N0', 'algo'], axis=1)):
 		mean = means[obj]
@@ -568,8 +629,85 @@ def fit_tps(inputs):
 
 
 	### FIG 4: OTHER WAY TO PLOT BOOTSTRAP SAMPLES
+	# fig4, ax4 = plt.subplots(nrows=2, ncols=3)
+	# fig4.suptitle(f"[{condition}][{sl} Reps] Bootstrap distribution")
+	# sns.distplot(boots['p'], hist_kws=dict(ec='k', lw=1), kde=False, norm_hist=True, color='k', ax=ax4[0,0])
+	# ax4[0,0].axvline(best_fit['p'], ls='-', c='k', label=f"best-fit={best_fit['p']:.4f}")
+	# ax4[0,0].axvline(quantiles.iloc[0]['p'], ls=':', c='red', label=f"lo={quantiles.iloc[0]['p']:.4f}")
+	# ax4[0,0].axvline(quantiles.iloc[1]['p'], ls=':', c='red', label=f"hi={quantiles.iloc[1]['p']:.4f}")
+	# ax4[0,0].set_title("Activation probability")
+	# ax4[0,0].set_ylabel("Frequency")
+	# ax4[0,0].set_xlabel("Probability")
+	# ax4[0,0].legend(fontsize=9, frameon=True, loc='upper right')
+
+	# sns.distplot(boots['m'], hist_kws=dict(ec='k', lw=1), kde=False, norm_hist=True, color='navy', ax=ax4[1,0])
+	# ax4[1,0].axvline(best_fit['m'], ls='-', c='k', label=f"best-fit={best_fit['m']:.2f}")
+	# ax4[1,0].axvline(quantiles.iloc[0]['m'], ls=':', c='red', label=f"lo={quantiles.iloc[0]['m']:.2f}")
+	# ax4[1,0].axvline(quantiles.iloc[1]['m'], ls=':', c='red', label=f"hi={quantiles.iloc[1]['m']:.2f}")
+	# ax4[1,0].set_title("Subsequent division time")
+	# ax4[1,0].set_ylabel("Frequency")
+	# ax4[1,0].set_xlabel("Time (hour)")
+	# ax4[1,0].legend(fontsize=9, frameon=True, loc='upper right')
+
+	# if lognorm:
+	# 	notat1, notat2 = "m", "s"
+	# 	ylab_Tuns = "shape, $s$ ($T_{uns}$)"; xlab_Tuns = "median, $m$ ($T_{uns}$)"
+	# 	ylab_Tdiv0 = "shape, $s$ ($T_{div}^0$)"; xlab_Tdiv0 = "median, $m$ ($T_{div}^0$)"
+	# 	ylab_Tdd = "shape, $s$ ($T_{dd}$)"; xlab_Tdd = "median, $m$ ($T_{dd}$)"
+	# 	ylab_Tdie = "shape, $s$ ($T_{die}$)"; xlab_Tdie = "median, $m$ ($T_{die}$)"
+	# else: 
+	# 	notat1, notat2 = "\mu", "\sigma"
+	# 	ylab_Tuns = "std, $\sigma$ ($T_{uns}$)"; xlab_Tuns = "mean, $\mu$ ($T_{uns}$)"
+	# 	ylab_Tdiv0 = "std, $\sigma$ ($T_{div}^0$)"; xlab_Tdiv0 = "mean, $\mu$ ($T_{div}^0$)"
+	# 	ylab_Tdd = "std, $\sigma$ ($T_{dd}$)"; xlab_Tdd = "mean, $\mu$ ($T_{dd}$)"
+	# 	ylab_Tdie = "std, $\sigma$ ($T_{die}$)"; xlab_Tdie = "mean, $\mu$ ($T_{die}$)"
+	# sns.scatterplot(x=boots['mUns'], y=boots['sUns'], color='orange', ec=None, linewidth=1, alpha=0.5, ax=ax4[0,1])
+	# ax4[0,1].errorbar(x=mUns, y=sUns, xerr=[[mUns-err_mUns[0]], [err_mUns[1]-mUns]], yerr=[[sUns-err_sUns[0]], [err_sUns[1]-sUns]], fmt='.', color='k', alpha=0.7, label=f"$m = {mUns:.2f}\pm_{{{mUns-err_mUns[0]:.2f}}}^{{{err_mUns[1]-mUns:.2f}}}$\n" + f"$s = {sUns:.3f}\pm_{{{sUns-err_sUns[0]:.3f}}}^{{{err_sUns[1]-sUns:.3f}}}$")
+	# ax4[0,1].set_title("Time to death (unstimulated)")
+	# ax4[0,1].set_ylabel(ylab_Tuns)
+	# ax4[0,1].set_xlabel(xlab_Tuns)
+	# ax4[0,1].spines['right'].set_visible(True)
+	# ax4[0,1].spines['top'].set_visible(True)
+	# ax4[0,1].legend(fontsize=9, frameon=True, loc='upper right')
+
+	# sns.scatterplot(x=boots['mDiv0'], y=boots['sDiv0'], color='blue', ec=None, linewidth=1, alpha=0.5, ax=ax4[0,2])
+	# ax4[0,2].errorbar(x=mDiv0, y=sDiv0, xerr=[[mDiv0-err_mDiv0[0]], [err_mDiv0[1]-mDiv0]], yerr=[[sDiv0-err_sDiv0[0]], [err_sDiv0[1]-sDiv0]], fmt='.', color='k', alpha=0.7, label=f"$m = {mDiv0:.2f}\pm_{{{mDiv0-err_mDiv0[0]:.2f}}}^{{{err_mDiv0[1]-mDiv0:.2f}}}$\n" + f"$s = {sDiv0:.3f}\pm_{{{sDiv0-err_sDiv0[0]:.3f}}}^{{{err_sDiv0[1]-sDiv0:.3f}}}$")
+	# ax4[0,2].set_title("Time to first division")
+	# ax4[0,2].set_ylabel(ylab_Tdiv0)
+	# ax4[0,2].set_xlabel(xlab_Tdiv0)
+	# ax4[0,2].spines['right'].set_visible(True)
+	# ax4[0,2].spines['top'].set_visible(True)
+	# ax4[0,2].legend(fontsize=9, frameon=True, loc='upper right')
+
+	# sns.scatterplot(x=boots['mDD'], y=boots['sDD'], color='green', ec=None, linewidth=1, alpha=0.5, ax=ax4[1,1])
+	# ax4[1,1].errorbar(x=mDD, y=sDD, xerr=[[mDD-err_mDD[0]], [err_mDD[1]-mDD]], yerr=[[sDD-err_sDD[0]], [err_sDD[1]-sDD]], fmt='.', color='k', alpha=0.7, label=f"${notat1} = {mDD:.2f}\pm_{{{mDD-err_mDD[0]:.2f}}}^{{{err_mDD[1]-mDD:.2f}}}$\n" + f"${notat2} = {sDD:.3f}\pm_{{{sDD-err_sDD[0]:.3f}}}^{{{err_sDD[1]-sDD:.3f}}}$")
+	# ax4[1,1].set_title("Time to division destiny")
+	# ax4[1,1].set_ylabel(ylab_Tdd)
+	# ax4[1,1].set_xlabel(xlab_Tdd)
+	# ax4[1,1].spines['right'].set_visible(True)
+	# ax4[1,1].spines['top'].set_visible(True)
+	# ax4[1,1].legend(fontsize=9, frameon=True, loc='upper right')
+
+	# sns.scatterplot(x=boots['mDie'], y=boots['sDie'], color='red', ec=None, linewidth=1, alpha=0.5, ax=ax4[1,2])
+	# ax4[1,2].errorbar(x=mDie, y=sDie, xerr=[[mDie-err_mDie[0]], [err_mDie[1]-mDie]], yerr=[[sDie-err_sDie[0]], [err_sDie[1]-sDie]], fmt='.', color='k', alpha=0.7, label=f"${notat1} = {mDie:.2f}\pm_{{{mDie-err_mDie[0]:.2f}}}^{{{err_mDie[1]-mDie:.2f}}}$\n" + f"${notat2} = {sDie:.3f}\pm_{{{sDie-err_sDie[0]:.3f}}}^{{{err_sDie[1]-sDie:.3f}}}$")
+	# ax4[1,2].set_title("Time to death")
+	# ax4[1,2].set_ylabel(ylab_Tdie)
+	# ax4[1,2].set_xlabel(xlab_Tdie)
+	# ax4[1,2].spines['right'].set_visible(True)
+	# ax4[1,2].spines['top'].set_visible(True)
+	# ax4[1,2].legend(fontsize=9, frameon=True, loc='upper right')
+	# fig4.tight_layout(rect=(0.01, 0, 1, 1))
+	# # fig4.subplots_adjust(wspace=0.05, hspace=0.05)
+
+	# ### FIG 5: CORRELATION PLOT (PAIRPLOT)
+	# grid = sns.pairplot(boots.drop(np.append(paramExcl, ['N0', 'algo']), axis=1), markers="o", palette=sns.color_palette(['#003f5c']), height=1, corner=True, diag_kind='hist', diag_kws=dict(ec='k', lw=1, alpha=0.5), plot_kws=dict(s=22, ec=None, linewidth=1, alpha=0.5), grid_kws=dict(diag_sharey=False))
+	# grid.fig.suptitle(f"[{condition}][{sl} Reps] Parameter correlation")
+	# # grid.fig.set_size_inches(14, 10)
+	# grid.fig.set_size_inches(rc['figure.figsize'][0], rc['figure.figsize'][1])
+	# grid.fig.tight_layout()
+
 	fig4, ax4 = plt.subplots(nrows=2, ncols=2)
-	fig4.suptitle(f"[{condition}][{','.join(map(str, comb))} tps] Bootstrap distribution")
+	fig4.suptitle(f"[{condition}][{sl} Reps] Bootstrap distribution")
 	sns.distplot(boots['m'], hist_kws=dict(ec='k', lw=1), kde=False, norm_hist=True, color='navy', ax=ax4[0,0])
 	ax4[0,0].axvline(best_fit['m'], ls='-', c='k', label=f"best-fit={best_fit['m']:.2f}")
 	ax4[0,0].axvline(quantiles.iloc[0]['m'], ls=':', c='red', label=f"lo={quantiles.iloc[0]['m']:.2f}")
@@ -621,20 +759,20 @@ def fit_tps(inputs):
 
 	### FIG 5: CORRELATION PLOT (PAIRPLOT)
 	grid = sns.pairplot(boots.drop(np.append(paramExcl, ['N0', 'algo']), axis=1), markers="o", palette=sns.color_palette(['#003f5c']), height=1, corner=True, diag_kind='hist', diag_kws=dict(ec='k', lw=1, alpha=0.5), plot_kws=dict(s=22, ec=None, linewidth=1, alpha=0.5), grid_kws=dict(diag_sharey=False))
-	grid.fig.suptitle(f"[{condition}][{','.join(map(str, comb))} tps] Parameter correlation")
+	grid.fig.suptitle(f"[{condition}][{sl} Reps] Parameter correlation")
 	# grid.fig.set_size_inches(14, 10)
 	grid.fig.set_size_inches(rc['figure.figsize'][0], rc['figure.figsize'][1])
 	grid.fig.tight_layout()
 
 	if lognorm:
-		with PdfPages(f"./out/_all_Lognormal/indiv/tmp/{key}_{'_'.join(map(str, comb))}tps.pdf") as pdf:
+		with PdfPages(f"./out/_all_Lognormal/indiv/{key}_{sl}reps.pdf") as pdf:
 			pdf.savefig(fig1)
 			pdf.savefig(fig2)
 			pdf.savefig(fig3)
 			pdf.savefig(fig4)
 			pdf.savefig(grid.fig)
 	else:
-		with PdfPages(f"./out/_all_Normal/indiv/tmp/{key}_{'_'.join(map(str, comb))}tps.pdf") as pdf:
+		with PdfPages(f"./out/_all_Normal/indiv/{key}_{sl}reps.pdf") as pdf:
 			pdf.savefig(fig1)
 			pdf.savefig(fig2)
 			pdf.savefig(fig3)
@@ -652,29 +790,17 @@ if __name__ == "__main__":
 	KEYS = [os.path.splitext(os.path.basename(data_key))[0] for data_key in DATA]
 	df = parse_data(PATH_TO_DATA, DATA)
 
-	comp = np.array([1,2,4,5,6,7])
-	ddf = pd.DataFrame(df['SH1.119']['cgens']['rep'][0])
-
-	## ANALYSE EFFECT OF TIME POINTS
+	## ANALYSE EFFECT OF REPLICATE NUMBER
 	inputs = []
-	rms = [1, 2, 3, 4, 5, 6] # number of time points removed from the dataset (7,8 would leave only 2,1 time points... unable to fit!)
+	data_slice = [1, 2, 3, 4, 5, 6, 7, 8, 9]  # number of replicates
 	for key in KEYS:
 		reader = df[key]['reader']
-		conv_df = pd.DataFrame(df[key]['cgens']['rep'][0])
-		for rm in rms:
-			removes = np.array(list(itertools.combinations(conv_df.index, rm)))  # all possible combination of rremovable time points (i.e. rows)
-			for comb in removes:
-				# (1) At least three data point. (2) Retain at least one "earlier" time point for initial cell number
-				if comb.size > 1 and comb[0] == 0 and comb[1] == 1:
-					pass
-				else:
-					conv_df_rm = conv_df.drop(comb, axis=0).copy()
-					inputs.append((key, df[key], conv_df, conv_df_rm, comb, reader, LOGNORM))
-
+		for sl in data_slice:
+			inputs.append((key, df[key], reader, sl, LOGNORM))
 	tqdm.tqdm.set_lock(mp.RLock())  # for managing output contention
 	p = mp.Pool(initializer=tqdm.tqdm.set_lock, initargs=(tqdm.tqdm.get_lock(),))
 	with tqdm.tqdm(total=len(inputs), desc="Total", position=0) as pbar:
-		for i, _ in enumerate(p.imap_unordered(fit_tps, inputs)):
+		for i, _ in enumerate(p.imap_unordered(fit_reps, inputs)):
 			pbar.update()
 	p.close()
 	p.join()

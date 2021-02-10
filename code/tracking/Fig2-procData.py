@@ -1,7 +1,8 @@
 """
-Last edit: 30-October-2020
+Last edit: 10-February-2021
 
-A script to process filming data for B and T cells
+A script to process filming data for B and T cells.
+Run this for generating Fig2 in the main article; FigS1, FigS2, FigS3 in the Supplementary Material.
 """
 import os, itertools
 import numpy as np
@@ -14,7 +15,6 @@ import scipy as sp
 import scipy.stats as sps
 import pymc3 as pm
 import theano.tensor as T
-# pd.set_option('display.max_rows', 999999)
 
 from _func import parse_data, filter_data, rank_mean_fam, save_dataframes, save_cc_times
 
@@ -62,8 +62,10 @@ def vis_summary(df_exp, m_df, exps, flag_all=True):
 	# col = ['gold', 'saddlebrown', 'royalblue', 'purple', 'darkolivegreen']
 	cp = sns.color_palette(n_colors=8)
 	pal = ['Blue', 'Magenta', 'Lime', 'Red', 'Cyan', 'Orange', 'Black', 'Indianred']
-	col = ['gold', 'lightgreen', 'deepskyblue', 'orchid', 'tan']
 	for exp in exps:
+		col = ['gold', 'lightgreen', 'deepskyblue', 'orchid', 'tan']
+		if exp == 't_il2/20140121':
+			col = ['gold', 'lightgreen', 'orchid', 'deepskyblue', 'tan']
 		conds = np.unique(df_exp[exp]['stim'])
 		# df = pd.concat([m_df[exp][cond].iloc[:,2:] for cond in conds], ignore_index=True, keys=conds)
 		lst_df = []
@@ -112,7 +114,7 @@ def vis_summary(df_exp, m_df, exps, flag_all=True):
 			g_patch = mpatches.Patch(color=col[1], label='1U IL-2')
 			p_patch = mpatches.Patch(color=col[3], label='3U IL-2')
 			b_patch = mpatches.Patch(color=col[2], label='10U IL-2')
-			plt.legend(handles=[g_patch, b_patch, p_patch], loc=4, fontsize=12)
+			plt.legend(handles=[g_patch, p_patch, b_patch], loc=4, fontsize=12)
 		elif exp == 't_misc/20140211':
 			p_patch = mpatches.Patch(color=col[3], label='N4')
 			b_patch = mpatches.Patch(color=col[2], label='N4+CD28')
@@ -804,7 +806,8 @@ def corr(df_exp, exps):
 				"Time to death ($T_{die}$)": TIME_TO_DEATH
 			})
 
-			g = sns.pairplot(df_pair, height=1.5, corner=True, diag_kind='None', plot_kws={'s': 22, 'fc': "grey", 'ec': 'k', 'linewidth': 1})
+			g = sns.pairplot(df_pair, height=1.5, corner=True, diag_kind='None', 
+								plot_kws={'s': 22, 'fc': "grey", 'ec': 'k', 'linewidth': 1})
 			g.map_diag(dist)
 			g.map_lower(scatter)
 			# g.fig.suptitle(f"[{exp}][{cond_labs[exp][cond]}] Bayesian correlation analysis", weight='bold')
@@ -859,16 +862,18 @@ if __name__ == "__main__":
 
 	#### Plot filming data
 	## vis_all(df_exp, exps)  # plot all observed events in a given family
-	# vis_summary(df_exp, df_CC, exps, flag_all=True)  # plot summary (all clones, not showing lost cells)
-	# vis_summary(df_exp, df_F_CC, exps, flag_all=False)  # plot summary for filtered data
+	vis_summary(df_exp, df_CC, exps, flag_all=True)  # plot summary (all clones, not showing lost cells)
+	vis_summary(df_exp, df_F_CC, exps, flag_all=False)  # plot summary for filtered data
 	# vis_summary(df_exp, df_F_CC2, exps, flag_all=False)  # plot summary for filtered data
 
 	# vis_clone(df_exp, exps)  # Filtering the data within the function (CAREFUL THERE ARE TWO FILTERS)
 
 	#### Correlation analysis
 	# corr(df_exp, exps)
-	corr(df_F, exps)  # filtered data set
+	# corr(df_F, exps)  # filtered data set
 	# corr(df_F2, exps)
+
+	sye.eixt()
 	
 
 	#### SPECIAL CASE: AGGREGATE T CELL IL-2 DATA (WITH SAME CONCENTRATION: 1U, 3U, 10U)

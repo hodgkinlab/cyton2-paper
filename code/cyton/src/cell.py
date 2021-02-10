@@ -234,7 +234,7 @@ class ABM(cell):
 		self.mdn_times['avg'] = np.mean(np.array(store2), axis=0)
 		self.mdn_times['low'], self.mdn_times['upp'] = np.quantile(np.array(store2), [alpha, alpha + self.rgs/100], interpolation='nearest', axis=0)
 
-	def run(self, name, pars, n_sims):
+	def run(self, pos, name, pars, n_sims):
 		self.n_sims = n_sims
 
 		### Get timer parameters
@@ -242,8 +242,6 @@ class ABM(cell):
 		mD, sD = pars['mDD'], pars['sDD'] 	     # Time to division destiny (Fit from Time to last division)
 		mX, sX = pars['mDie'], pars['sDie']		 # Time to death
 		m = pars['m']							 # Time to subsequent division
-
-		pos = mp.current_process()._identity[0]-1  # For progress bar
 		for _ in tqdm.trange(self.n_sims, desc=f"[{name}] Simulation", leave=False, position=2*pos+1):
 			# Reset datarame for next iteration
 			for col in self.df.columns:

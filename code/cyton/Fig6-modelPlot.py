@@ -1,6 +1,7 @@
 """
-Last edit: 17-Oct-2020
-Plot tool for JM-Science Fig3 results. [EX127, EX130b]
+Last edit: 10-February-2021
+Plot tool for JM-Science Fig3 results. [EX127] for the main dataset; [EX130b] is repeat.
+Run this for generating Fig6 in the main article. See "FigS7-simulTree.py" for direct comparison of Fig3 of JM-Science 2014 article.
 """
 import os
 import numpy as np

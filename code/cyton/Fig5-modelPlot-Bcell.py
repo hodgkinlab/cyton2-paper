@@ -1,8 +1,9 @@
 """
-Last edit: 29-December-2020
-Analyse model error with SH1.119 B cell data (9 replicates)
-(1) RMSE of model fits from removing the time points
-(2) Parameter errors as a function of replicate numbers
+Last edit: 10-February-2021
+Analyse model error with SH1.119 B cell data (9 time points, 9 replicates)
+(Scenario 1) RMSE of model fits from removing the time points
+(Scenario 2) Parameter errors as a function of replicate numbers
+*Requires fit results from both "Fig5AB-modelFit-Bcell.py" and "Fig5C-modelFit-Bcell.py".
 """
 import itertools
 import tqdm
@@ -848,8 +849,13 @@ if __name__ == "__main__":
 		for i, (p1, p2) in enumerate(var_pairs):
 			fig1, ax1 = plt.subplots(ncols=2, sharey=True, tight_layout=True)
 			ax1[0].set_title(f"{var_titles[i]}", x=0, ha='left')
-			sns.ecdfplot(data=final_df, x=p1, hue="Replicate", palette=cp, ax=ax1[0])
-			sns.ecdfplot(data=final_df, x=p2, hue="Replicate", palette=cp, ax=ax1[1])
+			# sns.ecdfplot(data=final_df, x=p1, hue="Replicate", palette=cp, ax=ax1[0])  # for seaborn > 0.11.0
+			# sns.ecdfplot(data=final_df, x=p2, hue="Replicate", palette=cp, ax=ax1[1])
+			for j, rep in enumerate(reps):  # for seaborn == 0.10.1
+				x1 = final_df[final_df['Replicate']==rep][p1]
+				x2 = final_df[final_df['Replicate']==rep][p2]
+				sns.distplot(x1, kde=False, hist_kws=dict(cumulative=True), color=cp[j], ax=ax1[0])
+				sns.distplot(x2, kde=False, hist_kws=dict(cumulative=True), color=cp[j], ax=ax1[1])
 			ax1[0].set_xlabel(var_labels[i][0])
 			ax1[1].set_xlabel(var_labels[i][1])
 			ax1[1].get_legend().remove()

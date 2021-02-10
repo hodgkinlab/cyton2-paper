@@ -1,7 +1,8 @@
 """
-Last update: 30-October-2020
+Last update: 10-February-2021
 
 Bayesian inference to select the best distribution class (i.e. model selection) given the observed times
+Run this for generating Fig4 in the main article; FigS4, FigS5 in the Supplementary Material.
 """
 import os
 import numpy as np
@@ -9,10 +10,10 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import scipy.stats as sps
+import arviz as az
 import pymc3 as pm
 import xarray as xr
 rng = np.random.RandomState(seed=61114724)
-# pd.set_option('display.max_rows', 999999)
 
 from _func import ecdf
 
@@ -30,12 +31,6 @@ rc = {
 	'errorbar.capsize': 2.5
 }
 sns.set(context='paper', style='white', rc=rc)
-
-def plot_traces(traces, retain=0):
-	ax = pm.traceplot(traces[-retain:], lines=tuple([(k, {}, v['mean']) for k, v in pm.summary(traces[-retain:]).iterrows()]))
-
-	for i, mn in enumerate(pm.summary(traces[-retain:])['mean']):
-		ax[i, 0].annotate('{:.2f}'.format(mn), xy=(mn, 0), xycoords='data', xytext=(5, 10), textcoords='offset points', rotation=90, va='bottom', fontsize='large', color='#AA0022')
 
 def confidence_band(x):
 	mean = np.mean(x, axis=0)
@@ -109,12 +104,19 @@ if __name__ == "__main__":
 	loc_data = './data/_processed/collapsed_times'
 	path_data = np.array([os.path.join(loc_data, file) for file in os.listdir(loc_data) if not file.startswith('.')])
 
+	path_data = [path_data[3], path_data[0], path_data[5],  # t_il2_20131218
+				 path_data[8], path_data[6], path_data[1]]  # t_il2_2014)121
+
 	## SET ITERATION AND TUNING NUMBERS
-	niter, ntune = 1000000, 10000
-	# burn, thin = 100, 2
+	# niter, ntune = 1000000, 10000
+	# nchain = ncore = 5
+	# nsubsample = 10000
+	# dt = 2000
+
+	niter, ntune = 100000, 10000
 	nchain = ncore = 5
-	nsubsample = 10000
-	dt = 2000
+	nsubsample = 1000
+	dt = 1000
 
 	### HALF-NORMAL PRIORS FOR WEIBULL (UNIFORM PRIORS DOESN'T WORK FOR SOME REAONS)
 	HALFN_STD = 200 * np.sqrt(1 / (1 - 2/np.pi))  # For sqrt(var(Half-Normal)) = 200
@@ -129,27 +131,32 @@ if __name__ == "__main__":
 		lstys = ['-', '--', '-.', ':']
 		colors = ['blue', 'orange', 'green', 'red']
 		fig1, axes = plt.subplots(nrows=3, ncols=1, sharex=True)
-		# fig1.suptitle(f"[{fname}][{DATA_PROPERTY[path]['condition']}] Bayesian inference fit distribution")
 		axes[0].set_xlim(left=0, right=max_time)
 		axes[2].set_xlabel("Time (hour)")
 
 		fig2, ax2 = plt.subplots(nrows=2, ncols=2)
-		# fig2.suptitle(f"WAIC")
 		ax2 = ax2.flat
 		for i, (var, data) in enumerate(df.items()):
 			print(f'------------------------ BEGIN {var} ({fname}) ------------------------')
 			# Decide which axis to draw
-			if var in ['tdiv0', 'tdiv']: ploc = 0; axes[0].set_title(f"Time to first division ({VAR_MAP['tdiv0']}) & Avg. Subsequent division time ({VAR_MAP['tdiv']})", x=0.01, ha='left')
-			elif var == 'tld': ploc = 1; axes[1].set_title(f"Time to last division ({VAR_MAP['tld']})", x=0.01, ha='left')
-			elif var == 'tdie': ploc = 2; axes[2].set_title(f"Time to death ({VAR_MAP['tdie']})", x=0.01, ha='left')
+			if var in ['tdiv0', 'tdiv']: 
+				ploc = 0
+				axes[0].set_title(f"Time to first division ({VAR_MAP['tdiv0']}) & Avg. Subsequent division time ({VAR_MAP['tdiv']})", x=0.01, ha='left')
+			elif var == 'tld': 
+				ploc = 1
+				axes[1].set_title(f"Time to last division ({VAR_MAP['tld']})", x=0.01, ha='left')
+			elif var == 'tdie': 
+				ploc = 2
+				axes[2].set_title(f"Time to death ({VAR_MAP['tdie']})", x=0.01, ha='left')
 			axes[ploc].set_ylabel("eCDF")
+			
 			if i == 0: ax2[0].set_title(f"Time to first division ({VAR_MAP['tdiv0']})", fontdict={'color': 'blue'})
 			if i == 1: ax2[1].set_title(f"Avg. Subsequent division time ({VAR_MAP['tdiv']})", fontdict={'color': 'orange'})
 			if i == 2: ax2[2].set_title(f"Time to last division ({VAR_MAP['tld']})", fontdict={'color': 'green'})
 			if i == 3: ax2[3].set_title(f"Time to death ({VAR_MAP['tdie']})", fontdict={'color': 'red'})
 
 			data = data.dropna().to_numpy()
-			if len(data) > 2:
+			if len(data) > 1:
 				ECDF = ecdf(data)
 				axes[ploc].step(ECDF[0], ECDF[1], color=colors[i], where='post', lw=1.5)
 				axes[ploc].set_ylim(bottom=0, top=1)
@@ -168,10 +175,7 @@ if __name__ == "__main__":
 					gamma = pm.Gamma('gamma', alpha=alpha1, beta=beta1, observed=data)
 
 					gamma_trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag', return_inferencedata=True)
-					# gamma_trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag')  # For trace plot
-				# gamma_trace = gamma_trace[burn::thin]
-				# plot_traces(gamma_trace)
-				gamma_waic = pm.waic(gamma_trace, gamma_model, scale='deviance')  # calculate WAIC
+				gamma_waic = az.waic(gamma_trace, gamma_model, scale='deviance')  # calculate WAIC
 				gamma_summary = pm.summary(gamma_trace)
 
 				## Sample from posterior distribution to generate cdfs and plot over eCDF
@@ -211,10 +215,7 @@ if __name__ == "__main__":
 					lnorm = pm.Lognormal('lnorm', mu=mu1, sigma=sigma1, observed=data)  # For trace plot
 
 					lnorm_trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag', return_inferencedata=True)
-					# lnorm_trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag')  # For trace plot
-				# lnorm_trace = lnorm_trace[burn::thin]
-				# plot_traces(lnorm_trace)
-				lnorm_waic = pm.waic(lnorm_trace, lnorm_model, scale='deviance')
+				lnorm_waic = az.waic(lnorm_trace, lnorm_model, scale='deviance')
 				lnorm_summary = pm.summary(lnorm_trace)
 				
 				## Get random subset of the posterior
@@ -245,10 +246,7 @@ if __name__ == "__main__":
 					norm = pm.Normal('norm', mu=mu2, sigma=sigma2, observed=data)
 
 					norm_trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag', return_inferencedata=True)
-					# norm_trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag')  # For trace plot
-				# norm_trace = norm_trace[burn::thin]
-				# plot_traces(norm_trace)
-				norm_waic = pm.waic(norm_trace, norm_model, scale='deviance')
+				norm_waic = az.waic(norm_trace, norm_model, scale='deviance')
 				norm_summary = pm.summary(norm_trace)
 
 				## Get random subset of the posterior
@@ -284,10 +282,7 @@ if __name__ == "__main__":
 					weibull = pm.Weibull('weibull', alpha=alpha2, beta=beta2, observed=data)
 
 					weibull_trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag', return_inferencedata=True)
-					# weibull_trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag')  # For trace plot
-				# weibull_trace = weibull_trace[burn::thin]
-				# plot_traces(weibull_trace)
-				weibull_waic = pm.waic(weibull_trace, weibull_model, scale='deviance')
+				weibull_waic = az.waic(weibull_trace, weibull_model, scale='deviance')
 				weibull_summary = pm.summary(weibull_trace)
 
 				## Get random subset of the posterior

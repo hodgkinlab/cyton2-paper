@@ -1,7 +1,10 @@
 """
-Last edit: 24-October-2020
+Last edit: 10-February-2021
 
 ABM simulation code to recreate Marchingo et al. 2014 Fig.3 results. In particular, the linear sum of MDN.
+Two ways to compute the predicted MDN for aCD27 + aCD28:
+(i) Sum increase of MDNs from individual components as described in JM-Science 2014 article.
+(ii) Simulate the trees with summed times (i.e. Tdiv0, Tdd and Tdie) as described in the main article.
 """
 import os, time, datetime, tqdm
 import numpy as np
@@ -46,8 +49,9 @@ df_data = parse_data(PATH_TO_DATA, DATA)
 def run_abm(inputs):
 	key, cond, pars, rgs, hts, dt, max_gen, n0, result = inputs
 
+	pos = mp.current_process()._identity[0]-1  # For progress bar
 	abm = ABM(rgs=rgs, t0=0, tf=max(hts), dt=dt, max_gen=max_gen, n0=n0)
-	abm.run(name=f"{key} {cond}", pars=pars, n_sims=1000)
+	abm.run(pos=pos, name=f"{key} {cond}", pars=pars, n_sims=100)
 	# abm = ABM(rgs=rgs, t0=0, tf=max(hts), dt=dt, max_gen=max_gen, n0=100)
 	# abm.run(name=f"{key} {cond}", pars=pars, n_sims=10)
 
