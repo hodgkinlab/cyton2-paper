@@ -13,7 +13,7 @@ import scipy.stats as sps
 import arviz as az
 import pymc3 as pm
 import xarray as xr
-rng = np.random.RandomState(seed=61114724)
+rng = np.random.RandomState(seed=10230721)
 
 from _func import ecdf
 
@@ -104,19 +104,11 @@ if __name__ == "__main__":
 	loc_data = './data/_processed/collapsed_times'
 	path_data = np.array([os.path.join(loc_data, file) for file in os.listdir(loc_data) if not file.startswith('.')])
 
-	path_data = [path_data[3], path_data[0], path_data[5],  # t_il2_20131218
-				 path_data[8], path_data[6], path_data[1]]  # t_il2_2014)121
-
 	## SET ITERATION AND TUNING NUMBERS
-	# niter, ntune = 1000000, 10000
-	# nchain = ncore = 5
-	# nsubsample = 10000
-	# dt = 2000
-
-	niter, ntune = 100000, 10000
+	niter, ntune = 1000000, 10000
 	nchain = ncore = 5
-	nsubsample = 1000
-	dt = 1000
+	nsubsample = 10000
+	dt = 2000
 
 	### HALF-NORMAL PRIORS FOR WEIBULL (UNIFORM PRIORS DOESN'T WORK FOR SOME REAONS)
 	HALFN_STD = 200 * np.sqrt(1 / (1 - 2/np.pi))  # For sqrt(var(Half-Normal)) = 200
@@ -149,7 +141,7 @@ if __name__ == "__main__":
 				ploc = 2
 				axes[2].set_title(f"Time to death ({VAR_MAP['tdie']})", x=0.01, ha='left')
 			axes[ploc].set_ylabel("eCDF")
-			
+
 			if i == 0: ax2[0].set_title(f"Time to first division ({VAR_MAP['tdiv0']})", fontdict={'color': 'blue'})
 			if i == 1: ax2[1].set_title(f"Avg. Subsequent division time ({VAR_MAP['tdiv']})", fontdict={'color': 'orange'})
 			if i == 2: ax2[2].set_title(f"Time to last division ({VAR_MAP['tld']})", fontdict={'color': 'green'})
@@ -176,10 +168,9 @@ if __name__ == "__main__":
 
 					gamma_trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag', return_inferencedata=True)
 				gamma_waic = az.waic(gamma_trace, gamma_model, scale='deviance')  # calculate WAIC
-				gamma_summary = pm.summary(gamma_trace)
+				gamma_summary = az.summary(gamma_trace)
 
 				## Sample from posterior distribution to generate cdfs and plot over eCDF
-				# https://stackoverflow.com/questions/63608116/plot-fit-of-gamma-distribution-with-pymc3
 				# all_gamma_cdfs = xr.apply_ufunc(
 				# 	lambda alpha, beta, x: sps.gamma(a=alpha, scale=1/beta).cdf(x),
 				# 	gamma_trace.posterior["alpha1"], gamma_trace.posterior["beta1"], xrange
@@ -216,7 +207,7 @@ if __name__ == "__main__":
 
 					lnorm_trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag', return_inferencedata=True)
 				lnorm_waic = az.waic(lnorm_trace, lnorm_model, scale='deviance')
-				lnorm_summary = pm.summary(lnorm_trace)
+				lnorm_summary = az.summary(lnorm_trace)
 				
 				## Get random subset of the posterior
 				idx = rng.choice(lnorm_trace.posterior.mu1.size, nsubsample)
@@ -247,7 +238,7 @@ if __name__ == "__main__":
 
 					norm_trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag', return_inferencedata=True)
 				norm_waic = az.waic(norm_trace, norm_model, scale='deviance')
-				norm_summary = pm.summary(norm_trace)
+				norm_summary = az.summary(norm_trace)
 
 				## Get random subset of the posterior
 				idx = rng.choice(norm_trace.posterior.mu2.size, nsubsample)
@@ -283,7 +274,7 @@ if __name__ == "__main__":
 
 					weibull_trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag', return_inferencedata=True)
 				weibull_waic = az.waic(weibull_trace, weibull_model, scale='deviance')
-				weibull_summary = pm.summary(weibull_trace)
+				weibull_summary = az.summary(weibull_trace)
 
 				## Get random subset of the posterior
 				idx = rng.choice(weibull_trace.posterior.alpha2.size, nsubsample)
@@ -306,24 +297,19 @@ if __name__ == "__main__":
 				else:
 					axes[ploc].legend(loc='upper left', fontsize=10, ncol=1)
 
-
 				#########################################################################################################
 				# 								COMPARE DISTRIBUTIONS (WAIC & LOO)										#
 				#########################################################################################################
 				print("-->>>>>> MODEL SELECTION: WAIC")
-				## https://arviz-devs.github.io/arviz/generated/arviz.compare.html#arviz.compare
-				dfwaic = pm.compare(
+				dfwaic = az.compare(
 					{'Gamma': gamma_trace, 'Log-normal': lnorm_trace, 'Normal': norm_trace, 'Weibull': weibull_trace}, 
-					ic='WAIC', method='BB-pseudo-BMA', b_samples=1000000, alpha=1, seed=None, scale='deviance')
+					ic='WAIC', method='stacking', scale='deviance')
+				## when computational cost is an issue; see http://www.stat.columbia.edu/~gelman/research/published/stacking_paper_discussion_rejoinder.pdf
+				# dfwaic = az.compare(  
+				# 	{'Gamma': gamma_trace, 'Log-normal': lnorm_trace, 'Normal': norm_trace, 'Weibull': weibull_trace}, 
+				# 	ic='WAIC', method='BB-pseudo-BMA', b_samples=1000000, alpha=1, seed=rng, scale='deviance')
 				print(dfwaic, end='\n\n')
-				## https://arviz-devs.github.io/arviz/generated/arviz.plot_compare.html#arviz.plot_compare
-				pm.compareplot(dfwaic, ax=ax2[i])
-
-				# print("-->>>>>> MODEL SELECTION: Leave-One-Out (LOO) Cross-Validation")
-				# dfloo = pm.compare(
-				# 	{'Gamma': gamma_trace, 'Log-normal': lnorm_trace, 'Normal': norm_trace, 'Weibull': weibull_trace},
-				# 	ic='LOO', method='BB-pseudo-BMA', b_samples=1000000, alpha=1, seed=None, scale='deviance')
-				# print(dfloo)
+				az.plot_compare(dfwaic, ax=ax2[i])
 			else:
 				print(f'CANNOT PROCEED. {var} HAS NO DATA!')
 				ax2[i].annotate("NA", xy=(0.5, 0.5), xycoords='axes fraction', weight='bold', fontsize=14)

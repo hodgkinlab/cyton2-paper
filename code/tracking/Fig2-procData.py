@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import scipy as sp
 import scipy.stats as sps
+import arviz as az
 import pymc3 as pm
 import theano.tensor as T
 
@@ -59,15 +60,12 @@ def vis_summary(df_exp, m_df, exps, flag_all=True):
 	def flip(items, ncol):
 		return itertools.chain(*[items[i::ncol] for i in range(ncol)])
 	
-	# col = ['gold', 'saddlebrown', 'royalblue', 'purple', 'darkolivegreen']
 	cp = sns.color_palette(n_colors=8)
-	pal = ['Blue', 'Magenta', 'Lime', 'Red', 'Cyan', 'Orange', 'Black', 'Indianred']
 	for exp in exps:
 		col = ['gold', 'lightgreen', 'deepskyblue', 'orchid', 'tan']
 		if exp == 't_il2/20140121':
 			col = ['gold', 'lightgreen', 'orchid', 'deepskyblue', 'tan']
 		conds = np.unique(df_exp[exp]['stim'])
-		# df = pd.concat([m_df[exp][cond].iloc[:,2:] for cond in conds], ignore_index=True, keys=conds)
 		lst_df = []
 		for cond in conds:
 			df = m_df[exp][cond].iloc[:,2:]
@@ -75,9 +73,7 @@ def vis_summary(df_exp, m_df, exps, flag_all=True):
 			new_df.loc[:,'condition'] = pd.Series([cond]*len(new_df['t_div_0']), index=new_df.index)
 			lst_df.append(new_df)
 		df = pd.concat(lst_df, ignore_index=True)#.dropna(axis=1, how='all')
-		# print(exp, "#Clones: ", len(df))
 		sorted_rows = sorted(range(np.shape(df)[0]), key=lambda x: rank_mean_fam(df, x))
-		# max_gen = int(np.shape(df)[1]/2.)
 		max_gen = int(max(df_exp[exp][df_exp[exp]['fate']=='died']['gen']))
 
 		t_start = 0.
@@ -134,7 +130,6 @@ def vis_summary(df_exp, m_df, exps, flag_all=True):
 			leg = fig.legend(handles=[g_patch, p_patch, b_patch], loc='center right', fontsize=12)
 			leg.set_title("IL-2 Conc.", prop = {'size': 12})
 
-		# plt.title(exp.replace('/','-'))
 		plt.xlabel("Time (hour)")
 		plt.ylabel("Clone")
 		plt.tight_layout(rect=(0, 0, 1, 1))
@@ -189,7 +184,6 @@ def vis_clone(df_exp, exps):
 
 			#### Plot distribution of times observed for all cells (ignore lost cells)
 			fig1, ax1 = plt.subplots(nrows=max_gen+2, ncols=4, sharex='col', figsize=(12, 9))
-			# fig1.suptitle(f"[{exp}][{cond_labs[exp][cond]}] Raw data, removed lost cells")
 			for igen in range(max_gen+1):
 				lost_cells = len(data[(data['gen']==igen) & (data['fate']=='lost')])
 				sdf = data[data['gen']==igen]
@@ -283,7 +277,6 @@ def vis_clone(df_exp, exps):
 
 			#### Heatmap of daughter cell fates per generation
 			fig2 = plt.figure(figsize=(9, 7))
-			# fig2.suptitle(f"[{exp}][{cond_labs[exp][cond]}] Synchronicity and Fates of cells")
 			if max_gen < 3: nrows, ncols = 1, 3
 			elif 3 <= max_gen < 6: nrows, ncols = 2, 3
 			else: nrows, ncols = 3, 3
@@ -418,7 +411,6 @@ def vis_clone(df_exp, exps):
 				# fig9, ax9 = plt.subplots(nrows=2, ncols=2, figsize=(16, 5), sharey='row')
 				fig9, ax9 = plt.subplots(nrows=4, ncols=1, figsize=(8, 10), sharey='row')
 				ax9 = ax9.reshape(2,2)
-				# fig9.suptitle(f"[{exp}][{cond_labs[exp][cond]}] The Cyton timers from filtered data")
 
 				tdiv0_list = []  # store the time to first division
 				clone_list = []
@@ -641,11 +633,8 @@ def corr(df_exp, exps):
 
 		### SET ITERATION AND TUNING NUMBERS
 		niter, ntune = 100000, 10000
-		# burn, thin = 100, 2
 		nchain = ncore = 5
 		if len(x) > 2 and len(y) > 2:
-			### https://nbviewer.jupyter.org/github/psinger/notebooks/blob/master/bayesian_correlation_pymc.ipynb
-			### http://www.sumsar.net/blog/2013/08/bayesian-estimation-of-correlation/
 			data = np.array([x, y]).T
 			data = data[~np.isnan(data).any(axis=1)]  # remove nan
 			n, _ = np.shape(data)
@@ -656,27 +645,15 @@ def corr(df_exp, exps):
 				rho = pm.Uniform('rho', lower=-1, upper=1)
 				cov = pm.Deterministic('cov', _covariance(sigma, rho))
 				mvn = pm.MvNormal('mvn', mu=mu, cov=cov, observed=data)
-				## Alternative way of setting priors: https://docs.pymc.io/notebooks/LKJ.html
-
-				## Multivariate student's t (robust method)
-				# http://www.sumsar.net/blog/2013/08/robust-bayesian-estimation-of-correlation/
-				# mu = pm.Uniform('mu', lower=1E-6, upper=1E3, shape=2)
-				# sigma = pm.Uniform('sigma', lower=1E-6, upper=1E3, shape=2)
-				# rho = pm.Uniform('rho', lower=-1, upper=1)
-
-				# cov = pm.Deterministic('cov', _covariance(sigma, rho))
-				# nu = pm.Exponential('nu_minus_one', lam=1/29) + 1
-				# mvt = pm.MvStudentT('mvt', nu=nu, mu=mu, Sigma=cov, observed=data)
 
 				trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag')
-			summary = pm.summary(trace)
+			summary = az.summary(trace)
 
 			mu_post = trace['mu'].mean(axis=0)
 			cov_post = trace['cov'].mean(axis=0)
 			var_post, u_post = np.linalg.eig(cov_post)
 			angle_post = np.degrees(np.arctan2(*u_post[:,0][::-1]))
 
-			### https://www.visiondummy.com/2014/04/draw-error-ellipse-representing-covariance-matrix/
 			## 95% Credible range
 			s = 5.991
 			width, height = 2*np.sqrt(s*var_post[0]), 2*np.sqrt(s*var_post[1])
@@ -778,14 +755,10 @@ def corr(df_exp, exps):
 
 			clones = np.unique(df['clone'])
 			for cl in clones:
-				# tdie = np.mean(df[(df.clone==cl) & (df.fate=='died')].t_death)
-				# tdiv0 = df[(df.clone==cl) & (df.fate=='divided') & (df.gen==0)].t_div.to_numpy() # time to first division
-				# tdiv = np.mean(df[(df.clone==cl) & (df.fate=='divided') & (df.gen>0)].lifetime)  # average subsequent division time
 				tdie = np.nanmean(df[(df.clone==cl) & (df.fate=='died')].t_death)
 				tdiv0 = df[(df.clone==cl) & (df.fate=='divided') & (df.gen==0)].t_div.to_numpy() # time to first division
 				tdiv = np.nanmean(df[(df.clone==cl) & (df.fate=='divided') & (df.gen>0)].lifetime)  # average subsequent division time
 
-				# NOTE: surrogate of division destiny times. It is problematic that, by my definition, Tld = Tdiv0 + Sub.Div. Which means that we won't see Tld < Tdiv0 case. Also, it's self circulating stupid logic that I've defined it to be correlated by definition, and determining its correlation coefficient. Probably, this is why as a proxy to measure Tdd, Giulio previously used Quiescence duration.
 				cell_rel = np.array(df[(df.clone==cl) & (df.fate=='died')].relation)
 				cell_rel_prec = [label[:-1] for label in cell_rel]  # determine the relation in the family tree
 				y_clo = np.array(df[(df.clone==cl) & (df.fate=='divided') & (df.relation.isin(cell_rel_prec))].t_div)
@@ -810,7 +783,6 @@ def corr(df_exp, exps):
 								plot_kws={'s': 22, 'fc': "grey", 'ec': 'k', 'linewidth': 1})
 			g.map_diag(dist)
 			g.map_lower(scatter)
-			# g.fig.suptitle(f"[{exp}][{cond_labs[exp][cond]}] Bayesian correlation analysis", weight='bold')
 			g.fig.set_size_inches(12, 9)
 
 			## Add Bayes Factor interpretation scale
@@ -822,18 +794,15 @@ def corr(df_exp, exps):
 			norm = mpl.colors.BoundaryNorm(bf_bounds, cmap.N)
 			cb = mpl.colorbar.ColorbarBase(ax2, cmap=cmap, norm=norm, boundaries=bf_bounds+[105], extend='max', ticks=bf_bounds, spacing='uniform', orientation='horizontal')
 			cb.ax.set_title(r"BF$_{01}$: In favour of $H_0$ ($\rho = 0$)", weight='bold')
-			# cb.set_label(r"No evidence (BF=1); Anecdotal (1<BF<3); Moderate (3<BF<10)" + "\nStrong (10<BF<30); Very strong (30<BF<100); Extreme (BF>100)")
 			ax2.set_xticklabels(["1", "3", "10", "30", ">100"])
 
 			ax1 = g.fig.add_axes(rect=[0.55, 0.75, 0.4, 0.05])
 			bf01_colors = ["#000000", "#400000", "#800000", "#BF0000"]
-			# bf01_colors = ["#000000", "#3d3c9a", "#6969b3", "#9795cd"] ["#c3b9e1"]
 			cmap = mpl.colors.ListedColormap(bf01_colors)
 			cmap.set_over("#FF0000")
 			norm = mpl.colors.BoundaryNorm(bf_bounds, cmap.N)
 			cb = mpl.colorbar.ColorbarBase(ax1, cmap=cmap, norm=norm, boundaries=bf_bounds+[105], extend='max', ticks=bf_bounds, spacing='uniform', orientation='horizontal')
 			cb.ax.set_title(r"BF$_{10}$: In favour of $H_1$ ($\rho\neq 0$)", weight='bold')
-			# cb.set_label(r"No evidence (BF=1); Anecdotal (1<BF<3); Moderate (3<BF<10)" + "\nStrong (10<BF<30); Very strong (30<BF<100); Extreme (BF>100)")
 			cb.set_label(r"Anecdotal (1<BF<3); Moderate (3<BF<10)" + "\nStrong (10<BF<30); Very strong (30<BF<100); Extreme (BF>100)")
 			ax1.set_xticklabels(["1", "3", "10", "30", ">100"])
 
@@ -861,22 +830,16 @@ if __name__ == "__main__":
 	# save_cc_times(exps, df_exp)
 
 	#### Plot filming data
-	## vis_all(df_exp, exps)  # plot all observed events in a given family
 	vis_summary(df_exp, df_CC, exps, flag_all=True)  # plot summary (all clones, not showing lost cells)
 	vis_summary(df_exp, df_F_CC, exps, flag_all=False)  # plot summary for filtered data
-	# vis_summary(df_exp, df_F_CC2, exps, flag_all=False)  # plot summary for filtered data
 
-	# vis_clone(df_exp, exps)  # Filtering the data within the function (CAREFUL THERE ARE TWO FILTERS)
+	vis_clone(df_exp, exps)  # Filtering the data within the function (CAREFUL THERE ARE TWO FILTERS)
 
 	#### Correlation analysis
-	# corr(df_exp, exps)
-	# corr(df_F, exps)  # filtered data set
-	# corr(df_F2, exps)
+	corr(df_F, exps)  # filtered data set
 
-	sye.eixt()
-	
 
-	#### SPECIAL CASE: AGGREGATE T CELL IL-2 DATA (WITH SAME CONCENTRATION: 1U, 3U, 10U)
+	#### AGGREGATE T CELL IL-2 DATA (WITH SAME CONCENTRATION: 1U, 3U, 10U)
 	print("\nAggregating IL-2 experiments...")
 
 	def rename_clone(prev_max, df, ff=True):
@@ -982,12 +945,11 @@ if __name__ == "__main__":
 						collapse[f't_death_{igen}'].append(np.nan)
 			df_aggre_CC[exp][cond] = pd.DataFrame(collapse)
 			df_aggre_CC[exp][cond] = df_aggre_CC[exp][cond].dropna(how='all')
-	# vis_summary(df_concat, df_aggre_CC, keys, flag_all=True)
 
 	df_exp_concat = {'aggre_IL2': pd.concat([aggre_1U, aggre_3U, aggre_10U])}
 	df_F, df_F_CC = filter_data(df_exp_concat, keys)
-	# vis_summary(df_exp_concat, df_aggre_CC, keys, flag_all=True)
-	# vis_summary(df_exp_concat, df_F_CC, keys, flag_all=False)
+	vis_summary(df_exp_concat, df_aggre_CC, keys, flag_all=True)
+	vis_summary(df_exp_concat, df_F_CC, keys, flag_all=False)
 
 	exps = ['aggre_1U', 'aggre_3U', 'aggre_10U']
 	df_il2 = {'aggre_1U': aggre_1U, 'aggre_3U': aggre_3U, 'aggre_10U': aggre_10U}
@@ -995,7 +957,6 @@ if __name__ == "__main__":
 	# save_dataframes(exps, df_il2, df_F_CC, df_F)
 	# save_cc_times(exps, df_il2)
 
-	# vis_clone(df_il2, exps)  # CAREFUL THERE ARE TWO FILTERS INSIDE THE FUNCTION
-	
-	# corr(df_il2, exps)
+	vis_clone(df_il2, exps)  # CAREFUL THERE ARE TWO FILTERS INSIDE THE FUNCTION
+
 	corr(df_F, exps)

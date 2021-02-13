@@ -21,8 +21,7 @@ import scipy as sp
 import scipy.stats as sps
 import multiprocessing as mp
 mpl.use('Agg')
-rng = np.random.RandomState(seed=50855782)
-# pd.set_option('display.max_rows', 999999)
+rng = np.random.RandomState(seed=63699138)
 
 # GLOBAL PLOT SETTINGS
 rc = {
@@ -302,22 +301,18 @@ def run_simulation(inputs):
 
 		xy = np.array([x, y]).T
 		n, _ = np.shape(xy)
-
 		freqr = np.corrcoef(xy[:, 0], xy[:, 1])
-		# bf10 = 1. / (((2. * (n - 1.) - 1.) / np.pi) ** 0.5 * (1. - freqr[0, 1] ** 2.) ** (0.5 * ((n - 1.) - 3.)))  # BF10
 
 		## Exact solution Jeffreys (numerical integration) Theory of Probability (1961), pp. 291 Eq.(9):
 		## Or nicely presented in Wagenmakers et al. 2016 Appendix
-		bf10 = sp.integrate.quad(  # BF10
-			lambda rho: ((1. - rho ** 2.) ** ((n - 1.) / 2.))
-			/ ((1. - rho * freqr[0, 1]) ** ((n - 1.) - 0.5)),
-			-1., 1.
-		)[0] * 0.5
+		# bf10 = sp.integrate.quad(  # BF10
+		# 	lambda rho: ((1. - rho ** 2.) ** ((n - 1.) / 2.))
+		# 	/ ((1. - rho * freqr[0, 1]) ** ((n - 1.) - 0.5)),
+		# 	-1., 1.
+		# )[0] * 0.5
 
-		# print(f"n = {n}; Pearson-r = {sps.pearsonr(x,y)[0]:.4f}; p = {sps.pearsonr(x,y)[1]:.5f}")
-		# print(f">> [{lab}] BF10 (BF01):")
-		# print(f"    Approximate Jeffreys : {BayesFactor_approx:.5f} ({1/BayesFactor_approx:.5f})")
-		# print(f"    Exact solution       : {BayesFactor_exact:.5f} ({1/BayesFactor_exact:.5f})\n")
+		## We need to use approximate form due to large n number. The integration becomes numerically unstable.
+		bf10 = 1. / (((2. * (n - 1.) - 1.) / np.pi) ** 0.5 * (1. - freqr[0, 1] ** 2.) ** (0.5 * ((n - 1.) - 3.)))  # BF10
 
 		if bf10 > 1:  # BF10: Favours the alternative hypothesis (rho != 0)
 			if bf10 == 1.:
@@ -396,7 +391,6 @@ def run_simulation(inputs):
 		T = sps.lognorm.rvs(sT, scale=mT, size=1, random_state=rng)[0]  # sample subsequent division time and pass down to the progenies
 		D = sps.lognorm.rvs(sD, scale=mD, size=1, random_state=rng)[0]  # sample global destiny
 		X = sps.lognorm.rvs(sX, scale=mX, size=1, random_state=rng)[0]  # sample global death
-		# print(f">> SETTING TIMERS\n   t0={T0:.2f}h, m={T:.2f}h, tdd={D:.2f}, tdie={X:.2f}h")
 
 		tree = cell(gen=0, t0=0, tf=tf, ttfd=T0, avgSubDiv=T, gDestiny=D, gDeath=X)
 		stat = pd.DataFrame(stat_tree_times(tree))
@@ -423,95 +417,100 @@ def run_simulation(inputs):
 		TIME_TO_DIE.append(tdie)
 		LABEL.append("Obs. time")
 
-		## Get family members
-		# if counter in random_clones or X < min([T0, T, D]):
-		# 	Zg = stat_tree_counts(tree, times, gDeath=X)
-		# 	Zg_des = stat_tree_counts_destiny(tree, times, gDeath=X)
+		# Get family members
+		if counter in random_clones or X < min([T0, T, D]):
+			Zg = stat_tree_counts(tree, times, gDeath=X)
+			Zg_des = stat_tree_counts_destiny(tree, times, gDeath=X)
 
-		# 	first_destiny = next((i for i, x in enumerate(Zg_des) if x), None)
-		# 	max_cell = max(max(Zg), max(Zg_des))
+			first_destiny = next((i for i, x in enumerate(Zg_des) if x), None)
+			max_cell = max(max(Zg), max(Zg_des))
 
-		# 	fig, ax = plt.subplots()
-		# 	ax.set_title(f"Clone #{counter}", x=0.01, ha='left', weight='bold', fontsize='x-large')
-		# 	ax.set_ylabel("Cell number")
-		# 	ax.set_xlabel("Time (hour)")
+			#########################################################################################################
+			# 									      Plot total cells												#
+			#########################################################################################################
+			fig, ax = plt.subplots()
+			ax.set_title(f"Clone #{counter}", x=0.01, ha='left', weight='bold', fontsize='x-large')
+			ax.set_ylabel("Cell number")
+			ax.set_xlabel("Time (hour)")
 
-		# 	if first_destiny is not None:
-		# 		ax.plot(times[:first_destiny+1], Zg[:first_destiny+1], 'blue', label='Dividing')
-		# 		ax.plot(times[first_destiny:], Zg_des[first_destiny:], '--', c='green', label='Destiny')
-		# 		ax.scatter(D, Zg_des[first_destiny], marker='*', c='green', ec='k', zorder=2.5)
-		# 		ax.annotate(f"$t_{{dd}}={D:.2f}h$", xy=(D, Zg_des[first_destiny]), xycoords="data", xytext=(0.01, 0.7), textcoords='axes fraction', 
-		# 					arrowprops=dict(facecolor='forestgreen', shrink=0), va='bottom', color='forestgreen', zorder=-1, fontsize='large')
-		# 	else:
-		# 		ax.plot(times, Zg, 'blue', label='Dividing')
-		# 		ax.scatter(D, 0, marker='*', c='green', ec='k', zorder=2.5)  # where destiny would have been
-		# 		ax.annotate(f"$t_{{dd}}={D:.2f}h$", xy=(D, 0), xycoords="data", xytext=(0.01, 0.7), textcoords='axes fraction', 
-		# 					arrowprops=dict(facecolor='forestgreen', shrink=0), va='bottom', color='forestgreen', zorder=-1, fontsize='large')
-		# 	if not np.isnan(tld):
-		# 		ax.scatter(tld, max_cell, c='green', ec='k', zorder=2.5)
-		# 		ax.annotate(f"$t_{{ld}}={tld:.2f}h$", xy=(tld, max_cell), xycoords="data", xytext=(0.01, 0.85), textcoords='axes fraction', 
-		# 					arrowprops=dict(facecolor='forestgreen', shrink=0), va='bottom', color='forestgreen', zorder=-1, fontsize='large')
-		# 	ax.scatter(T0, 1, c='blue', ec='k', zorder=2.5)
-		# 	ax.scatter(X, max_cell, marker='X', c='red', ec='k', zorder=2.5)
+			if first_destiny is not None:
+				ax.plot(times[:first_destiny+1], Zg[:first_destiny+1], 'blue', label='Dividing')
+				ax.plot(times[first_destiny:], Zg_des[first_destiny:], '--', c='green', label='Destiny')
+				ax.scatter(D, Zg_des[first_destiny], marker='*', c='green', ec='k', zorder=2.5)
+				ax.annotate(f"$t_{{dd}}={D:.2f}h$", xy=(D, Zg_des[first_destiny]), xycoords="data", xytext=(0.01, 0.7), textcoords='axes fraction', 
+							arrowprops=dict(facecolor='forestgreen', shrink=0), va='bottom', color='forestgreen', zorder=-1, fontsize='large')
+			else:
+				ax.plot(times, Zg, 'blue', label='Dividing')
+				ax.scatter(D, 0, marker='*', c='green', ec='k', zorder=2.5)  # where destiny would have been
+				ax.annotate(f"$t_{{dd}}={D:.2f}h$", xy=(D, 0), xycoords="data", xytext=(0.01, 0.7), textcoords='axes fraction', 
+							arrowprops=dict(facecolor='forestgreen', shrink=0), va='bottom', color='forestgreen', zorder=-1, fontsize='large')
+			if not np.isnan(tld):
+				ax.scatter(tld, max_cell, c='green', ec='k', zorder=2.5)
+				ax.annotate(f"$t_{{ld}}={tld:.2f}h$", xy=(tld, max_cell), xycoords="data", xytext=(0.01, 0.85), textcoords='axes fraction', 
+							arrowprops=dict(facecolor='forestgreen', shrink=0), va='bottom', color='forestgreen', zorder=-1, fontsize='large')
+			ax.scatter(T0, 1, c='blue', ec='k', zorder=2.5)
+			ax.scatter(X, max_cell, marker='X', c='red', ec='k', zorder=2.5)
 
-		# 	# Annotate timers
-		# 	ax.text(s=f"$t_{{div}}^0={T0:.2f}h$", x=T0+3, y=1., ha='left', va='bottom', color='blue', fontsize='large')
-		# 	if X < tf:
-		# 		ax.text(s=f"$t_{{die}}={X:.2f}h$", x=X+3, y=max_cell, ha='left', va='bottom', color='red', fontsize='large')
-		# 	else:
-		# 		ax.text(s=f"$t_{{die}}={X:.2f}h$", x=tf-35, y=max_cell, ha='left', va='bottom', color='red', fontsize='large')
+			# Annotate timers
+			ax.text(s=f"$t_{{div}}^0={T0:.2f}h$", x=T0+3, y=1., ha='left', va='bottom', color='blue', fontsize='large')
+			if X < tf:
+				ax.text(s=f"$t_{{die}}={X:.2f}h$", x=X+3, y=max_cell, ha='left', va='bottom', color='red', fontsize='large')
+			else:
+				ax.text(s=f"$t_{{die}}={X:.2f}h$", x=tf-35, y=max_cell, ha='left', va='bottom', color='red', fontsize='large')
 
-		# 	# ax.spines['top'].set_visible(False)
-		# 	# ax.spines['right'].set_visible(False)
-		# 	ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-		# 	ax.set_ylim(bottom=0)
-		# 	ax.set_xlim(left=0, right=tf)
-		# 	fig.legend(ncol=2, frameon=False, fontsize='large')
-		# 	fig.tight_layout(rect=(0, 0, 1, 1))
-		# 	fig.savefig(f"{save_path_real}/c{counter}_v1.pdf", dpi=300)
-		# 	plt.close()
+			# ax.spines['top'].set_visible(False)
+			# ax.spines['right'].set_visible(False)
+			ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+			ax.set_ylim(bottom=0)
+			ax.set_xlim(left=0, right=tf)
+			fig.legend(ncol=2, frameon=False, fontsize='large')
+			fig.tight_layout(rect=(0, 0, 1, 1))
+			fig.savefig(f"{save_path_real}/c{counter}_v1.pdf", dpi=300)
+			plt.close()
 
-		# 	## Plot lineage tree
-		# 	widths = [1]
-		# 	heights = [6, 1]
-		# 	gs_kw = dict(width_ratios=widths, height_ratios=heights)
-		# 	fig, axes = plt.subplots(nrows=2, sharex=True, gridspec_kw=gs_kw)
+			#########################################################################################################
+			# 									      Plot family tree												#
+			#########################################################################################################
+			widths = [1]
+			heights = [6, 1]
+			gs_kw = dict(width_ratios=widths, height_ratios=heights)
+			fig, axes = plt.subplots(nrows=2, sharex=True, gridspec_kw=gs_kw)
 			
-		# 	plot_tree(tree, axes[0], tf, 0, 1)
-		# 	axes[0].set_title(f"Clone #{counter}", x=0.01, ha='left', weight='bold', fontsize='x-large')
-		# 	axes[0].axvline(T0, ls=':', c='blue', zorder=-1)
-		# 	axes[0].axvline(tld, ls=':', c='forestgreen', zorder=-1)
-		# 	axes[0].axvline(D, ls=':', c='forestgreen', zorder=-1)
-		# 	axes[0].axvline(tdie, ls=':', c='red', zorder=-1)
+			plot_tree(tree, axes[0], tf, 0, 1)
+			axes[0].set_title(f"Clone #{counter}", x=0.01, ha='left', weight='bold', fontsize='x-large')
+			axes[0].axvline(T0, ls=':', c='blue', zorder=-1)
+			axes[0].axvline(tld, ls=':', c='forestgreen', zorder=-1)
+			axes[0].axvline(D, ls=':', c='forestgreen', zorder=-1)
+			axes[0].axvline(tdie, ls=':', c='red', zorder=-1)
 			
-		# 	axes[1].scatter(T0, 1, marker='o', ec='k', c='blue', zorder=10, label=f'$t_{{div}}^0 = {T0:.2f}$h')
-		# 	axes[1].axvline(T0, ls=':', c='blue', zorder=-1)
-		# 	axes[1].annotate(r"$\rightarrow$" + f"$m={T:.2f}$h", xy=(T0+1, 0.58), xycoords=('data', 'axes fraction'))
-		# 	axes[1].scatter(tld, 1, marker='o', ec='k', c='forestgreen', zorder=10, label=f'$t_{{ld}} = {tld:.2f}$h')
-		# 	axes[1].axvline(tld, ls=':', c='forestgreen', zorder=-1)
-		# 	axes[1].scatter(D, 1, marker='*', ec='k', c='forestgreen', zorder=10, label=f'$t_{{dd}} = {D:.2f}$h')
-		# 	axes[1].axvline(D, ls=':', c='forestgreen', zorder=-1)
-		# 	if tdie <= X:
-		# 		axes[1].plot([0, tdie], [1, 1], 'k', zorder=-1)
-		# 		axes[1].scatter(tdie, 1, marker='X', ec='k', c='red', zorder=10, label=f'$t_{{die}} = {tdie:.2f}$h')
-		# 		axes[1].axvline(tdie, ls=':', c='red', zorder=-1)
-		# 	else:
-		# 		axes[1].plot([0, tf], [1, 1], 'k', zorder=-1)
-		# 		axes[1].scatter(tdie, 1, marker='X', ec='k', c='red', zorder=10, label=f'$t_{{die}} = {X:.2f}$h')
+			axes[1].scatter(T0, 1, marker='o', ec='k', c='blue', zorder=10, label=f'$t_{{div}}^0 = {T0:.2f}$h')
+			axes[1].axvline(T0, ls=':', c='blue', zorder=-1)
+			axes[1].annotate(r"$\rightarrow$" + f"$m={T:.2f}$h", xy=(T0+1, 0.58), xycoords=('data', 'axes fraction'))
+			axes[1].scatter(tld, 1, marker='o', ec='k', c='forestgreen', zorder=10, label=f'$t_{{ld}} = {tld:.2f}$h')
+			axes[1].axvline(tld, ls=':', c='forestgreen', zorder=-1)
+			axes[1].scatter(D, 1, marker='*', ec='k', c='forestgreen', zorder=10, label=f'$t_{{dd}} = {D:.2f}$h')
+			axes[1].axvline(D, ls=':', c='forestgreen', zorder=-1)
+			if tdie <= X:
+				axes[1].plot([0, tdie], [1, 1], 'k', zorder=-1)
+				axes[1].scatter(tdie, 1, marker='X', ec='k', c='red', zorder=10, label=f'$t_{{die}} = {tdie:.2f}$h')
+				axes[1].axvline(tdie, ls=':', c='red', zorder=-1)
+			else:
+				axes[1].plot([0, tf], [1, 1], 'k', zorder=-1)
+				axes[1].scatter(tdie, 1, marker='X', ec='k', c='red', zorder=10, label=f'$t_{{die}} = {X:.2f}$h')
 
-		# 	axes[0].xaxis.set_visible(False)
-		# 	axes[0].spines['bottom'].set_visible(False)
-		# 	axes[1].set_xlim(left=t0, right=tf)
-		# 	axes[1].set_xlabel("Time (hour)")
-		# 	for ax in axes:
-		# 		ax.yaxis.set_visible(False)
-		# 		ax.spines['left'].set_visible(False)
-		# 	fig.legend(ncol=1, frameon=False, fontsize='large', handletextpad=0.01, columnspacing=0)
-		# 	fig.tight_layout(rect=(0, 0, 1, 1))
-		# 	fig.subplots_adjust(hspace=0, wspace=0)
+			axes[0].xaxis.set_visible(False)
+			axes[0].spines['bottom'].set_visible(False)
+			axes[1].set_xlim(left=t0, right=tf)
+			axes[1].set_xlabel("Time (hour)")
+			for ax in axes:
+				ax.yaxis.set_visible(False)
+				ax.spines['left'].set_visible(False)
+			fig.legend(ncol=1, frameon=False, fontsize='large', handletextpad=0.01, columnspacing=0)
+			fig.tight_layout(rect=(0, 0, 1, 1))
+			fig.subplots_adjust(hspace=0, wspace=0)
 
-		# 	fig.savefig(f"{save_path_real}/c{counter}_v2.pdf", dpi=300)
-		# 	plt.close()
+			fig.savefig(f"{save_path_real}/c{counter}_v2.pdf", dpi=300)
+			plt.close()
 
 	df_sim = pd.DataFrame({
 		"tdiv0": TIME_TO_FIRST_DIV,
@@ -533,8 +532,6 @@ def run_simulation(inputs):
 
 	data_color = '#f58231'
 	for i, j in zip(*np.tril_indices_from(g.axes, 0)):
-		# xlab = g.axes[i,j].xaxis.get_label()
-		# ylab = g.axes[i,j].yaxis.get_label()
 		_, xmax = g.axes[i,j].get_xlim()
 		_, ymax = g.axes[i,j].get_ylim()
 		if xmax < ymax: smaller = xmax
@@ -545,7 +542,6 @@ def run_simulation(inputs):
 		if i == 1 and j == 0:
 			g.axes[i,j].spines['top'].set_visible(True)
 			g.axes[i,j].spines['right'].set_visible(True)
-			# g.axes[i,j].plot(straight_x, straight_y, '--k', lw=1, zorder=-1)
 			g.axes[i,j].scatter(df['tdiv0'], df['tdiv'], c=data_color, marker='o', ec='k', lw=0.5, s=18, label='Data', rasterized=True)
 			g.axes[i,j].set_ylabel(r"Avg. sub div time ($M$)")
 		elif i == 2 and j == 0:
@@ -565,12 +561,10 @@ def run_simulation(inputs):
 		elif i == 2 and j == 1:
 			g.axes[i,j].spines['top'].set_visible(True)
 			g.axes[i,j].spines['right'].set_visible(True)
-			# g.axes[i,j].plot(straight_x, straight_y, '--k', lw=1, zorder=-1)
 			g.axes[i,j].scatter(df['tdiv'], df['tld'], c=data_color, marker='o', ec='k', lw=0.5, s=18, rasterized=True)
 		elif i == 3 and j == 1:
 			g.axes[i,j].spines['top'].set_visible(True)
 			g.axes[i,j].spines['right'].set_visible(True)
-			# g.axes[i,j].plot(straight_x, straight_y, '--k', lw=1, zorder=-1)
 			g.axes[i,j].scatter(df['tdiv'], df['tdie'], c=data_color, marker='o', ec='k', lw=0.5, s=18, rasterized=True)
 			g.axes[i,j].set_xlabel(r"Avg. sub div time ($M$)")
 			g.axes[i,j].set_xlim(left=0, right=max(df_sim['tdiv']))
@@ -579,8 +573,6 @@ def run_simulation(inputs):
 			g.axes[i,j].spines['right'].set_visible(True)
 			g.axes[i,j].plot(straight_x, straight_y, '--k', lw=1, zorder=-1)
 			g.axes[i,j].scatter(df['tld'], df['tdie'], c=data_color, marker='o', ec='k', lw=0.5, s=18, rasterized=True)
-			# g.axes[i,j].set_xlim(left=0)
-			# g.axes[i,j].set_ylim(bottom=0)
 			g.axes[i,j].set_xlabel(r"Time to last div ($T_{ld}$)")
 			g.axes[i,j].set_xlim(left=0, right=max(df_sim['tld']))
 	g.axes[3,3].set_xlabel(r"Time to death ($T_{die}$)")
@@ -592,7 +584,6 @@ def run_simulation(inputs):
 	g.fig.set_size_inches(12, 9)
 	g.fig.tight_layout(rect=(0, 0, 1, 1))
 	g.fig.subplots_adjust(hspace=0.07, wspace=0.07)
-	# g.fig.suptitle(f"[{fname}] Simulation: Correlation of times to fates (True vs Recoverable)")
 
 
 	## Add interna plot for simulation setup
@@ -622,70 +613,36 @@ if __name__ == "__main__":
 	loc_data = './data/_processed/collapsed_times'
 	path_data = [os.path.join(loc_data, file) for file in os.listdir(loc_data) if not file.startswith('.')]
 
-	# print("> List of data files:")
-	# for i, file in enumerate(path_data):
-	# 	print(f" >> [{i}] {file}")
-
 	data = {
-		# 'b_cpg/cpg3': path_data[path_data.index(loc_data + '/' + 'b_cpg_cpg3_0.0.csv')],
-		# 'b_cpg/cpg4': path_data[path_data.index(loc_data + '/' + 'b_cpg_cpg4_0.0.csv')],
-		# 't_il2/1U_aggre': path_data[path_data.index(loc_data + '/' + 'aggre_1U_1.0.csv')], 
-		# 't_il2/3U_aggre': path_data[path_data.index(loc_data + '/' + 'aggre_3U_2.0.csv')],
-		# 't_il2/10U_aggre': path_data[path_data.index(loc_data + '/' + 'aggre_10U_3.0.csv')],
-		# 't_misc_20140211_1.0': path_data[path_data.index(loc_data + '/' + 't_misc_20140211_1.0.csv')], 
-		# 't_misc_20140211_2.0': path_data[path_data.index(loc_data + '/' + 't_misc_20140211_2.0.csv')], # problematic one, I cannot get estimate on sub div time as there's no data...
-		# 't_misc_20140211_3.0': path_data[path_data.index(loc_data + '/' + 't_misc_20140211_3.0.csv')],  # problematic one, no data for sub div time
-		# 't_misc_20140211_4.0': path_data[path_data.index(loc_data + '/' + 't_misc_20140211_4.0.csv')], 
-		# 't_misc_20140325_1.0': path_data[path_data.index(loc_data + '/' + 't_misc_20140325_1.0.csv')], 
-		# 't_misc_20140325_2.0': path_data[path_data.index(loc_data + '/' + 't_misc_20140325_2.0.csv')], 
-		# 't_misc_20140325_3.0': path_data[path_data.index(loc_data + '/' + 't_misc_20140325_3.0.csv')],
-		# 't_misc_20140325_4.0': path_data[path_data.index(loc_data + '/' + 't_misc_20140325_4.0.csv')]
-
-		't_il2_20131218_1.0': path_data[path_data.index(loc_data + '/' + 't_il2_20131218_1.0.csv')],  # 1U IL-2
-		't_il2_20131218_2.0': path_data[path_data.index(loc_data + '/' + 't_il2_20131218_2.0.csv')],  # 3U IL-2
-		't_il2_20131218_3.0': path_data[path_data.index(loc_data + '/' + 't_il2_20131218_3.0.csv')],  # 10U IL-2
-		't_il2_20140121_1.0': path_data[path_data.index(loc_data + '/' + 't_il2_20140121_1.0.csv')],  # 1U IL-2
-		't_il2_20140121_2.0': path_data[path_data.index(loc_data + '/' + 't_il2_20140121_2.0.csv')],  # 10U IL-2
-		't_il2_20140121_3.0': path_data[path_data.index(loc_data + '/' + 't_il2_20140121_3.0.csv')]   # 3U IL-2
+		'b_cpg/cpg3': path_data[path_data.index(loc_data + '/' + 'b_cpg_cpg3_0.0.csv')],
+		'b_cpg/cpg4': path_data[path_data.index(loc_data + '/' + 'b_cpg_cpg4_0.0.csv')],
+		't_il2/1U_aggre': path_data[path_data.index(loc_data + '/' + 'aggre_1U_1.0.csv')], 
+		't_il2/3U_aggre': path_data[path_data.index(loc_data + '/' + 'aggre_3U_2.0.csv')],
+		't_il2/10U_aggre': path_data[path_data.index(loc_data + '/' + 'aggre_10U_3.0.csv')],
+		't_misc_20140211_1.0': path_data[path_data.index(loc_data + '/' + 't_misc_20140211_1.0.csv')], 
+		't_misc_20140211_2.0': path_data[path_data.index(loc_data + '/' + 't_misc_20140211_2.0.csv')], # problematic one, I cannot get estimate on sub div time as there's no data...
+		't_misc_20140211_3.0': path_data[path_data.index(loc_data + '/' + 't_misc_20140211_3.0.csv')],  # problematic one, no data for sub div time
+		't_misc_20140211_4.0': path_data[path_data.index(loc_data + '/' + 't_misc_20140211_4.0.csv')], 
+		't_misc_20140325_1.0': path_data[path_data.index(loc_data + '/' + 't_misc_20140325_1.0.csv')], 
+		't_misc_20140325_2.0': path_data[path_data.index(loc_data + '/' + 't_misc_20140325_2.0.csv')], 
+		't_misc_20140325_3.0': path_data[path_data.index(loc_data + '/' + 't_misc_20140325_3.0.csv')],
+		't_misc_20140325_4.0': path_data[path_data.index(loc_data + '/' + 't_misc_20140325_4.0.csv')]
 	}
 
-	## FIXME: temporary code block to fit lognormal distribution for low number (< 2) of observed events
-	# 1U of IL-2 experiments have 2 observation for subsequent division time, as such, this was excluded from Bayesian distribution selection routine
-	# import scipy.stats as sps
-	# t_il2_20131218_1U_tdiv = pd.read_csv(data['t_il2_20131218_1.0'])['tdiv'].dropna().to_numpy()
-	# t_il2_20140121_1U_tdiv = pd.read_csv(data['t_il2_20140121_1.0'])['tdiv'].dropna().to_numpy()
-	# trange = np.linspace(0, 50, num=1000)
-	# fig, ax = plt.subplots(ncols=2)
-	# for i, tdiv in enumerate([t_il2_20131218_1U_tdiv, t_il2_20140121_1U_tdiv]):
-	# 	shape, loc, scale = sps.lognorm.fit(tdiv, floc=0)
-	# 	print(shape, loc, scale)
-	# 	ax[i].hist(tdiv, density=True, cumulative=True, histtype='step', color='k')
-	# 	ax[i].hist(sps.lognorm.rvs(s=shape, scale=scale, size=10000), density=True, cumulative=True, histtype='step', color='r',)
-	# plt.show()
-	# sys.exit()
-
-
 	pars = {  ### RECREATE FILMING DATA RESULTS (LOGNORMAL)
-		# 'b_cpg/cpg3': {'mT0': 38.4, 'sT0': 0.13, 'mT': 10.90, 'sT': 0.23, 'mD': 53.79, 'sD': 0.21, 'mX': 86.66, 'sX': 0.18},
-		# 'b_cpg/cpg4': {'mT0': 41.51, 'sT0': 0.14, 'mT': 12.12, 'sT': 0.24, 'mD': 58.73, 'sD': 0.22, 'mX': 86.92, 'sX': 0.22},
-		# 't_il2/1U_aggre': {'mT0': 35.73, 'sT0': 0.12, 'mT': 19.11, 'sT': 0.39, 'mD': 37.52, 'sD': 0.16, 'mX': 44.75, 'sX': 0.23},
-		# 't_il2/3U_aggre': {'mT0': 41.26, 'sT0': 0.15, 'mT': 17.64, 'sT': 0.5, 'mD': 46.53, 'sD': 0.21, 'mX': 65.1, 'sX': 0.28},
-		# 't_il2/10U_aggre': {'mT0': 41.97, 'sT0': 0.18, 'mT': 16.84, 'sT': 0.19, 'mD': 47.56, 'sD': 0.21, 'mX': 63.88, 'sX': 0.27},
-		# 't_misc_20140211_1.0': {'mT0': 34.12, 'sT0': 0.11, 'mT': 14.03, 'sT': 0.25, 'mD': 39.96, 'sD': 0.23, 'mX': 48.18, 'sX': 0.21},
-		# 't_misc_20140211_2.0': {'mT0': 33.52, 'sT0': 0.12, 'mT': 10.0, 'sT': 0.2, 'mD': 34.19, 'sD': 0.13, 'mX': 39.53, 'sX': 0.14}, # problematic one, I cannot get estimate on sub div time as there's no data...
-		# 't_misc_20140211_3.0': {'mT0': 32.85, 'sT0': 0.1, 'mT': 10.0, 'sT': 0.2, 'mD': 32.85, 'sD': 0.1, 'mX': 36.74, 'sX': 0.13}, # problematic one, no data for sub div time
-		# 't_misc_20140211_4.0': {'mT0': 35.77, 'sT0': 0.1, 'mT': 16.04, 'sT': 0.2, 'mD': 37.3, 'sD': 0.14, 'mX': 43.82, 'sX': 0.19},
-		# 't_misc_20140325_1.0': {'mT0': 34.09, 'sT0': 0.10, 'mT': 10.24, 'sT': 0.2, 'mD': 42.52, 'sD': 0.2, 'mX': 48.13, 'sX': 0.22},
-		# 't_misc_20140325_2.0': {'mT0': 39.25, 'sT0': 0.14, 'mT': 12.82, 'sT': 0.38, 'mD': 48.38, 'sD': 0.18, 'mX': 54.27, 'sX': 0.13},
-		# 't_misc_20140325_3.0': {'mT0': 34.5, 'sT0': 0.07, 'mT': 10.28, 'sT': 0.17, 'mD': 41.35, 'sD': 0.15, 'mX': 46.9, 'sX': 0.17},
-		# 't_misc_20140325_4.0': {'mT0': 34.12, 'sT0': 0.09, 'mT': 11.5, 'sT': 0.23, 'mD': 39.17, 'sD': 0.19, 'mX': 43.6, 'sX': 0.18}, 
-
-		't_il2_20131218_1.0': {'mT0': 37.68, 'sT0': 0.19, 'mT': 18.50, 'sT': 0.21, 'mD': 40.53, 'sD': 0.21, 'mX': 47.28, 'sX': 0.23},
-		't_il2_20131218_2.0': {'mT0': 41.80, 'sT0': 0.17, 'mT': 17.81, 'sT': 0.70, 'mD': 46.39, 'sD': 0.22, 'mX': 65.37, 'sX': 0.29},
-		't_il2_20131218_3.0': {'mT0': 41.14, 'sT0': 0.20, 'mT': 16.59, 'sT': 0.28, 'mD': 55.20, 'sD': 0.18, 'mX': 79.76, 'sX': 0.23},
-		't_il2_20140121_1.0': {'mT0': 34.88, 'sT0': 0.09, 'mT': 19.37, 'sT': 0.04, 'mD': 36.16, 'sD': 0.14, 'mX': 43.60, 'sX': 0.25},
-		't_il2_20140121_2.0': {'mT0': 42.18, 'sT0': 0.19, 'mT': 17.03, 'sT': 0.17, 'mD': 46.06, 'sD': 0.21, 'mX': 60.82, 'sX': 0.26},
-		't_il2_20140121_3.0': {'mT0': 39.77, 'sT0': 0.12, 'mT': 17.36, 'sT': 0.33, 'mD': 46.90, 'sD': 0.23, 'mX': 64.33, 'sX': 0.32}
+		'b_cpg/cpg3': {'mT0': 38.4, 'sT0': 0.13, 'mT': 10.90, 'sT': 0.23, 'mD': 53.79, 'sD': 0.21, 'mX': 86.66, 'sX': 0.18},
+		'b_cpg/cpg4': {'mT0': 41.51, 'sT0': 0.14, 'mT': 12.12, 'sT': 0.24, 'mD': 58.73, 'sD': 0.22, 'mX': 86.92, 'sX': 0.22},
+		't_il2/1U_aggre': {'mT0': 35.73, 'sT0': 0.12, 'mT': 19.11, 'sT': 0.39, 'mD': 37.52, 'sD': 0.16, 'mX': 44.75, 'sX': 0.23},
+		't_il2/3U_aggre': {'mT0': 41.26, 'sT0': 0.15, 'mT': 17.64, 'sT': 0.5, 'mD': 46.53, 'sD': 0.21, 'mX': 65.1, 'sX': 0.28},
+		't_il2/10U_aggre': {'mT0': 41.97, 'sT0': 0.18, 'mT': 16.84, 'sT': 0.19, 'mD': 47.56, 'sD': 0.21, 'mX': 63.88, 'sX': 0.27},
+		't_misc_20140211_1.0': {'mT0': 34.12, 'sT0': 0.11, 'mT': 14.03, 'sT': 0.25, 'mD': 39.96, 'sD': 0.23, 'mX': 48.18, 'sX': 0.21},
+		't_misc_20140211_2.0': {'mT0': 33.52, 'sT0': 0.12, 'mT': 10.0, 'sT': 0.2, 'mD': 34.19, 'sD': 0.13, 'mX': 39.53, 'sX': 0.14}, # problematic one, I cannot get estimate on sub div time as there's no data...
+		't_misc_20140211_3.0': {'mT0': 32.85, 'sT0': 0.1, 'mT': 10.0, 'sT': 0.2, 'mD': 32.85, 'sD': 0.1, 'mX': 36.74, 'sX': 0.13}, # problematic one, no data for sub div time
+		't_misc_20140211_4.0': {'mT0': 35.77, 'sT0': 0.1, 'mT': 16.04, 'sT': 0.2, 'mD': 37.3, 'sD': 0.14, 'mX': 43.82, 'sX': 0.19},
+		't_misc_20140325_1.0': {'mT0': 34.09, 'sT0': 0.10, 'mT': 10.24, 'sT': 0.2, 'mD': 42.52, 'sD': 0.2, 'mX': 48.13, 'sX': 0.22},
+		't_misc_20140325_2.0': {'mT0': 39.25, 'sT0': 0.14, 'mT': 12.82, 'sT': 0.38, 'mD': 48.38, 'sD': 0.18, 'mX': 54.27, 'sX': 0.13},
+		't_misc_20140325_3.0': {'mT0': 34.5, 'sT0': 0.07, 'mT': 10.28, 'sT': 0.17, 'mD': 41.35, 'sD': 0.15, 'mX': 46.9, 'sX': 0.17},
+		't_misc_20140325_4.0': {'mT0': 34.12, 'sT0': 0.09, 'mT': 11.5, 'sT': 0.23, 'mD': 39.17, 'sD': 0.19, 'mX': 43.6, 'sX': 0.18}, 
 	}
 
 	# change your simulation time here
@@ -695,7 +652,7 @@ if __name__ == "__main__":
 	for (key, datum), (_, par) in zip(data.items(), pars.items()):
 		df = pd.read_csv(datum)
 		df['Label'] = "Data"
-		inputs.append((key, df, par, t0, tf, 100000))
+		inputs.append((key, df, par, t0, tf, 1000000))
 
 	tqdm.tqdm.set_lock(mp.RLock())  # for managing output contention
 	p = mp.Pool(initializer=tqdm.tqdm.set_lock, initargs=(tqdm.tqdm.get_lock(),))
