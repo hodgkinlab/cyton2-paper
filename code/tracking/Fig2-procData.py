@@ -5,8 +5,13 @@ A script to process filming data for B and T cells.
 Run this for generating Fig2 in the main article; FigS1, FigS2, FigS3 in the Supplementary Material.
 """
 import os, itertools
+os.environ['MKL_NUM_THREADS'] = "1"  # pymc3 MVN uses numpy to calculate correlation coefficient, which is by default parallelised to use all available cores (makes it slower due to overhead)
+os.environ['OMP_NUM_THREADS'] = "1"  # both are required to limit number of threads used by numpy
 import numpy as np
 import pandas as pd
+pd.set_option('display.max_rows', 999999)
+pd.set_option('display.max_columns', 999999)
+pd.set_option('display.expand_frame_repr', False)
 import seaborn as sns
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -93,10 +98,14 @@ def vis_summary(df_exp, m_df, exps, flag_all=True):
 
 			for igen in range(max_gen+1):
 				color = np.array([cp[igen]])
-				ax.scatter(df.iloc[i][f't_div_{igen}'], y+1, c=color, marker='o', s=20, lw=0.7, edgecolor='k', label=f"$T_{{div}}^{igen}$" if y==0 else "")
+				if igen==0:
+					label_div = r"$T_{div}^0$"
+				else:
+					label_div = f"$\Sigma_{{k=0}}^{{g={igen}}} T_{{div}}^k$"
+				ax.scatter(df.iloc[i][f't_div_{igen}'], y+1, c=color, marker='o', s=20, lw=0.7, edgecolor='k', label=label_div if y==0 else "")
 				ax.scatter(df.iloc[i][f't_death_{igen}'], y+1, c=color, marker='X', s=20, lw=0.5, edgecolor=None, label=f"$T_{{die}}^{igen}$" if y==0 else "")
 		handles, labels = ax.get_legend_handles_labels()
-		ax.legend(flip(handles, 2), flip(labels, 2), loc='lower right', ncol=2, markerscale=2, frameon=False, fontsize=12)
+		ax.legend(flip(handles, 2), flip(labels, 2), loc='lower right', ncol=2, markerscale=2, frameon=False, handletextpad=0.1, columnspacing=1, fontsize=12)
 		ax.set_xlim(left=0)
 		ax.set_ylim(bottom=0, ymax=y+2)
 
@@ -105,24 +114,25 @@ def vis_summary(df_exp, m_df, exps, flag_all=True):
 			g_patch = mpatches.Patch(color=col[1], label='1U IL-2')
 			b_patch = mpatches.Patch(color=col[2], label='3U IL-2')
 			p_patch = mpatches.Patch(color=col[3], label='10U IL-2')
-			plt.legend(handles=[g_patch, b_patch, p_patch], loc=4, fontsize=12)
+			leg = fig.legend(handles=[g_patch, b_patch, p_patch], loc='center right', fontsize=12)
 		elif exp == 't_il2/20140121':
 			g_patch = mpatches.Patch(color=col[1], label='1U IL-2')
 			p_patch = mpatches.Patch(color=col[3], label='3U IL-2')
 			b_patch = mpatches.Patch(color=col[2], label='10U IL-2')
-			plt.legend(handles=[g_patch, p_patch, b_patch], loc=4, fontsize=12)
+			leg = fig.legend(handles=[g_patch, p_patch, b_patch], loc='center right', fontsize=12)
 		elif exp == 't_misc/20140211':
 			p_patch = mpatches.Patch(color=col[3], label='N4')
 			b_patch = mpatches.Patch(color=col[2], label='N4+CD28')
 			t_patch = mpatches.Patch(color=col[4], label='N4+IL-2')
 			g_patch = mpatches.Patch(color=col[1], label='N4+CD28+IL-2')
-			plt.legend(handles=[p_patch, b_patch, t_patch, g_patch], loc=4, fontsize=12)
+			leg = fig.legend(handles=[p_patch, b_patch, t_patch, g_patch], loc='center right', fontsize=12)
 		elif exp == 't_misc/20140325':
 			t_patch = mpatches.Patch(color=col[4], label='N4')
 			p_patch = mpatches.Patch(color=col[3], label='N4+CD28')
 			g_patch = mpatches.Patch(color=col[1], label='N4+IL-12')
 			b_patch = mpatches.Patch(color=col[2], label='N4+CD28+IL-12')
-			plt.legend(handles=[t_patch, p_patch, g_patch, b_patch], loc=4, fontsize=12)
+			leg = fig.legend(handles=[t_patch, p_patch, g_patch, b_patch], loc='center right', fontsize=12)
+			leg.set_title("Stimulation", prop = {'size': 12})
 		elif exp == 'aggre_IL2':
 			g_patch = mpatches.Patch(color=col[1], label='1U')
 			p_patch = mpatches.Patch(color=col[2], label='3U')
@@ -151,26 +161,26 @@ def vis_clone(df_exp, exps):
 
 		return df, ranked_clone
 
-	def compare_pair(store, state1, state2):
-		if (state1 == 'divided') & (state2 == 'divided'):
-			store[0][0] += 1
-		elif (state1 == 'divided') & (state2 == 'died'):
-			store[0][1] += 1
-		elif (state1 == 'divided') & (state2 == 'lost'):
-			store[0][2] += 1
-		elif (state1 == 'died') & (state2 == 'divided'):
-			store[1][0] += 1
-		elif (state1 == 'died') & (state2 == 'died'):
-			store[1][1] += 1
-		elif (state1 == 'died') & (state2 == 'lost'):
-			store[1][2] += 1
-		elif (state1 == 'lost') & (state2 == 'divided'):
-			store[2][0] += 1
-		elif (state1 == 'lost') & (state2 == 'died'):
-			store[2][1] += 1
-		elif (state1 == 'lost') & (state2 == 'lost'):
-			store[2][2] += 1
-		return store
+	# def compare_pair(store, state1, state2):
+	# 	if (state1 == 'divided') & (state2 == 'divided'):
+	# 		store[0][0] += 1
+	# 	elif (state1 == 'divided') & (state2 == 'died'):
+	# 		store[0][1] += 1
+	# 	elif (state1 == 'divided') & (state2 == 'lost'):
+	# 		store[0][2] += 1
+	# 	elif (state1 == 'died') & (state2 == 'divided'):
+	# 		store[1][0] += 1
+	# 	elif (state1 == 'died') & (state2 == 'died'):
+	# 		store[1][1] += 1
+	# 	elif (state1 == 'died') & (state2 == 'lost'):
+	# 		store[1][2] += 1
+	# 	elif (state1 == 'lost') & (state2 == 'divided'):
+	# 		store[2][0] += 1
+	# 	elif (state1 == 'lost') & (state2 == 'died'):
+	# 		store[2][1] += 1
+	# 	elif (state1 == 'lost') & (state2 == 'lost'):
+	# 		store[2][2] += 1
+	# 	return store
 		
 	cp = sns.color_palette(n_colors=8)  # fixed colors for generation
 	for exp in exps:
@@ -183,173 +193,176 @@ def vis_clone(df_exp, exps):
 			max_gen = int(max(data['gen']))
 
 			#### Plot distribution of times observed for all cells (ignore lost cells)
-			fig1, ax1 = plt.subplots(nrows=max_gen+2, ncols=4, sharex='col', figsize=(12, 9))
-			for igen in range(max_gen+1):
-				lost_cells = len(data[(data['gen']==igen) & (data['fate']=='lost')])
-				sdf = data[data['gen']==igen]
+			# fig1, ax1 = plt.subplots(nrows=max_gen+2, ncols=4, sharex='col', figsize=(12, 9))
+			# for igen in range(max_gen+1):
+			# 	lost_cells = len(data[(data['gen']==igen) & (data['fate']=='lost')])
+			# 	sdf = data[data['gen']==igen]
 
-				#### Lifetime
-				samples1 = sdf[sdf['fate'] == 'divided']['lifetime']
-				N1 = len(samples1)
-				mean1 = samples1.mean()
-				sns.distplot(samples1, color=cp[igen], kde=False, norm_hist=True, ax=ax1[igen][0])
-				ax1[igen][0].axvline(mean1, c=cp[igen], ls='--', lw=1, label=f'N = {N1}\n$\overline{{x}} = {mean1:.2f}$')
-				ax1[igen][0].legend(loc=1)
-				ax1[igen][0].set_ylabel(f"Gen {igen}")
+			# 	#### Lifetime
+			# 	samples1 = sdf[sdf['fate'] == 'divided']['lifetime']
+			# 	N1 = len(samples1)
+			# 	mean1 = samples1.mean()
+			# 	sns.distplot(samples1, color=cp[igen], kde=False, norm_hist=True, ax=ax1[igen][0])
+			# 	ax1[igen][0].axvline(mean1, c=cp[igen], ls='--', lw=1, label=f'N = {N1}\n$\overline{{x}} = {mean1:.2f}$')
+			# 	ax1[igen][0].legend(loc=1)
+			# 	ax1[igen][0].set_ylabel(f"Gen {igen}")
 
-				#### Time to division
-				samples2 = sdf[sdf['fate'] == 'died']['t_birth']
-				N2 = len(samples2)
-				mean2 = samples2.mean()
-				ax1[igen][1].axvline(mean2, c=cp[igen], ls='--', lw=1, label='N = {0}\n$\overline{{x}} = {1:.2f}$'.format(N2, mean2))
-				sns.distplot(samples2, color=cp[igen], kde=False, norm_hist=True, ax=ax1[igen][1])
-				ax1[igen][1].annotate(f"$N_{{lost}}=${lost_cells}", xy=(0.7, 0.8), xycoords="axes fraction", fontsize=10)
-				ax1[igen][1].legend(loc=2)
+			# 	#### Time to division
+			# 	samples2 = sdf[sdf['fate'] == 'died']['t_birth']
+			# 	N2 = len(samples2)
+			# 	mean2 = samples2.mean()
+			# 	ax1[igen][1].axvline(mean2, c=cp[igen], ls='--', lw=1, label='N = {0}\n$\overline{{x}} = {1:.2f}$'.format(N2, mean2))
+			# 	sns.distplot(samples2, color=cp[igen], kde=False, norm_hist=True, ax=ax1[igen][1])
+			# 	ax1[igen][1].annotate(f"$N_{{lost}}=${lost_cells}", xy=(0.7, 0.8), xycoords="axes fraction", fontsize=10)
+			# 	ax1[igen][1].legend(loc=2)
 
-				#### Time to death
-				samples3 = sdf[sdf['fate'] == 'died']['t_death']
-				mean3 = samples3.mean()
-				ax1[igen][2].axvline(mean3, c=cp[igen], ls='--', lw=1, label='$\overline{{x}} = {0:.2f}$'.format(mean3))
-				sns.distplot(samples3, color=cp[igen], kde=False, norm_hist=True, ax=ax1[igen][2])
-				ax1[igen][2].legend(loc=2)       
+			# 	#### Time to death
+			# 	samples3 = sdf[sdf['fate'] == 'died']['t_death']
+			# 	mean3 = samples3.mean()
+			# 	ax1[igen][2].axvline(mean3, c=cp[igen], ls='--', lw=1, label='$\overline{{x}} = {0:.2f}$'.format(mean3))
+			# 	sns.distplot(samples3, color=cp[igen], kde=False, norm_hist=True, ax=ax1[igen][2])
+			# 	ax1[igen][2].legend(loc=2)       
 
-				#### Quiescent period
-				samples4 = sdf[sdf['fate'] == 'died']['lifetime']
-				mean4 = samples4.mean()
-				ax1[igen][3].axvline(mean4, c=cp[igen], ls='--', lw=1, label='$\overline{{x}} = {0:.2f}$'.format(mean4))
-				sns.distplot(samples4, color=cp[igen], kde=False, norm_hist=True, ax=ax1[igen][3])
-				ax1[igen][3].legend(loc=1)
+			# 	#### Quiescent period
+			# 	samples4 = sdf[sdf['fate'] == 'died']['lifetime']
+			# 	mean4 = samples4.mean()
+			# 	ax1[igen][3].axvline(mean4, c=cp[igen], ls='--', lw=1, label='$\overline{{x}} = {0:.2f}$'.format(mean4))
+			# 	sns.distplot(samples4, color=cp[igen], kde=False, norm_hist=True, ax=ax1[igen][3])
+			# 	ax1[igen][3].legend(loc=1)
 
-				for axis in ax1[igen][:]:
-					axis.set_ylim(bottom=0)
-					axis.set_xlabel("")
-			fig1.tight_layout(rect=(0, 0, 1, 1))
-			# fig1.subplots_adjust(hspace=0.05, wspace=0.05)
+			# 	for axis in ax1[igen][:]:
+			# 		axis.set_ylim(bottom=0)
+			# 		axis.set_xlabel("")
+			# fig1.tight_layout(rect=(0, 0, 1, 1))
+			# # fig1.subplots_adjust(hspace=0.05, wspace=0.05)
 
-			samples1_gen0 = data[(data['gen']==0) & (data['fate']=='divided')]['lifetime']
-			N1_gen0 = len(samples1_gen0)
-			samples1_subgen = data[(data['gen']>0) & (data['fate']=='divided')]['lifetime']
-			N1_subgen = len(samples1_subgen)
-			sns.distplot(samples1_gen0, kde=False, color=cp[0], ax=ax1[igen+1][0], label=f"$N_{{g=0}}={N1_gen0}$")
-			sns.distplot(samples1_subgen, kde=False, color='k', ax=ax1[igen+1][0], label=f"$N_{{g>0}}={N1_subgen}$")
-			ax1[igen+1][0].axvline(samples1_gen0.mean(), c=cp[0], lw=1)
-			ax1[igen+1][0].axvline(samples1_subgen.mean(), c='k', lw=1)
-			ax1[igen+1][0].legend(fontsize=8)
+			# samples1_gen0 = data[(data['gen']==0) & (data['fate']=='divided')]['lifetime']
+			# N1_gen0 = len(samples1_gen0)
+			# samples1_subgen = data[(data['gen']>0) & (data['fate']=='divided')]['lifetime']
+			# N1_subgen = len(samples1_subgen)
+			# sns.distplot(samples1_gen0, kde=False, color=cp[0], ax=ax1[igen+1][0], label=f"$N_{{g=0}}={N1_gen0}$")
+			# sns.distplot(samples1_subgen, kde=False, color='k', ax=ax1[igen+1][0], label=f"$N_{{g>0}}={N1_subgen}$")
+			# ax1[igen+1][0].axvline(samples1_gen0.mean(), c=cp[0], lw=1)
+			# ax1[igen+1][0].axvline(samples1_subgen.mean(), c='k', lw=1)
+			# ax1[igen+1][0].legend(fontsize=8)
 
-			samples2_total = data[data['fate']=='died']['t_birth']
-			N2_total = len(samples2_total)
-			mean2_total = samples2_total.mean()
-			ax1[igen+1][1].axvline(mean2_total, c='k', lw=1, label='N = {0}\n$\overline{{x}} = {1:.2f}$'.format(N2_total, mean2_total))
-			sns.distplot(samples2_total, kde=False, color='k', ax=ax1[igen+1][1])
-			ax1[igen+1][1].legend()
+			# samples2_total = data[data['fate']=='died']['t_birth']
+			# N2_total = len(samples2_total)
+			# mean2_total = samples2_total.mean()
+			# ax1[igen+1][1].axvline(mean2_total, c='k', lw=1, label='N = {0}\n$\overline{{x}} = {1:.2f}$'.format(N2_total, mean2_total))
+			# sns.distplot(samples2_total, kde=False, color='k', ax=ax1[igen+1][1])
+			# ax1[igen+1][1].legend()
 
-			samples3_total = data[data['fate']=='died']['t_death']
-			N3_total = len(samples3_total)
-			mean3_total = samples3_total.mean()
-			ax1[igen+1][2].axvline(mean3_total, c='k', lw=1, label=f'$\overline{{x}} = {mean3_total:.2f}$')
-			sns.distplot(samples3_total, kde=False, color='k', ax=ax1[igen+1][2])
-			ax1[igen+1][2].legend()
+			# samples3_total = data[data['fate']=='died']['t_death']
+			# N3_total = len(samples3_total)
+			# mean3_total = samples3_total.mean()
+			# ax1[igen+1][2].axvline(mean3_total, c='k', lw=1, label=f'$\overline{{x}} = {mean3_total:.2f}$')
+			# sns.distplot(samples3_total, kde=False, color='k', ax=ax1[igen+1][2])
+			# ax1[igen+1][2].legend()
 
-			samples4_total = data[data['fate']=='died']['lifetime']
-			mean4_total = samples4_total.mean()
-			ax1[igen+1][3].axvline(mean4_total, c='k', lw=1, label=f'$\overline{{x}} = {mean4_total:.2f}$')
-			sns.distplot(samples4_total, kde=False, color='k', ax=ax1[igen+1][3])
-			ax1[igen+1][3].legend()
+			# samples4_total = data[data['fate']=='died']['lifetime']
+			# mean4_total = samples4_total.mean()
+			# ax1[igen+1][3].axvline(mean4_total, c='k', lw=1, label=f'$\overline{{x}} = {mean4_total:.2f}$')
+			# sns.distplot(samples4_total, kde=False, color='k', ax=ax1[igen+1][3])
+			# ax1[igen+1][3].legend()
 
-			ax1[0][0].set_title("Lifetime (divided)")
-			ax1[0][1].set_title("Time to last division (died)")
-			ax1[0][2].set_title("Time to death")
-			ax1[0][3].set_title("Quiescent period ($T_{die} - T_{ld}$)")
-			for i in range(ax1.shape[1]):
-				ax1[igen+1][i].spines['top'].set_visible(True)
-				ax1[igen+1][i].spines['right'].set_visible(True)
-			ax1[igen+1][0].set_xlim(left=0)
-			ax1[igen+1][0].set_xlabel("Time (hour)")
-			ax1[igen+1][0].set_ylabel("All gen.")
-			ax1[igen+1][1].set_xlim(left=0)
-			ax1[igen+1][1].set_xlabel("Time (hour)")
-			ax1[igen+1][2].set_xlim(left=0)
-			ax1[igen+1][2].set_xlabel("Time (hour)")
-			ax1[igen+1][3].set_xlim(left=0)
-			ax1[igen+1][3].set_xlabel("Time (hour)")
+			# ax1[0][0].set_title("Lifetime (divided)")
+			# ax1[0][1].set_title("Time to last division (died)")
+			# ax1[0][2].set_title("Time to death")
+			# ax1[0][3].set_title("Quiescent period ($T_{die} - T_{ld}$)")
+			# for i in range(ax1.shape[1]):
+			# 	ax1[igen+1][i].spines['top'].set_visible(True)
+			# 	ax1[igen+1][i].spines['right'].set_visible(True)
+			# ax1[igen+1][0].set_xlim(left=0)
+			# ax1[igen+1][0].set_xlabel("Time (hour)")
+			# ax1[igen+1][0].set_ylabel("All gen.")
+			# ax1[igen+1][1].set_xlim(left=0)
+			# ax1[igen+1][1].set_xlabel("Time (hour)")
+			# ax1[igen+1][2].set_xlim(left=0)
+			# ax1[igen+1][2].set_xlabel("Time (hour)")
+			# ax1[igen+1][3].set_xlim(left=0)
+			# ax1[igen+1][3].set_xlabel("Time (hour)")
 
-			fig1.tight_layout(rect=(0, 0, 1, 1))
+			# fig1.tight_layout(rect=(0, 0, 1, 1))
+			# fig1.savefig(f"./out/Fig2-2-raw/{exp_lab}-{cond_labs[exp][cond]}_f1_data.pdf", dpi=300)
+
 
 			#### Heatmap of daughter cell fates per generation
-			fig2 = plt.figure(figsize=(9, 7))
-			if max_gen < 3: nrows, ncols = 1, 3
-			elif 3 <= max_gen < 6: nrows, ncols = 2, 3
-			else: nrows, ncols = 3, 3
+			# fig2 = plt.figure(figsize=(9, 7))
+			# if max_gen < 3: nrows, ncols = 1, 3
+			# elif 3 <= max_gen < 6: nrows, ncols = 2, 3
+			# else: nrows, ncols = 3, 3
 
-			unique_clone = np.unique(data['clone'])
-			store = np.zeros(shape=(max_gen+1, 3, 3))
-			for igen in range(0, max_gen+1):
-				if igen == 0:
-					total_pairs = len(data[data['gen'] == igen])
-				else:
-					total_pairs = len(data[data['gen'] == igen]) / 2
+			# unique_clone = np.unique(data['clone'])
+			# store = np.zeros(shape=(max_gen+1, 3, 3))
+			# for igen in range(0, max_gen+1):
+			# 	if igen == 0:
+			# 		total_pairs = len(data[data['gen'] == igen])
+			# 	else:
+			# 		total_pairs = len(data[data['gen'] == igen]) / 2
 				
-				ax = plt.subplot(nrows, ncols, igen+1)
-				if igen == 0:
-					for uc in unique_clone:
-						cell = data[(data['clone'] == uc) & (data['gen'] == igen)]
-						if not cell.empty:
-							state = cell['fate'].iloc[0]
-							if state == 'divided':
-								store[igen][0][0] += 1
-							elif state == 'died':
-								store[igen][1][1] += 1
-							elif state == 'lost':
-								store[igen][2][2] += 1
-				elif igen == 1:
-					for uc in unique_clone:
-						cell_pair = data[(data['clone'] == uc) & (data['gen'] == igen)]
-						if not cell_pair.empty:
-							states = cell_pair[['relation', 'fate']]
-							state1 = cell_pair['fate'].iloc[0]
-							state2 = cell_pair['fate'].iloc[1]
-							store[igen] = compare_pair(store[igen], state1, state2)
-				else:
-					for uc in unique_clone:
-						cells = data[(data['clone'] == uc) & (data['gen'] == igen)]
-						rels = cells['relation']
-						for i in range(2, len(rels)+1, 2):
-							curr_cell_pair = cells.iloc[i-2:i,:]
-							if not curr_cell_pair.empty:
-								state1 = curr_cell_pair['fate'].iloc[0]
-								state2 = curr_cell_pair['fate'].iloc[1]
-								store[igen] = compare_pair(store[igen], state1, state2)
-				ax.imshow(store[igen], cmap=sns.dark_palette("#dc143c", as_cmap=True, reverse=True))
+			# 	ax = plt.subplot(nrows, ncols, igen+1)
+			# 	if igen == 0:
+			# 		for uc in unique_clone:
+			# 			cell = data[(data['clone'] == uc) & (data['gen'] == igen)]
+			# 			if not cell.empty:
+			# 				state = cell['fate'].iloc[0]
+			# 				if state == 'divided':
+			# 					store[igen][0][0] += 1
+			# 				elif state == 'died':
+			# 					store[igen][1][1] += 1
+			# 				elif state == 'lost':
+			# 					store[igen][2][2] += 1
+			# 	elif igen == 1:
+			# 		for uc in unique_clone:
+			# 			cell_pair = data[(data['clone'] == uc) & (data['gen'] == igen)]
+			# 			if not cell_pair.empty:
+			# 				states = cell_pair[['relation', 'fate']]
+			# 				state1 = cell_pair['fate'].iloc[0]
+			# 				state2 = cell_pair['fate'].iloc[1]
+			# 				store[igen] = compare_pair(store[igen], state1, state2)
+			# 	else:
+			# 		for uc in unique_clone:
+			# 			cells = data[(data['clone'] == uc) & (data['gen'] == igen)]
+			# 			rels = cells['relation']
+			# 			for i in range(2, len(rels)+1, 2):
+			# 				curr_cell_pair = cells.iloc[i-2:i,:]
+			# 				if not curr_cell_pair.empty:
+			# 					state1 = curr_cell_pair['fate'].iloc[0]
+			# 					state2 = curr_cell_pair['fate'].iloc[1]
+			# 					store[igen] = compare_pair(store[igen], state1, state2)
+			# 	ax.imshow(store[igen], cmap=sns.dark_palette("#dc143c", as_cmap=True, reverse=True))
 
-				xaxis_labels = ["Div'd", 'Died', 'Lost']
-				yaxis_labels = ["Div'd", 'Died', 'Lost']
+			# 	xaxis_labels = ["Div'd", 'Died', 'Lost']
+			# 	yaxis_labels = ["Div'd", 'Died', 'Lost']
 
-				ax.set_xticks(np.arange(len(xaxis_labels)))
-				ax.set_yticks(np.arange(len(yaxis_labels)))
-				ax.set_xticklabels(xaxis_labels)
-				ax.set_yticklabels(yaxis_labels)
-				# ax.xaxis.tick_top()
+			# 	ax.set_xticks(np.arange(len(xaxis_labels)))
+			# 	ax.set_yticks(np.arange(len(yaxis_labels)))
+			# 	ax.set_xticklabels(xaxis_labels)
+			# 	ax.set_yticklabels(yaxis_labels)
+			# 	# ax.xaxis.tick_top()
 
-				plt.setp(ax.get_xticklabels(), rotation=0, ha="center", rotation_mode="anchor")
+			# 	plt.setp(ax.get_xticklabels(), rotation=0, ha="center", rotation_mode="anchor")
 
-				for i in range(len(xaxis_labels)):
-					for j in range(len(yaxis_labels)):
-						number = int(store[igen][i, j])
-						if number:
-							text = ax.text(j, i, f"{number}\n({number/total_pairs*100:.1f}%)", ha="center", va="center", color="w", fontsize=10)
-				if igen  == 0:
-					ax.set_title(f"Gen. {igen} ({int(total_pairs)} cells)")
-				else:
-					ax.set_title(f"Gen. {igen} ({int(total_pairs)} sibs)")
+			# 	for i in range(len(xaxis_labels)):
+			# 		for j in range(len(yaxis_labels)):
+			# 			number = int(store[igen][i, j])
+			# 			if number:
+			# 				text = ax.text(j, i, f"{number}\n({number/total_pairs*100:.1f}%)", ha="center", va="center", color="w", fontsize=10)
+			# 	if igen  == 0:
+			# 		ax.set_title(f"Gen. {igen} ({int(total_pairs)} cells)")
+			# 	else:
+			# 		ax.set_title(f"Gen. {igen} ({int(total_pairs)} sibs)")
 
-				if igen == 0:
-					ax.set_xlabel("Cell 1")
-					ax.set_ylabel("")
-				else:
-					ax.set_xlabel("Cell 1")
-					ax.set_ylabel("Cell 2")
-			fig2.tight_layout(rect=(0, 0, 1, 1))
+			# 	if igen == 0:
+			# 		ax.set_xlabel("Cell 1")
+			# 		ax.set_ylabel("")
+			# 	else:
+			# 		ax.set_xlabel("Cell 1")
+			# 		ax.set_ylabel("Cell 2")
+			# fig2.tight_layout(rect=(0, 0, 1, 1))
 			# fig2.subplots_adjust(hspace=0.05, wspace=0.05)
+			# fig2.savefig(f"./out/Fig2-2-raw/{exp_lab}-{cond_labs[exp][cond]}_f2_fates.pdf", dpi=300)
 
 
 			#### FILTER DATA
@@ -408,8 +421,8 @@ def vis_clone(df_exp, exps):
 			final_clone_death, rank_final_death = rank_order(filtered_df, 't_death')
 			if num_final and len(final_clone_ld) and len(final_clone_death):
 				max_gen = int(max(filtered_df['gen']))
-				# fig9, ax9 = plt.subplots(nrows=2, ncols=2, figsize=(16, 5), sharey='row')
-				fig9, ax9 = plt.subplots(nrows=4, ncols=1, figsize=(8, 10), sharey='row')
+				fig9, ax9 = plt.subplots(nrows=2, ncols=2, figsize=(16, 5), sharey='row')   # Style 1
+				# fig9, ax9 = plt.subplots(nrows=4, ncols=1, figsize=(8, 10), sharey='row')  # Style 2
 				ax9 = ax9.reshape(2,2)
 
 				tdiv0_list = []  # store the time to first division
@@ -562,9 +575,9 @@ def vis_clone(df_exp, exps):
 					ax9[0][0].set_xticklabels(ax9[0][0].get_xticklabels(), rotation=90)
 					ax9[0][0].set_ylim(bottom=0)
 
-					ax9[0][1].set_title(r"Subsequent division time ($M_k = T_{div}^{k+1} - T_{div}^{k}$)")
-					# ax9[0][1].set_ylabel("")
-					ax9[0][1].set_ylabel('Time (hour)')
+					ax9[0][1].set_title(r"Subsequent division time ($T_{div}^k$)")
+					ax9[0][1].set_ylabel("")
+					# ax9[0][1].set_ylabel('Time (hour)')
 					ax9[0][1].set_xlabel("")
 					ax9[0][1].grid(True, which='major', axis='both', linestyle='--')
 					ax9[0][1].set_xticklabels(ax9[0][1].get_xticklabels(), rotation=90)
@@ -574,16 +587,16 @@ def vis_clone(df_exp, exps):
 
 				ax9[1][0].set_title(r"Time to last division ($T_{ld}$)")
 				ax9[1][0].set_ylabel('Time (hour)')
-				# ax9[1][0].set_xlabel('Clone')
-				ax9[1][0].set_xlabel("")
+				ax9[1][0].set_xlabel('Clone')
+				# ax9[1][0].set_xlabel("")
 				ax9[1][0].grid(True, which='major', axis='both', linestyle='--')
 				ax9[1][0].set_xticklabels(ax9[1][0].get_xticklabels(), rotation=90)
 				ax9[1][0].set_ylim(bottom=0)
 				ax9[1][0].legend_.remove()
 
 				ax9[1][1].set_title(r"Time to death ($T_{die}$)")
-				# ax9[1][1].set_ylabel("")
-				ax9[1][1].set_ylabel('Time (hour)')
+				ax9[1][1].set_ylabel("")
+				# ax9[1][1].set_ylabel('Time (hour)')
 				ax9[1][1].set_xlabel('Clone')
 				ax9[1][1].grid(True, which='major', axis='both', linestyle='--')
 				ax9[1][1].set_xticklabels(ax9[1][1].get_xticklabels(), rotation=90)
@@ -598,9 +611,6 @@ def vis_clone(df_exp, exps):
 
 				fig9.tight_layout(rect=(0, 0, 1, 1))
 				fig9.subplots_adjust(hspace=0.32, wspace=0.02)
-
-				fig1.savefig(f"./out/Fig2-2-raw/{exp_lab}-{cond_labs[exp][cond]}_f1_data.pdf", dpi=300)
-				fig2.savefig(f"./out/Fig2-2-raw/{exp_lab}-{cond_labs[exp][cond]}_f2_fates.pdf", dpi=300)
 				fig9.savefig(f"./out/Fig2-2-raw/{exp_lab}-{cond_labs[exp][cond]}_f3_cascade.pdf", dpi=300)
 
 
@@ -621,11 +631,10 @@ def corr(df_exp, exps):
 
 	def scatter(x, y, **kws):
 		def _covariance(sigma, rho):
-			C = T.alloc(rho, 2, 2)
-			C = T.fill_diagonal(C, 1.)
+			C = T.fill_diagonal(T.alloc(rho, 2, 2), 1.)
 			S = T.diag(sigma)
 			return S.dot(C).dot(S)
-		
+
 		print(f'------------------------ BEGIN ({x.name}, {y.name}) ------------------------')
 		ax = plt.gca()
 		ax.spines['top'].set_visible(True)
@@ -645,9 +654,15 @@ def corr(df_exp, exps):
 				rho = pm.Uniform('rho', lower=-1, upper=1)
 				cov = pm.Deterministic('cov', _covariance(sigma, rho))
 				mvn = pm.MvNormal('mvn', mu=mu, cov=cov, observed=data)
-
-				trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag')
-			summary = az.summary(trace)
+				trace = pm.sample(draws=niter, 
+									tune=ntune, 
+									chains=nchain, 
+									cores=ncore,
+									random_seed=57323343,
+									target_accept=0.95, 
+									init='jitter+adapt_diag')
+			summary = pm.summary(trace)
+			# summary = az.summary(trace)  # for PyMC3 >= 3.11.0
 
 			mu_post = trace['mu'].mean(axis=0)
 			cov_post = trace['cov'].mean(axis=0)
@@ -674,6 +689,7 @@ def corr(df_exp, exps):
 
 			rho_post = trace['rho'].mean(axis=0)
 			hpd = pm.stats.hpd(trace['rho'], alpha=0.05)
+			# hpd = az.hdi(trace['rho'], hdi_prob=0.95)  # for PyMC3 >= 3.11.0
 			ax.annotate(r"$\rho$" + f" = {rho_post:.2f} [{hpd[0]:.2f}, {hpd[1]:.2f}]", xy=(0.02, 0.05), xycoords=ax.transAxes, fontsize='large')
 
 			## LOCATION OF MEANS
@@ -684,11 +700,11 @@ def corr(df_exp, exps):
 			## Estimate from posterior distribution of rho by using Savage-Dickey density ratio method (CH.13 PP.179 Bayesian Cognitive Modeling)
 			## https://github.com/pymc-devs/resources/blob/master/BCM/CaseStudies/ExtrasensoryPerception.ipynb
 			posterior = sps.gaussian_kde(trace['rho'])(0)[0]
-			prior = sps.uniform.pdf(0, loc=-1, scale=2)  # Ranges [loc, loc + scale]; Technically it's always 0.5
+			prior = sps.uniform.pdf(0, loc=-1., scale=2.)  # Ranges [loc, loc + scale]; Technically it's always 0.5
 			BayesFactor01 = posterior/prior
 
 			## Approximate Jeffreys (1961), pp. 289-292:
-			freqr = np.corrcoef(data[:, 0], data[:, 1])
+			freqr = np.corrcoef(data[:,0], data[:,1])
 			BayesFactor_approx = 1 / (((2 * (n - 1) - 1) / np.pi) ** 0.5 * (1 - freqr[0, 1] ** 2) ** (0.5 * ((n - 1) - 3)))  # BF10
 
 			## Exact solution Jeffreys (numerical integration) Theory of Probability (1961), pp. 291 Eq.(9):
@@ -735,6 +751,9 @@ def corr(df_exp, exps):
 		ax.set_xlim(left=0)
 		ax.set_ylim(bottom=0)
 
+	excl = ['t_il2/20131218', 't_il2/20140121']
+	exps = [exp for exp in exps if exp not in excl]  # exclude individual IL-2 dataset (aggregated one separtely done)
+
 	print("\n>> CORRELATION ANALYSIS...")
 	for exp in exps:
 		print(f'\n======================== BEGIN {exp} ========================')
@@ -742,7 +761,8 @@ def corr(df_exp, exps):
 		conds = np.unique(list(df_exp[exp].keys()))  # find unique conditions
 		for cond in conds:
 			print(f'======================== BEGIN {cond_labs[exp][cond]} ========================')
-			titles = iter([r'Time to first div ($T_{div}^0$)', r'Avg. sub div time ($M$)', r'Time to last div ($T_{ld}$)', r'Time to death ($T_{die}$)'])
+			titles = iter([r'Time to first div ($T_{div}^0$)', r'Avg. sub div time ($T_{div}^{k\geq1}$)', 
+							r'Time to last div ($T_{ld}$)', r'Time to death ($T_{die}$)'])
 			colors = iter(['blue', 'orange', 'green', 'red'])
 
 			df = df_exp[exp][cond].copy() 
@@ -774,13 +794,12 @@ def corr(df_exp, exps):
 				TIME_TO_LAST_DIV.append(tld)
 			df_pair = pd.DataFrame({
 				"Time to first div ($T_{div}^0$)": TIME_TO_FIRST_DIV,
-				"Avg. sub div time ($M$)": AVG_SUB_DIV,
+				"Avg. sub div time ($T_{div}^{k\geq1}$)": AVG_SUB_DIV,
 				"Time to last div ($T_{ld}$)": TIME_TO_LAST_DIV,
 				"Time to death ($T_{die}$)": TIME_TO_DEATH
 			})
-
 			g = sns.pairplot(df_pair, height=1.5, corner=True, diag_kind='None', 
-								plot_kws={'s': 22, 'fc': "grey", 'ec': 'k', 'linewidth': 1})
+							 plot_kws={'s': 22, 'fc': "grey", 'ec': 'k', 'linewidth': 1})
 			g.map_diag(dist)
 			g.map_lower(scatter)
 			g.fig.set_size_inches(12, 9)

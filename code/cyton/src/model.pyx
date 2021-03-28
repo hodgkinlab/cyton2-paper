@@ -1,7 +1,7 @@
 """
 Last edit: 21-November-2020
 
-Full Cyton 1.5 model.
+Full Cyton2 model
 """
 import numpy as np
 cimport numpy as np

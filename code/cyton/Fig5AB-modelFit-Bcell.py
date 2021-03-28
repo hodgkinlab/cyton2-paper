@@ -205,7 +205,6 @@ def fit_reps(inputs):
 		model = Cyton15Model(_hts, avgN0, mgen, DT, _nreps, lognorm)
 
 		candidates = {'algo': [], 'result': [], 'residual': []}  # store fitted parameter and its residual
-		# for s in range(ITER_SEARCH):
 		tqdm_trange2 = tqdm.trange(ITER_SEARCH, leave=False, position=2*pos+2)
 		for s in tqdm_trange2:
 			# Random initial values
@@ -239,7 +238,6 @@ def fit_reps(inputs):
 				# 	result = res_de
 				# 	resid = resid_de
 
-				# print(f"[SEARCH][{s+1}/{ITER_SEARCH}:{(s+1)/ITER_SEARCH*100:.1f}%] > {key} > {condition} > [{algo}] {resid:.10e}")
 				tqdm_trange2.set_description(f"[SEARCH] > {key} > {''.join(condition.split()) + f' {sl} Reps'}")
 				tqdm_trange2.set_postfix({'RSS': f"{resid:.5e}"})
 				tqdm_trange2.refresh()
@@ -250,8 +248,7 @@ def fit_reps(inputs):
 			except ValueError as ve:
 				tqdm_trange2.update()
 			# except:
-			# 	err_count += 1
-			# 	print(f"[{err_count}] Error on {key} > {condition} > {sys.exc_info()[0]}")
+			# 	tqdm_trange2.update()
 
 		fit_results = pd.DataFrame(candidates)
 		fit_results.sort_values('residual', ascending=True, inplace=True)  # sort based on residual

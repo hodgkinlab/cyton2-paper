@@ -154,7 +154,6 @@ class cell:
 				self.life = gDeath - self.born
 				self.left = None; self.right = None
 		else:
-			## Check if cell was reached destiny and allowed divide once from previous generation
 			if self.flag_destiny:
 				self.fate = "died"
 				self.life = gDeath - self.born
@@ -286,9 +285,8 @@ def plot_tree(tree, ax, tf, y, ystep):
 def run_simulation(inputs):
 	def diag(x, **kws):  # access diagonal plots in seaborn's PairGrid object
 		ax = plt.gca()
-		lab = kws['label']
-
 		ax.set_rasterized(True)
+		lab = kws['label']
 		if lab == 'Obs. time':
 			ax.annotate(f"$N_{{Obs.}}={len(x)}$", xy=(0.02, 0.88), xycoords=ax.transAxes, color=kws['color'])
 		ax.set_xlim(left=0)
@@ -296,9 +294,7 @@ def run_simulation(inputs):
 	def corrfunc(x, y, **kws):  # access off-diagonal plots
 		ax = plt.gca()
 		ax.set_rasterized(True)
-
 		lab = kws['label']
-
 		xy = np.array([x, y]).T
 		n, _ = np.shape(xy)
 		freqr = np.corrcoef(xy[:, 0], xy[:, 1])
@@ -485,7 +481,7 @@ def run_simulation(inputs):
 			
 			axes[1].scatter(T0, 1, marker='o', ec='k', c='blue', zorder=10, label=f'$t_{{div}}^0 = {T0:.2f}$h')
 			axes[1].axvline(T0, ls=':', c='blue', zorder=-1)
-			axes[1].annotate(r"$\rightarrow$" + f"$m={T:.2f}$h", xy=(T0+1, 0.58), xycoords=('data', 'axes fraction'))
+			axes[1].annotate(r"$\rightarrow$" + f"$t_{{div}}^{{k\geq1}}={T:.2f}$h", xy=(T0+1, 0.6), xycoords=('data', 'axes fraction'))
 			axes[1].scatter(tld, 1, marker='o', ec='k', c='forestgreen', zorder=10, label=f'$t_{{ld}} = {tld:.2f}$h')
 			axes[1].axvline(tld, ls=':', c='forestgreen', zorder=-1)
 			axes[1].scatter(D, 1, marker='*', ec='k', c='forestgreen', zorder=10, label=f'$t_{{dd}} = {D:.2f}$h')
@@ -543,7 +539,7 @@ def run_simulation(inputs):
 			g.axes[i,j].spines['top'].set_visible(True)
 			g.axes[i,j].spines['right'].set_visible(True)
 			g.axes[i,j].scatter(df['tdiv0'], df['tdiv'], c=data_color, marker='o', ec='k', lw=0.5, s=18, label='Data', rasterized=True)
-			g.axes[i,j].set_ylabel(r"Avg. sub div time ($M$)")
+			g.axes[i,j].set_ylabel(r"Avg. sub div time ($T_{div}^{k\geq 1}$)")
 		elif i == 2 and j == 0:
 			g.axes[i,j].spines['top'].set_visible(True)
 			g.axes[i,j].spines['right'].set_visible(True)
@@ -566,7 +562,7 @@ def run_simulation(inputs):
 			g.axes[i,j].spines['top'].set_visible(True)
 			g.axes[i,j].spines['right'].set_visible(True)
 			g.axes[i,j].scatter(df['tdiv'], df['tdie'], c=data_color, marker='o', ec='k', lw=0.5, s=18, rasterized=True)
-			g.axes[i,j].set_xlabel(r"Avg. sub div time ($M$)")
+			g.axes[i,j].set_xlabel(r"Avg. sub div time ($T_{div}^{k\geq 1}$)")
 			g.axes[i,j].set_xlim(left=0, right=max(df_sim['tdiv']))
 		elif i == 3 and j == 2:
 			g.axes[i,j].spines['top'].set_visible(True)
@@ -590,14 +586,14 @@ def run_simulation(inputs):
 	left, bottom, width, height = [0.6, 0.6, 0.38, 0.3]
 	in_ax = g.fig.add_axes([left, bottom, width, height])
 
-	tt = np.linspace(t0, tf, num=10000)
+	tt = np.linspace(t0, tf, num=1000)
 	in_ax.set_title(f"Cyton distribution (Fitted parameters)")
 	in_ax.set_ylabel("Prob. density")
 	in_ax.set_xlabel("Time (hour)")
-	in_ax.fill_between(tt, sps.lognorm.pdf(tt, sT0, scale=mT0), color='blue', label=f'$T_{{div}}^0 \sim LN({mT0}, {sT0})$', alpha=0.3)
-	in_ax.fill_between(tt, sps.lognorm.pdf(tt, sT, scale=mT), color='orange', label=f"$M \sim LN({mT}, {sT})$", alpha=0.3)
-	in_ax.fill_between(tt, sps.lognorm.pdf(tt, sD, scale=mD), color='green', label=f'$T_{{ld}} = T_{{dd}} \sim LN({mD}, {sD})$', alpha=0.3)
-	in_ax.fill_between(tt, sps.lognorm.pdf(tt, sX, scale=mX), color='red', label=f'$T_{{die}} \sim LN({mX}, {sX})$', alpha=0.3)
+	in_ax.fill_between(tt, sps.lognorm.pdf(tt, sT0, scale=mT0), color='blue', label=f'$T_{{div}}^0 \sim LN({mT0}, {sT0})$', alpha=0.3, rasterized=True)
+	in_ax.fill_between(tt, sps.lognorm.pdf(tt, sT, scale=mT), color='orange', label=f"$T_{{div}}^{{k\geq1}} \sim LN({mT}, {sT})$", alpha=0.3, rasterized=True)
+	in_ax.fill_between(tt, sps.lognorm.pdf(tt, sD, scale=mD), color='green', label=f'$T_{{ld}} = T_{{dd}} \sim LN({mD}, {sD})$', alpha=0.3, rasterized=True)
+	in_ax.fill_between(tt, sps.lognorm.pdf(tt, sX, scale=mX), color='red', label=f'$T_{{die}} \sim LN({mX}, {sX})$', alpha=0.3, rasterized=True)
 	in_ax.spines['top'].set_visible(True)
 	in_ax.spines['right'].set_visible(True)
 	in_ax.set_ylim(bottom=0)
@@ -630,19 +626,19 @@ if __name__ == "__main__":
 	}
 
 	pars = {  ### RECREATE FILMING DATA RESULTS (LOGNORMAL)
-		'b_cpg/cpg3': {'mT0': 38.4, 'sT0': 0.13, 'mT': 10.90, 'sT': 0.23, 'mD': 53.79, 'sD': 0.21, 'mX': 86.66, 'sX': 0.18},
-		'b_cpg/cpg4': {'mT0': 41.51, 'sT0': 0.14, 'mT': 12.12, 'sT': 0.24, 'mD': 58.73, 'sD': 0.22, 'mX': 86.92, 'sX': 0.22},
-		't_il2/1U_aggre': {'mT0': 35.73, 'sT0': 0.12, 'mT': 19.11, 'sT': 0.39, 'mD': 37.52, 'sD': 0.16, 'mX': 44.75, 'sX': 0.23},
-		't_il2/3U_aggre': {'mT0': 41.26, 'sT0': 0.15, 'mT': 17.64, 'sT': 0.5, 'mD': 46.53, 'sD': 0.21, 'mX': 65.1, 'sX': 0.28},
-		't_il2/10U_aggre': {'mT0': 41.97, 'sT0': 0.18, 'mT': 16.84, 'sT': 0.19, 'mD': 47.56, 'sD': 0.21, 'mX': 63.88, 'sX': 0.27},
-		't_misc_20140211_1.0': {'mT0': 34.12, 'sT0': 0.11, 'mT': 14.03, 'sT': 0.25, 'mD': 39.96, 'sD': 0.23, 'mX': 48.18, 'sX': 0.21},
+		'b_cpg/cpg3': {'mT0': 38.40, 'sT0': 0.13, 'mT': 10.90, 'sT': 0.23, 'mD': 53.79, 'sD': 0.21, 'mX': 86.66, 'sX': 0.18},
+		'b_cpg/cpg4': {'mT0': 41.51, 'sT0': 0.14, 'mT': 12.13, 'sT': 0.24, 'mD': 58.73, 'sD': 0.22, 'mX': 86.92, 'sX': 0.22},
+		't_il2/1U_aggre': {'mT0': 35.77, 'sT0': 0.12, 'mT': 18.99, 'sT': 0.38, 'mD': 37.52, 'sD': 0.16, 'mX': 44.75, 'sX': 0.23},
+		't_il2/3U_aggre': {'mT0': 41.26, 'sT0': 0.15, 'mT': 17.65, 'sT': 0.50, 'mD': 46.53, 'sD': 0.21, 'mX': 65.10, 'sX': 0.28},
+		't_il2/10U_aggre': {'mT0': 41.97, 'sT0': 0.18, 'mT': 16.83, 'sT': 0.19, 'mD': 47.56, 'sD': 0.21, 'mX': 63.88, 'sX': 0.27},
+		't_misc_20140211_1.0': {'mT0': 34.12, 'sT0': 0.11, 'mT': 14.04, 'sT': 0.25, 'mD': 39.96, 'sD': 0.23, 'mX': 48.18, 'sX': 0.21},
 		't_misc_20140211_2.0': {'mT0': 33.52, 'sT0': 0.12, 'mT': 10.0, 'sT': 0.2, 'mD': 34.19, 'sD': 0.13, 'mX': 39.53, 'sX': 0.14}, # problematic one, I cannot get estimate on sub div time as there's no data...
 		't_misc_20140211_3.0': {'mT0': 32.85, 'sT0': 0.1, 'mT': 10.0, 'sT': 0.2, 'mD': 32.85, 'sD': 0.1, 'mX': 36.74, 'sX': 0.13}, # problematic one, no data for sub div time
-		't_misc_20140211_4.0': {'mT0': 35.77, 'sT0': 0.1, 'mT': 16.04, 'sT': 0.2, 'mD': 37.3, 'sD': 0.14, 'mX': 43.82, 'sX': 0.19},
-		't_misc_20140325_1.0': {'mT0': 34.09, 'sT0': 0.10, 'mT': 10.24, 'sT': 0.2, 'mD': 42.52, 'sD': 0.2, 'mX': 48.13, 'sX': 0.22},
-		't_misc_20140325_2.0': {'mT0': 39.25, 'sT0': 0.14, 'mT': 12.82, 'sT': 0.38, 'mD': 48.38, 'sD': 0.18, 'mX': 54.27, 'sX': 0.13},
-		't_misc_20140325_3.0': {'mT0': 34.5, 'sT0': 0.07, 'mT': 10.28, 'sT': 0.17, 'mD': 41.35, 'sD': 0.15, 'mX': 46.9, 'sX': 0.17},
-		't_misc_20140325_4.0': {'mT0': 34.12, 'sT0': 0.09, 'mT': 11.5, 'sT': 0.23, 'mD': 39.17, 'sD': 0.19, 'mX': 43.6, 'sX': 0.18}, 
+		't_misc_20140211_4.0': {'mT0': 35.77, 'sT0': 0.1, 'mT': 16.09, 'sT': 0.2, 'mD': 37.3, 'sD': 0.14, 'mX': 43.82, 'sX': 0.19},
+		't_misc_20140325_1.0': {'mT0': 34.09, 'sT0': 0.1, 'mT': 10.23, 'sT': 0.2, 'mD': 42.48, 'sD': 0.2, 'mX': 48.13, 'sX': 0.22},
+		't_misc_20140325_2.0': {'mT0': 39.25, 'sT0': 0.14, 'mT': 12.83, 'sT': 0.38, 'mD': 48.38, 'sD': 0.18, 'mX': 54.22, 'sX': 0.13},
+		't_misc_20140325_3.0': {'mT0': 34.5, 'sT0': 0.07, 'mT': 10.28, 'sT': 0.17, 'mD': 41.35, 'sD': 0.15, 'mX': 46.95, 'sX': 0.17},
+		't_misc_20140325_4.0': {'mT0': 34.12, 'sT0': 0.08, 'mT': 11.5, 'sT': 0.23, 'mD': 39.17, 'sD': 0.19, 'mX': 43.6, 'sX': 0.18}, 
 	}
 
 	# change your simulation time here

@@ -7,6 +7,9 @@ Run this for generating Fig4 in the main article; FigS4, FigS5 in the Supplement
 import os
 import numpy as np
 import pandas as pd
+pd.set_option('display.max_rows', 999999)
+pd.set_option('display.max_columns', 999999)
+pd.set_option('display.expand_frame_repr', False)
 import seaborn as sns
 import matplotlib.pyplot as plt
 import scipy.stats as sps
@@ -38,7 +41,7 @@ def confidence_band(x):
 	high = np.percentile(x, 97.5, interpolation='nearest', axis=0)
 	return mean, low, high
 
-VAR_MAP = {'tdiv0': "$T_{div}^0$", 'tdiv': "$M$", 'tld': "$T_{ld}$", 'tdie': "$T_{die}$"}
+VAR_MAP = {'tdiv0': "$T_{div}^0$", 'tdiv': "$T_{div}^{k\geq1}$", 'tld': "$T_{ld}$", 'tdie': "$T_{die}$"}
 DATA_PROPERTY = {
 	'./data/_processed/collapsed_times/b_cpg_cpg3_0.0.csv': {
 		'condition': "CpG"
@@ -99,19 +102,69 @@ DATA_PROPERTY = {
 	}
 }
 
+def _waic(trace, name, idx=0):
+	log_likelihood = trace.log_likelihood[list(trace.log_likelihood.data_vars)[0]]
+	log_likelihood = log_likelihood.stack(sample=("chain", "draw"))  # if has more than 1 chain
+
+	shape = log_likelihood.shape
+	n_samples = shape[-1]  # samples from posterior distribution
+	n_data = np.product(shape[:-1])  # number of data points
+
+	# Eq.2 (lppd_i = lppd per data point): log( 1/S * \sum_s^S( P(z_i|Theta_s) ) = logsumexp(logLike) - log(S)
+	lppd_i = np.log(np.sum(np.exp(log_likelihood.values), axis=1)) - np.log(n_samples)  
+	vars_lpd = log_likelihood.var(dim="sample").values
+	waic_i = -2. * (lppd_i - vars_lpd)
+
+	waic = np.sum(waic_i)
+	p_waic = np.sum(vars_lpd)  # penalty term
+	
+	# Standard error of WAIC
+	se = np.sqrt(n_data * np.var(waic_i))
+
+	res = pd.DataFrame({'name': name, 'waic': waic, 'p_waic': p_waic, 'se': se, 'waic_i': [waic_i]}, index=pd.Index([idx]))
+	return res
+
+def compare_waics(traces, names):
+	waics = []
+	for idx, (trace, name) in enumerate(zip(traces, names)):
+		waic = _waic(trace, name, idx)
+		waics.append(waic)
+	waics = pd.concat(waics)
+	waics = waics.sort_values(by='waic').reset_index(drop=True)
+
+	# difference of waic w.r.t the best model
+	waics['delta_waic'] = waics.loc[:,'waic'] - waics.at[0,'waic']
+
+	# standard error of difference of waic w.r.t the best model
+	n_data = len(waics.at[0,'waic_i'])
+	waics['delta_se'] = np.sqrt(
+		n_data * np.var(np.vstack(waics.loc[:,'waic_i'].values) - waics.at[0,'waic_i'][np.newaxis,:], axis=1)
+	)
+	waics.drop(columns='waic_i', inplace=True)
+	waics.index.name = 'rank'
+	return waics
+
 if __name__ == "__main__":
 	### Import data
 	loc_data = './data/_processed/collapsed_times'
 	path_data = np.array([os.path.join(loc_data, file) for file in os.listdir(loc_data) if not file.startswith('.')])
 
+	excl = ['./data/_processed/collapsed_times/t_il2_20131218_1.0.csv',
+			'./data/_processed/collapsed_times/t_il2_20131218_2.0.csv',
+			'./data/_processed/collapsed_times/t_il2_20131218_3.0.csv',
+			'./data/_processed/collapsed_times/t_il2_20140121_1.0.csv',
+			'./data/_processed/collapsed_times/t_il2_20140121_2.0.csv',
+			'./data/_processed/collapsed_times/t_il2_20140121_3.0.csv']
+	path_data = [path for path in path_data if path not in excl]  # exclude individual IL-2 dataset (use aggregated one)
+
 	## SET ITERATION AND TUNING NUMBERS
-	niter, ntune = 1000000, 10000
+	niter, ntune = 100000, 10000
 	nchain = ncore = 5
 	nsubsample = 10000
-	dt = 2000
+	dt = 1000
 
-	### HALF-NORMAL PRIORS FOR WEIBULL (UNIFORM PRIORS DOESN'T WORK FOR SOME REAONS)
-	HALFN_STD = 200 * np.sqrt(1 / (1 - 2/np.pi))  # For sqrt(var(Half-Normal)) = 200
+	### HALF-NORMAL PRIORS FOR WEIBULL (UNIFORM PRIORS DOESN'T WORK)
+	HALFN_STD = 500 * np.sqrt(1 / (1 - 2/np.pi))  # For sqrt(var(Half-Normal)) = 200
 	for path in path_data:
 		fname = os.path.basename(os.path.splitext(path)[0])
 		print(f'\n======================== BEGIN {fname} ========================')
@@ -133,13 +186,13 @@ if __name__ == "__main__":
 			# Decide which axis to draw
 			if var in ['tdiv0', 'tdiv']: 
 				ploc = 0
-				axes[0].set_title(f"Time to first division ({VAR_MAP['tdiv0']}) & Avg. Subsequent division time ({VAR_MAP['tdiv']})", x=0.01, ha='left')
-			elif var == 'tld': 
+				axes[0].set_title(f"Time to first division ({VAR_MAP['tdiv0']}) & Avg. Subsequent division time ({VAR_MAP['tdiv']})", x=0.01, ha='left', fontsize=13.5)
+			elif var == 'tld':
 				ploc = 1
-				axes[1].set_title(f"Time to last division ({VAR_MAP['tld']})", x=0.01, ha='left')
+				axes[1].set_title(f"Time to last division ({VAR_MAP['tld']})", x=0.01, ha='left', fontsize=13.5)
 			elif var == 'tdie': 
 				ploc = 2
-				axes[2].set_title(f"Time to death ({VAR_MAP['tdie']})", x=0.01, ha='left')
+				axes[2].set_title(f"Time to death ({VAR_MAP['tdie']})", x=0.01, ha='left', fontsize=13.5)
 			axes[ploc].set_ylabel("eCDF")
 
 			if i == 0: ax2[0].set_title(f"Time to first division ({VAR_MAP['tdiv0']})", fontdict={'color': 'blue'})
@@ -158,17 +211,20 @@ if __name__ == "__main__":
 				#########################################################################################################
 				print("-->>>>>> GAMMA")
 				with pm.Model() as gamma_model: 
-					## Define uninformative priors
-					## class pymc3.distributions.continuous.Uniform(lower=0, upper=1, *args, **kwargs)
 					alpha1 = pm.Uniform('alpha1', lower=1E-10, upper=200)
 					beta1 = pm.Uniform('beta1', lower=1E-10, upper=200)
-
-					## class pymc3.distributions.continuous.Gamma(alpha=None, beta=None, mu=None, sigma=None, sd=None, *args, **kwargs)
 					gamma = pm.Gamma('gamma', alpha=alpha1, beta=beta1, observed=data)
-
-					gamma_trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag', return_inferencedata=True)
+					gamma_trace = pm.sample(draws=niter,
+											tune=ntune, 
+											chains=nchain, 
+											cores=ncore,
+											random_seed=17198734,
+											target_accept=0.95, 
+											init='jitter+adapt_diag', 
+											return_inferencedata=True)
 				gamma_waic = az.waic(gamma_trace, gamma_model, scale='deviance')  # calculate WAIC
-				gamma_summary = az.summary(gamma_trace)
+				gamma_summary = pm.summary(gamma_trace)
+				# gamma_summary = az.summary(gamma_trace)  # for PyMC3 >= 3.11.0
 
 				## Sample from posterior distribution to generate cdfs and plot over eCDF
 				# all_gamma_cdfs = xr.apply_ufunc(
@@ -197,17 +253,20 @@ if __name__ == "__main__":
 				#########################################################################################################
 				print("-->>>>>> LOGNORMAL")
 				with pm.Model() as lnorm_model: 
-					## Define uninformative priors
-					## class pymc3.distributions.continuous.Uniform(lower=0, upper=1, *args, **kwargs)
 					mu1 = pm.Uniform('mu1', lower=1E-10, upper=200)
 					sigma1 = pm.Uniform('sigma1', lower=1E-10, upper=200)
-
-					## class pymc3.distributions.continuous.Lognormal(mu=0, sigma=None, tau=None, sd=None, *args, **kwargs)
 					lnorm = pm.Lognormal('lnorm', mu=mu1, sigma=sigma1, observed=data)  # For trace plot
-
-					lnorm_trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag', return_inferencedata=True)
+					lnorm_trace = pm.sample(draws=niter, 
+											tune=ntune, 
+											chains=nchain, 
+											cores=ncore, 
+											random_seed=33541166,
+											target_accept=0.95,
+											init='jitter+adapt_diag', 
+											return_inferencedata=True)
 				lnorm_waic = az.waic(lnorm_trace, lnorm_model, scale='deviance')
-				lnorm_summary = az.summary(lnorm_trace)
+				lnorm_summary = pm.summary(lnorm_trace)
+				# lnorm_summary = az.summary(lnorm_trace)  # for PyMC3 >= 3.11.0
 				
 				## Get random subset of the posterior
 				idx = rng.choice(lnorm_trace.posterior.mu1.size, nsubsample)
@@ -229,16 +288,20 @@ if __name__ == "__main__":
 				#########################################################################################################
 				print("-->>>>>> NORMAL")
 				with pm.Model() as norm_model: 
-					## Define uninformative priors
-					## class pymc3.distributions.continuous.Uniform(lower=0, upper=1, *args, **kwargs)
 					mu2 = pm.Uniform('mu2', lower=1E-10, upper=200)
 					sigma2 = pm.Uniform('sigma2', lower=1E-10, upper=200)
-
 					norm = pm.Normal('norm', mu=mu2, sigma=sigma2, observed=data)
-
-					norm_trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag', return_inferencedata=True)
+					norm_trace = pm.sample(draws=niter, 
+											tune=ntune, 
+											chains=nchain, 
+											cores=ncore, 
+											random_seed=67754922,
+											target_accept=0.95, 
+											init='jitter+adapt_diag', 
+											return_inferencedata=True)
 				norm_waic = az.waic(norm_trace, norm_model, scale='deviance')
-				norm_summary = az.summary(norm_trace)
+				norm_summary = pm.summary(norm_trace)
+				# norm_summary = az.summary(norm_trace)  # for PyMC3 >= 3.11.0
 
 				## Get random subset of the posterior
 				idx = rng.choice(norm_trace.posterior.mu2.size, nsubsample)
@@ -260,21 +323,22 @@ if __name__ == "__main__":
 				#########################################################################################################
 				print("-->>>>>> WEIBULL")
 				with pm.Model() as weibull_model: 
-					## Define uninformative priors: Weibull seems more sensitive to the priors than the other three distribution classes (Uniform fails)
-					## class pymc3.distributions.continuous.Uniform(lower=0, upper=1, *args, **kwargs)
 					# alpha2 = pm.Uniform('alpha2', lower=1E-10, upper=200)
 					# beta2 = pm.Uniform('beta2', lower=1E-10, upper=200)
-
-					## class pymc3.distributions.continuous.HalfNormal(sigma=None, tau=None, sd=None, *args, **kwargs)
 					alpha2 = pm.HalfNormal('alpha2', sigma=HALFN_STD)
 					beta2 = pm.HalfNormal('beta2', sigma=HALFN_STD)
-
-					## class pymc3.distributions.continuous.Weibull(alpha, beta, *args, **kwargs)
 					weibull = pm.Weibull('weibull', alpha=alpha2, beta=beta2, observed=data)
-
-					weibull_trace = pm.sample(draws=niter, tune=ntune, chains=nchain, cores=ncore, target_accept=0.95, init='jitter+adapt_diag', return_inferencedata=True)
+					weibull_trace = pm.sample(draws=niter, 
+												tune=ntune, 
+												chains=nchain, 
+												cores=ncore,
+												random_seed=26914075,
+												target_accept=0.95, 
+												init='jitter+adapt_diag', 
+												return_inferencedata=True)
 				weibull_waic = az.waic(weibull_trace, weibull_model, scale='deviance')
-				weibull_summary = az.summary(weibull_trace)
+				weibull_summary = pm.summary(weibull_trace)
+				# weibull_summary = az.summary(weibull_trace)  # for PyMC3 >= 3.11.0
 
 				## Get random subset of the posterior
 				idx = rng.choice(weibull_trace.posterior.alpha2.size, nsubsample)
@@ -298,17 +362,18 @@ if __name__ == "__main__":
 					axes[ploc].legend(loc='upper left', fontsize=10, ncol=1)
 
 				#########################################################################################################
-				# 								COMPARE DISTRIBUTIONS (WAIC & LOO)										#
+				# 								COMPARE DISTRIBUTIONS (WAIC)											#
 				#########################################################################################################
 				print("-->>>>>> MODEL SELECTION: WAIC")
-				dfwaic = az.compare(
+				my_waic = compare_waics([gamma_trace, lnorm_trace, norm_trace, weibull_trace], ['Gamma', 'Log-normal', 'Normal', 'Weibull'])
+				print(">>> Compare WAIC")
+				print(my_waic, end='\n')
+
+				# print(">>> PyMC3/Arviz WAIC")
+				dfwaic = az.compare(  # Identical to compare_waic() defined above. But it's convenient to use this for plotting the results
 					{'Gamma': gamma_trace, 'Log-normal': lnorm_trace, 'Normal': norm_trace, 'Weibull': weibull_trace}, 
 					ic='WAIC', method='stacking', scale='deviance')
-				## when computational cost is an issue; see http://www.stat.columbia.edu/~gelman/research/published/stacking_paper_discussion_rejoinder.pdf
-				# dfwaic = az.compare(  
-				# 	{'Gamma': gamma_trace, 'Log-normal': lnorm_trace, 'Normal': norm_trace, 'Weibull': weibull_trace}, 
-				# 	ic='WAIC', method='BB-pseudo-BMA', b_samples=1000000, alpha=1, seed=rng, scale='deviance')
-				print(dfwaic, end='\n\n')
+				# print(dfwaic, end='\n\n')
 				az.plot_compare(dfwaic, ax=ax2[i])
 			else:
 				print(f'CANNOT PROCEED. {var} HAS NO DATA!')

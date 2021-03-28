@@ -1,7 +1,7 @@
 """
 Last edit: 21-November-2020
 
-Reduced model of Cyton 1.5. Only care about activated cells (i.e. p=1 case).
+Reduced model of Cyton2. Only care about activated cells (i.e. p=1 case; no death for unstimulated cells).
 """
 import numpy as np
 cimport numpy as np

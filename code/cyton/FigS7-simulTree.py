@@ -51,7 +51,7 @@ def run_abm(inputs):
 
 	pos = mp.current_process()._identity[0]-1  # For progress bar
 	abm = ABM(rgs=rgs, t0=0, tf=max(hts), dt=dt, max_gen=max_gen, n0=n0)
-	abm.run(pos=pos, name=f"{key} {cond}", pars=pars, n_sims=100)
+	abm.run(pos=pos, name=f"{key} {cond}", pars=pars, n_sims=1000)
 	# abm = ABM(rgs=rgs, t0=0, tf=max(hts), dt=dt, max_gen=max_gen, n0=100)
 	# abm.run(name=f"{key} {cond}", pars=pars, n_sims=10)
 

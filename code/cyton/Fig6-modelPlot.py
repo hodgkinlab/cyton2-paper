@@ -179,12 +179,12 @@ for key in KEYS:
 			tdiv0_pdf, tdiv0_cdf = norm_pdf(times, mDiv0, sDiv0), norm_cdf(times, mDiv0, sDiv0)
 			tdd_pdf, tdd_cdf = norm_pdf(times, mDD, sDD), norm_cdf(times, mDD, sDD)
 			tdie_pdf, tdie_cdf = norm_pdf(times, mDie, sDie), norm_cdf(times, mDie, sDie)
-			ax2[0].plot(times, tdiv0_cdf, color=cp[icnd], label=f"$\mathcal{{N}}({mDiv0:.2f}\pm_{{{mDiv0-err_mDiv0[0]:.2f}}}^{{{err_mDiv0[1]-mDiv0:.2f}}}, {sDiv0:.2f} \pm_{{{sDiv0-err_sDiv0[0]:.2f}}}^{{{err_sDiv0[1]-sDiv0:.2f}}})$")
-			ax2[0].fill_between(times, conf['tdiv0_cdf'][0], conf['tdiv0_cdf'][1], fc=cp[icnd], ec=None, alpha=0.5)
-			ax2[1].plot(times, tdd_cdf, color=cp[icnd], label=f"$\mathcal{{N}}({mDD:.2f}\pm_{{{mDD-err_mDD[0]:.2f}}}^{{{err_mDD[1]-mDD:.2f}}}, {sDD:.2f}\pm_{{{sDD-err_sDD[0]:.2}}}^{{{err_sDD[1]-sDD:.2f}}})$")
-			ax2[1].fill_between(times, conf['tdd_cdf'][0], conf['tdd_cdf'][1], fc=cp[icnd], ec=None, alpha=0.5)
-			ax2[2].plot(times, tdie_cdf, color=cp[icnd], label=f"$\mathcal{{N}}({mDie:.2f}\pm_{{{mDie-err_mDie[0]:.2f}}}^{{{err_mDie[1]-mDie:.2f}}}, {sDie:.2f}\pm_{{{sDie-err_sDie[0]:.2f}}}^{{{err_sDie[1]-sDie:.2f}}})$")
-			ax2[2].fill_between(times, conf['tdie_cdf'][0], conf['tdie_cdf'][1], fc=cp[icnd], ec=None, alpha=0.5)
+			ax2[0].plot(times, tdiv0_cdf, color=cp[icnd])
+			ax2[0].fill_between(times, conf['tdiv0_cdf'][0], conf['tdiv0_cdf'][1], fc=cp[icnd], ec=None, alpha=0.5, label=f"$\mathcal{{N}}({mDiv0:.2f}\pm_{{{mDiv0-err_mDiv0[0]:.2f}}}^{{{err_mDiv0[1]-mDiv0:.2f}}}, {sDiv0:.2f} \pm_{{{sDiv0-err_sDiv0[0]:.2f}}}^{{{err_sDiv0[1]-sDiv0:.2f}}})$")
+			ax2[1].plot(times, tdd_cdf, color=cp[icnd])
+			ax2[1].fill_between(times, conf['tdd_cdf'][0], conf['tdd_cdf'][1], fc=cp[icnd], ec=None, alpha=0.5, label=f"$\mathcal{{N}}({mDD:.2f}\pm_{{{mDD-err_mDD[0]:.2f}}}^{{{err_mDD[1]-mDD:.2f}}}, {sDD:.2f}\pm_{{{sDD-err_sDD[0]:.2}}}^{{{err_sDD[1]-sDD:.2f}}})$")
+			ax2[2].plot(times, tdie_cdf, color=cp[icnd])
+			ax2[2].fill_between(times, conf['tdie_cdf'][0], conf['tdie_cdf'][1], fc=cp[icnd], ec=None, alpha=0.5, label=f"$\mathcal{{N}}({mDie:.2f}\pm_{{{mDie-err_mDie[0]:.2f}}}^{{{err_mDie[1]-mDie:.2f}}}, {sDie:.2f}\pm_{{{sDie-err_sDie[0]:.2f}}}^{{{err_sDie[1]-sDie:.2f}}})$")
 
 			# ax2[0].annotate(f"[{''.join(condition.split())}]: $m = {m:.2f}\pm_{{{m-err_m[0]:.2f}}}^{{{err_m[1]-m:.2f}}}$", xy=(1, 0.98-count/8), color=cp[icnd], fontsize=14)
 			# count += 1
@@ -270,15 +270,12 @@ for key in KEYS:
 	tdie_pdf, tdie_cdf = norm_pdf(times, pred_params['mDie'], pred_params['sDie']), norm_cdf(times, pred_params['mDie'], pred_params['sDie'])
 	m = pred_pars.loc['m', 'best-fit']
 	ax2[0].annotate(f"$m = {m:.2f}\pm_{{{m-err_m[0]:.2f}}}^{{{err_m[1]-m:.2f}}}$", xy=(1, 0.85), color='k', fontsize=16)
-	ax2[0].plot(times, tdiv0_cdf, '--', color=cp[icnd], 
-				label=f"$\mathcal{{N}}({pred_params['mDiv0'].value:.2f}\pm_{{{pred_params['mDiv0'].value-err_mDiv0[0]:.2f}}}^{{{err_mDiv0[1]-pred_params['mDiv0'].value:.2f}}}, {pred_params['sDiv0'].value:.2f} \pm_{{{pred_params['sDiv0'].value-err_sDiv0[0]:.2f}}}^{{{err_sDiv0[1]-pred_params['sDiv0'].value:.2f}}})$")
-	ax2[0].fill_between(times, conf['tdiv0_cdf'][0], conf['tdiv0_cdf'][1], fc=cp[icnd], ec=None, alpha=0.5)
-	ax2[1].plot(times, tdd_cdf, '--', color=cp[icnd], 
-				label=f"$\mathcal{{N}}({pred_params['mDD'].value:.2f}\pm_{{{pred_params['mDD'].value-err_mDD[0]:.2f}}}^{{{err_mDD[1]-pred_params['mDD'].value:.2f}}}, {pred_params['sDD'].value:.2f}\pm_{{{pred_params['sDD'].value-err_sDD[0]:.2f}}}^{{{err_sDD[1]-pred_params['sDD'].value:.2f}}})$")
-	ax2[1].fill_between(times, conf['tdd_cdf'][0], conf['tdd_cdf'][1], fc=cp[icnd], ec=None, alpha=0.5)
-	ax2[2].plot(times, tdie_cdf, '--', color=cp[icnd], 
-				label=f"$\mathcal{{N}}({pred_params['mDie'].value:.2f}\pm_{{{pred_params['mDie'].value-err_mDie[0]:.2f}}}^{{{err_mDie[1]-pred_params['mDie'].value:.2f}}}, {pred_params['sDie'].value:.2f}\pm_{{{pred_params['sDie'].value-err_sDie[0]:.2f}}}^{{{err_sDie[1]-pred_params['sDie'].value:.2f}}})$")
-	ax2[2].fill_between(times, conf['tdie_cdf'][0], conf['tdie_cdf'][1], fc=cp[icnd], ec=None, alpha=0.5)
+	ax2[0].plot(times, tdiv0_cdf, '--', color=cp[icnd])
+	ax2[0].fill_between(times, conf['tdiv0_cdf'][0], conf['tdiv0_cdf'][1], fc=cp[icnd], ec=None, alpha=0.5, label=f"$\mathcal{{N}}({pred_params['mDiv0'].value:.2f}\pm_{{{pred_params['mDiv0'].value-err_mDiv0[0]:.2f}}}^{{{err_mDiv0[1]-pred_params['mDiv0'].value:.2f}}}, {pred_params['sDiv0'].value:.2f} \pm_{{{pred_params['sDiv0'].value-err_sDiv0[0]:.2f}}}^{{{err_sDiv0[1]-pred_params['sDiv0'].value:.2f}}})$")
+	ax2[1].plot(times, tdd_cdf, '--', color=cp[icnd])
+	ax2[1].fill_between(times, conf['tdd_cdf'][0], conf['tdd_cdf'][1], fc=cp[icnd], ec=None, alpha=0.5, label=f"$\mathcal{{N}}({pred_params['mDD'].value:.2f}\pm_{{{pred_params['mDD'].value-err_mDD[0]:.2f}}}^{{{err_mDD[1]-pred_params['mDD'].value:.2f}}}, {pred_params['sDD'].value:.2f}\pm_{{{pred_params['sDD'].value-err_sDD[0]:.2f}}}^{{{err_sDD[1]-pred_params['sDD'].value:.2f}}})$")
+	ax2[2].plot(times, tdie_cdf, '--', color=cp[icnd])
+	ax2[2].fill_between(times, conf['tdie_cdf'][0], conf['tdie_cdf'][1], fc=cp[icnd], ec=None, alpha=0.5, label=f"$\mathcal{{N}}({pred_params['mDie'].value:.2f}\pm_{{{pred_params['mDie'].value-err_mDie[0]:.2f}}}^{{{err_mDie[1]-pred_params['mDie'].value:.2f}}}, {pred_params['sDie'].value:.2f}\pm_{{{pred_params['sDie'].value-err_sDie[0]:.2f}}}^{{{err_sDie[1]-pred_params['sDie'].value:.2f}}})$")
 
 	pred_model = Cyton15Model(hts, df['cells']['avg'][icnd][0], mgen, dt, nreps, False)
 	extrapolate = pred_model.extrapolate(times, pred_params)
@@ -306,7 +303,9 @@ for key in KEYS:
 		handles, labels = axis.get_legend_handles_labels()
 		handles.reverse()
 		labels.reverse()
-		axis.legend(ncol=1, handles=handles, labels=labels, frameon=False, fontsize=16)
+		leg = axis.legend(ncol=1, handles=handles, labels=labels, frameon=False, fontsize=16)
+		for line in leg.get_lines():
+			line.set_linewidth(3.0)
 	ax2[2].set_xlabel("Time (hour)")
 	fig1.tight_layout(rect=(0, 0, 1, 1))
 	fig2.tight_layout(rect=(0, 0, 1, 1))

@@ -202,7 +202,7 @@ def embed_plot(axis, combination, display, color):
 		axis.set_xticks([])
 		axis.set_yticklabels([])
 		axis.set_xticklabels([])
-	axis.set_title(f"{'-'.join(map(str, combination+1))} time points removed", fontsize=12, weight='bold', color=color)
+	axis.set_title(f"{'-'.join(map(str, combination+1))}", fontsize=12, weight='bold', color=color)
 
 	axis.spines['right'].set_visible(True)
 	axis.spines['top'].set_visible(True)
@@ -295,7 +295,8 @@ if __name__ == "__main__":
 	# paths = ['./out/_all_Lognormal/indiv/dt=0.5_B cells -TPS_9Rep',
 	# 		 './out/_all_Lognormal/indiv/dt=0.5_B cells -TPS_9Rep_tk2']
 	paths = [#'./out/_all_Lognormal/indiv/dt=0.5_B cells -TPS_3Rep',
-			 './out/_all_Lognormal/indiv/dt=0.5_B cells -TPS_3Rep_tk2']
+			 #'./out/_all_Lognormal/indiv/dt=0.5_B cells -TPS_3Rep_tk2',
+			 './out/_all_Lognormal/indiv/dt=0.5_B cells -TPS_3Rep_tk3 (1000 iters)']
 	for path in reversed(paths):
 		print(f" > Working on... {path}")
 		ranges = [(0,3), (3,4), (4,6)]
@@ -456,194 +457,194 @@ if __name__ == "__main__":
 	#########################################################################################
 	#								MODEL PLOT (REPLICATE)									#
 	#########################################################################################
-	# print("> Analyse the precision of parameter estimates [1,2,...,9 replicates]")
-	# RGS = 95
-	# df = parse_data('./data', ['SH1.119.xlsx'])['SH1.119']
-	# reader = df['reader']
+	print("> Analyse the precision of parameter estimates [1,2,...,9 replicates]")
+	RGS = 95
+	df = parse_data('./data', ['SH1.119.xlsx'])['SH1.119']
+	reader = df['reader']
 
-	# paths = ['./out/_all_Lognormal/indiv/dt=0.5_B cells Replicates_100',
-	# 		 './out/_all_Lognormal/indiv/dt=0.5_B cells Replicates_100_tk2',
-	# 		 './out/_all_Lognormal/indiv/dt=0.5_B cells Replicates_500',
-	# 		 './out/_all_Lognormal/indiv/dt=0.5_B cells Replicates_1000',
-	# 		 './out/_all_Lognormal/indiv/dt=0.5_B cells Replicates_1000_tk2',
-	# 		 './out/_all_Lognormal/indiv/dt=0.5_B cells Replicates_HalfTPS_100',
-	# 		 './out/_all_Lognormal/indiv/dt=0.5_B cells Replicates_HalfTPS_1000']
-	# for path in paths:
-	# 	print(f" > Working on... {path}")
-	# 	df_fits = pd.read_excel(f"{path}/SH1.119_result.xlsx", sheet_name=None, index_col=0)
-	# 	sheets = list(df_fits.keys())
-	# 	icnd = 0
+	paths = ['./out/_all_Lognormal/indiv/dt=0.5_B cells Replicates_100',
+			 './out/_all_Lognormal/indiv/dt=0.5_B cells Replicates_100_tk2',
+			 './out/_all_Lognormal/indiv/dt=0.5_B cells Replicates_500',
+			 './out/_all_Lognormal/indiv/dt=0.5_B cells Replicates_1000',
+			 './out/_all_Lognormal/indiv/dt=0.5_B cells Replicates_1000_tk2',
+			 './out/_all_Lognormal/indiv/dt=0.5_B cells Replicates_HalfTPS_100',
+			 './out/_all_Lognormal/indiv/dt=0.5_B cells Replicates_HalfTPS_1000']
+	for path in paths:
+		print(f" > Working on... {path}")
+		df_fits = pd.read_excel(f"{path}/SH1.119_result.xlsx", sheet_name=None, index_col=0)
+		sheets = list(df_fits.keys())
+		icnd = 0
 
-	# 	### GET EXPERIMENT INFO
-	# 	hts = reader.harvested_times[icnd]
-	# 	mgen = reader.generation_per_condition[icnd]
-	# 	condition = reader.condition_names[icnd]
+		### GET EXPERIMENT INFO
+		hts = reader.harvested_times[icnd]
+		mgen = reader.generation_per_condition[icnd]
+		condition = reader.condition_names[icnd]
 
-	# 	### PREPARE DATA
-	# 	nreps = []
-	# 	for datum in df['cgens']['rep'][icnd]:
-	# 		nreps.append(len(datum))
+		### PREPARE DATA
+		nreps = []
+		for datum in df['cgens']['rep'][icnd]:
+			nreps.append(len(datum))
 
-	# 	reps = np.arange(1, 10, step=1)
-	# 	for rep in reps:
-	# 		print(f" >> {rep} replicate(s)...")
-	# 		select1 = [sheet for sheet in sheets if f"pars_{rep}reps" == sheet]
-	# 		select2 = [sheet for sheet in sheets if f"boot_{rep}reps" == sheet]
+		reps = np.arange(1, 10, step=1)
+		for rep in reps:
+			print(f" >> {rep} replicate(s)...")
+			select1 = [sheet for sheet in sheets if f"pars_{rep}reps" == sheet]
+			select2 = [sheet for sheet in sheets if f"boot_{rep}reps" == sheet]
 
-	# 		fit_pars = df_fits[select1[0]]
-	# 		fit_boots = df_fits[select2[0]]
+			fit_pars = df_fits[select1[0]]
+			fit_boots = df_fits[select2[0]]
 
-	# 		### GET PARAMETER NAMES AND "VARY" STATES
-	# 		pars_name = fit_pars.index.to_numpy()
-	# 		pars_vary = fit_pars.loc[:,'vary']
+			### GET PARAMETER NAMES AND "VARY" STATES
+			pars_name = fit_pars.index.to_numpy()
+			pars_vary = fit_pars.loc[:,'vary']
 
-	# 		best_params = lmf.Parameters()
-	# 		for par in pars_name:
-	# 			best_params.add(par, value=fit_pars.loc[par, 'mean'], vary=pars_vary[par])
-	# 		best_fit = best_params.valuesdict()
-	# 		mUns, sUns = best_fit['mUns'], best_fit['sUns']
-	# 		mDiv0, sDiv0 = best_fit['mDiv0'], best_fit['sDiv0']
-	# 		mDD, sDD = best_fit['mDD'], best_fit['sDD']
-	# 		mDie, sDie = best_fit['mDie'], best_fit['sDie']
-	# 		m, p = best_fit['m'], best_fit['p']
+			best_params = lmf.Parameters()
+			for par in pars_name:
+				best_params.add(par, value=fit_pars.loc[par, 'mean'], vary=pars_vary[par])
+			best_fit = best_params.valuesdict()
+			mUns, sUns = best_fit['mUns'], best_fit['sUns']
+			mDiv0, sDiv0 = best_fit['mDiv0'], best_fit['sDiv0']
+			mDD, sDD = best_fit['mDD'], best_fit['sDD']
+			mDie, sDie = best_fit['mDie'], best_fit['sDie']
+			m, p = best_fit['m'], best_fit['p']
 
-	# 		t0, tf, dt = 0, max(hts)+5, 0.5
-	# 		times = np.linspace(t0, tf, num=int(tf/dt)+1)
-	# 		gens = np.array([i for i in range(mgen+1)])
+			t0, tf, dt = 0, max(hts)+5, 0.5
+			times = np.linspace(t0, tf, num=int(tf/dt)+1)
+			gens = np.array([i for i in range(mgen+1)])
 
-	# 		### GET CYTON BEST-FIT CURVES
-	# 		model = Cyton15Model(hts, df['cells']['avg'][icnd][0], mgen, dt, nreps, True)
-	# 		extrapolate = model.extrapolate(times, best_params)  # get extrapolation for all "times" (discretised) and at harvested timepoints
-	# 		ext_total_live_cells = extrapolate['ext']['total_live_cells']
-	# 		ext_cells_per_gen = extrapolate['ext']['cells_gen']
-	# 		hts_total_live_cells = extrapolate['hts']['total_live_cells']
-	# 		hts_cells_per_gen = extrapolate['hts']['cells_gen']
+			### GET CYTON BEST-FIT CURVES
+			model = Cyton15Model(hts, df['cells']['avg'][icnd][0], mgen, dt, nreps, True)
+			extrapolate = model.extrapolate(times, best_params)  # get extrapolation for all "times" (discretised) and at harvested timepoints
+			ext_total_live_cells = extrapolate['ext']['total_live_cells']
+			ext_cells_per_gen = extrapolate['ext']['cells_gen']
+			hts_total_live_cells = extrapolate['hts']['total_live_cells']
+			hts_cells_per_gen = extrapolate['hts']['cells_gen']
 
-	# 		# Calculate bootstrap intervals
-	# 		unst_pdf_curves, unst_cdf_curves = [], []
-	# 		tdiv0_pdf_curves, tdiv0_cdf_curves = [], []
-	# 		tdd_pdf_curves, tdd_cdf_curves = [], []
-	# 		tdie_pdf_curves, tdie_cdf_curves = [], []
+			# Calculate bootstrap intervals
+			unst_pdf_curves, unst_cdf_curves = [], []
+			tdiv0_pdf_curves, tdiv0_cdf_curves = [], []
+			tdd_pdf_curves, tdd_cdf_curves = [], []
+			tdie_pdf_curves, tdie_cdf_curves = [], []
 
-	# 		b_ext_total_live_cells, b_ext_cells_per_gen = [], []
-	# 		b_hts_total_live_cells, b_hts_cells_per_gen = [], []
+			b_ext_total_live_cells, b_ext_cells_per_gen = [], []
+			b_hts_total_live_cells, b_hts_cells_per_gen = [], []
 
-	# 		conf = {
-	# 			'unst_pdf': [], 'unst_cdf': [], 'tdiv0_pdf': [], 'tdiv0_cdf': [], 'tdd_pdf': [], 'tdd_cdf': [], 'tdie_pdf': [], 'tdie_cdf': [],
-	# 			'ext_total_cohorts': [], 'ext_total_live_cells': [], 'ext_cells_per_gen': [], 'hts_total_live_cells': [], 'hts_cells_per_gen': []
-	# 		}
-	# 		tmp_N0 = []  # just to calculate confidence interval for N0, but this is not real parameter! The interval is only from bootstrapping... (And recording this would make easier to plot in the future)
-	# 		for bsample in fit_boots.drop('algo', axis=1).iterrows():
-	# 			b_mUns, b_sUns = bsample[1]['mUns'], bsample[1]['sUns']
-	# 			b_mDiv0, b_sDiv0 = bsample[1]['mDiv0'], bsample[1]['sDiv0']
-	# 			b_mDD, b_sDD = bsample[1]['mDD'], bsample[1]['sDD']
-	# 			b_mDie, b_sDie = bsample[1]['mDie'], bsample[1]['sDie']
-	# 			b_m, b_p = bsample[1]['m'], bsample[1]['p']
-	# 			b_N0 = bsample[1]['N0']
+			conf = {
+				'unst_pdf': [], 'unst_cdf': [], 'tdiv0_pdf': [], 'tdiv0_cdf': [], 'tdd_pdf': [], 'tdd_cdf': [], 'tdie_pdf': [], 'tdie_cdf': [],
+				'ext_total_cohorts': [], 'ext_total_live_cells': [], 'ext_cells_per_gen': [], 'hts_total_live_cells': [], 'hts_cells_per_gen': []
+			}
+			tmp_N0 = []  # just to calculate confidence interval for N0, but this is not real parameter! The interval is only from bootstrapping... (And recording this would make easier to plot in the future)
+			for bsample in fit_boots.drop('algo', axis=1).iterrows():
+				b_mUns, b_sUns = bsample[1]['mUns'], bsample[1]['sUns']
+				b_mDiv0, b_sDiv0 = bsample[1]['mDiv0'], bsample[1]['sDiv0']
+				b_mDD, b_sDD = bsample[1]['mDD'], bsample[1]['sDD']
+				b_mDie, b_sDie = bsample[1]['mDie'], bsample[1]['sDie']
+				b_m, b_p = bsample[1]['m'], bsample[1]['p']
+				b_N0 = bsample[1]['N0']
 
-	# 			b_params = best_params.copy()
-	# 			b_params['mUns'].set(value=b_mUns); b_params['sUns'].set(value=b_sUns)
-	# 			b_params['mDiv0'].set(value=b_mDiv0); b_params['sDiv0'].set(value=b_sDiv0)
-	# 			b_params['mDD'].set(value=b_mDD); b_params['sDD'].set(value=b_sDD)
-	# 			b_params['mDie'].set(value=b_mDie); b_params['sDie'].set(value=b_sDie)
-	# 			b_params['m'].set(value=b_m); b_params['p'].set(value=b_p)
+				b_params = best_params.copy()
+				b_params['mUns'].set(value=b_mUns); b_params['sUns'].set(value=b_sUns)
+				b_params['mDiv0'].set(value=b_mDiv0); b_params['sDiv0'].set(value=b_sDiv0)
+				b_params['mDD'].set(value=b_mDD); b_params['sDD'].set(value=b_sDD)
+				b_params['mDie'].set(value=b_mDie); b_params['sDie'].set(value=b_sDie)
+				b_params['m'].set(value=b_m); b_params['p'].set(value=b_p)
 
-	# 			# Calculate PDF and CDF curves for each set of parameter
-	# 			b_unst_pdf, b_unst_cdf = lognorm_pdf(times, b_mUns, b_sUns), lognorm_cdf(times, b_mUns, b_sUns)
-	# 			b_tdiv0_pdf, b_tdiv0_cdf = lognorm_pdf(times, b_mDiv0, b_sDiv0), lognorm_cdf(times, b_mDiv0, b_sDiv0)
-	# 			b_tdd_pdf, b_tdd_cdf = lognorm_pdf(times, b_mDD, b_sDD), lognorm_cdf(times, b_mDD, b_sDD)
-	# 			b_tdie_pdf, b_tdie_cdf = lognorm_pdf(times, b_mDie, b_sDie), lognorm_cdf(times, b_mDie, b_sDie)
+				# Calculate PDF and CDF curves for each set of parameter
+				b_unst_pdf, b_unst_cdf = lognorm_pdf(times, b_mUns, b_sUns), lognorm_cdf(times, b_mUns, b_sUns)
+				b_tdiv0_pdf, b_tdiv0_cdf = lognorm_pdf(times, b_mDiv0, b_sDiv0), lognorm_cdf(times, b_mDiv0, b_sDiv0)
+				b_tdd_pdf, b_tdd_cdf = lognorm_pdf(times, b_mDD, b_sDD), lognorm_cdf(times, b_mDD, b_sDD)
+				b_tdie_pdf, b_tdie_cdf = lognorm_pdf(times, b_mDie, b_sDie), lognorm_cdf(times, b_mDie, b_sDie)
 
-	# 			unst_pdf_curves.append(b_unst_pdf); unst_cdf_curves.append(b_unst_cdf)
-	# 			tdiv0_pdf_curves.append(b_tdiv0_pdf); tdiv0_cdf_curves.append(b_tdiv0_cdf)
-	# 			tdd_pdf_curves.append(b_tdd_pdf); tdd_cdf_curves.append(b_tdd_cdf)
-	# 			tdie_pdf_curves.append(b_tdie_pdf); tdie_cdf_curves.append(b_tdie_cdf)
+				unst_pdf_curves.append(b_unst_pdf); unst_cdf_curves.append(b_unst_cdf)
+				tdiv0_pdf_curves.append(b_tdiv0_pdf); tdiv0_cdf_curves.append(b_tdiv0_cdf)
+				tdd_pdf_curves.append(b_tdd_pdf); tdd_cdf_curves.append(b_tdd_cdf)
+				tdie_pdf_curves.append(b_tdie_pdf); tdie_cdf_curves.append(b_tdie_cdf)
 
-	# 			# Calculate model prediction for each set of parameter
-	# 			b_model = Cyton15Model(hts, b_N0, mgen, dt, nreps, True)
-	# 			b_extrapolate = b_model.extrapolate(times, b_params)  # get extrapolation for all "times" (discretised) and at harvested timepoints
-	# 			b_ext_total_live_cells.append(b_extrapolate['ext']['total_live_cells'])
-	# 			b_ext_total_cohorts = np.sum(np.transpose(b_extrapolate['ext']['cells_gen']) * np.power(2.,-gens), axis=1)
-	# 			b_ext_cells_per_gen.append(b_extrapolate['ext']['cells_gen'])
-	# 			b_hts_total_live_cells.append(b_extrapolate['hts']['total_live_cells'])
-	# 			b_hts_cells_per_gen.append(b_extrapolate['hts']['cells_gen'])
+				# Calculate model prediction for each set of parameter
+				b_model = Cyton15Model(hts, b_N0, mgen, dt, nreps, True)
+				b_extrapolate = b_model.extrapolate(times, b_params)  # get extrapolation for all "times" (discretised) and at harvested timepoints
+				b_ext_total_live_cells.append(b_extrapolate['ext']['total_live_cells'])
+				b_ext_total_cohorts = np.sum(np.transpose(b_extrapolate['ext']['cells_gen']) * np.power(2.,-gens), axis=1)
+				b_ext_cells_per_gen.append(b_extrapolate['ext']['cells_gen'])
+				b_hts_total_live_cells.append(b_extrapolate['hts']['total_live_cells'])
+				b_hts_cells_per_gen.append(b_extrapolate['hts']['cells_gen'])
 
-	# 			conf['unst_pdf'].append(b_unst_pdf); conf['unst_cdf'].append(b_unst_cdf)
-	# 			conf['tdiv0_pdf'].append(b_tdiv0_pdf); conf['tdiv0_cdf'].append(b_tdiv0_cdf)
-	# 			conf['tdd_pdf'].append(b_tdd_pdf); conf['tdd_cdf'].append(b_tdd_cdf)
-	# 			conf['tdie_pdf'].append(b_tdie_pdf); conf['tdie_cdf'].append(b_tdie_cdf)
-	# 			conf['ext_total_cohorts'].append(b_ext_total_cohorts)
-	# 			conf['ext_total_live_cells'].append(b_ext_total_live_cells); conf['ext_cells_per_gen'].append(b_ext_cells_per_gen)
-	# 			conf['hts_total_live_cells'].append(b_hts_total_live_cells); conf['hts_cells_per_gen'].append(b_hts_cells_per_gen)
+				conf['unst_pdf'].append(b_unst_pdf); conf['unst_cdf'].append(b_unst_cdf)
+				conf['tdiv0_pdf'].append(b_tdiv0_pdf); conf['tdiv0_cdf'].append(b_tdiv0_cdf)
+				conf['tdd_pdf'].append(b_tdd_pdf); conf['tdd_cdf'].append(b_tdd_cdf)
+				conf['tdie_pdf'].append(b_tdie_pdf); conf['tdie_cdf'].append(b_tdie_cdf)
+				conf['ext_total_cohorts'].append(b_ext_total_cohorts)
+				conf['ext_total_live_cells'].append(b_ext_total_live_cells); conf['ext_cells_per_gen'].append(b_ext_cells_per_gen)
+				conf['hts_total_live_cells'].append(b_hts_total_live_cells); conf['hts_cells_per_gen'].append(b_hts_cells_per_gen)
 
-	# 			tmp_N0.append(b_N0)
+				tmp_N0.append(b_N0)
 
-	# 		# Calculate 95% confidence bands on PDF, CDF and model predictions
-	# 		for obj in conf:
-	# 			stack = np.vstack(conf[obj])
-	# 			conf[obj] = conf_iterval(stack, RGS)
-	# 		err_mUns, err_sUns = conf_iterval(fit_boots['mUns'], RGS), conf_iterval(fit_boots['sUns'], RGS)
-	# 		err_mDiv0, err_sDiv0 = conf_iterval(fit_boots['mDiv0'], RGS), conf_iterval(fit_boots['sDiv0'], RGS)
-	# 		err_mDD, err_sDD = conf_iterval(fit_boots['mDD'], RGS), conf_iterval(fit_boots['sDD'], RGS)
-	# 		err_mDie, err_sDie = conf_iterval(fit_boots['mDie'], RGS), conf_iterval(fit_boots['sDie'], RGS)
-	# 		err_m, err_p = conf_iterval(fit_boots['m'], RGS), conf_iterval(fit_boots['p'], RGS)
+			# Calculate 95% confidence bands on PDF, CDF and model predictions
+			for obj in conf:
+				stack = np.vstack(conf[obj])
+				conf[obj] = conf_iterval(stack, RGS)
+			err_mUns, err_sUns = conf_iterval(fit_boots['mUns'], RGS), conf_iterval(fit_boots['sUns'], RGS)
+			err_mDiv0, err_sDiv0 = conf_iterval(fit_boots['mDiv0'], RGS), conf_iterval(fit_boots['sDiv0'], RGS)
+			err_mDD, err_sDD = conf_iterval(fit_boots['mDD'], RGS), conf_iterval(fit_boots['sDD'], RGS)
+			err_mDie, err_sDie = conf_iterval(fit_boots['mDie'], RGS), conf_iterval(fit_boots['sDie'], RGS)
+			err_m, err_p = conf_iterval(fit_boots['m'], RGS), conf_iterval(fit_boots['p'], RGS)
 
-	# 		fig1, ax1 = plt.subplots(nrows=2, sharex=True, figsize=(7, 9))
-	# 		cp = sns.hls_palette(mgen+1, l=0.4, s=0.5)
-	# 		hts_, total_cells_ = [], []
-	# 		hts__, total_cells__ = [], []
-	# 		for itpt, ht in enumerate(hts):
-	# 			if rep==9:
-	# 				random = np.arange(0, 10, step=1)
-	# 			else:
-	# 				# random = np.random.randint(0, 10, size=rep)
-	# 				random = np.random.choice(np.arange(0, 10, step=1), size=rep, replace=False)
-	# 			for irep in range(nreps[itpt]):
-	# 				if irep not in random:
-	# 					hts_.append(ht)
-	# 					total_cells_.append(df['cells']['rep'][icnd][itpt][irep])
-	# 				else:
-	# 					hts__.append(ht)
-	# 					total_cells__.append(df['cells']['rep'][icnd][itpt][irep])
-	# 		ax1[0].plot(hts_, total_cells_, 'kx', label="Ignored")
-	# 		ax1[0].plot(hts__, total_cells__, 'ro', markersize=8, markeredgecolor='k', label=f"{rep} Random replicates")
-	# 		for igen in range(mgen+1):
-	# 			ax1[0].errorbar(hts, np.transpose(df['cgens']['avg'][icnd])[igen], yerr=np.transpose(df['cgens']['sem'][icnd])[igen], color=cp[igen], fmt='.', ms=9, label=f"Gen {igen}")
-	# 			ax1[0].plot(times, ext_cells_per_gen[igen], c=cp[igen])
-	# 			ax1[0].fill_between(times, conf['ext_cells_per_gen'][0][igen], conf['ext_cells_per_gen'][1][igen], fc=cp[igen], ec=None, alpha=0.5)
+			fig1, ax1 = plt.subplots(nrows=2, sharex=True, figsize=(7, 9))
+			cp = sns.hls_palette(mgen+1, l=0.4, s=0.5)
+			hts_, total_cells_ = [], []
+			hts__, total_cells__ = [], []
+			for itpt, ht in enumerate(hts):
+				if rep==9:
+					random = np.arange(0, 10, step=1)
+				else:
+					# random = np.random.randint(0, 10, size=rep)
+					random = np.random.choice(np.arange(0, 10, step=1), size=rep, replace=False)
+				for irep in range(nreps[itpt]):
+					if irep not in random:
+						hts_.append(ht)
+						total_cells_.append(df['cells']['rep'][icnd][itpt][irep])
+					else:
+						hts__.append(ht)
+						total_cells__.append(df['cells']['rep'][icnd][itpt][irep])
+			ax1[0].plot(hts_, total_cells_, 'kx', label="Ignored")
+			ax1[0].plot(hts__, total_cells__, 'ro', markersize=8, markeredgecolor='k', label=f"{rep} Random replicates")
+			for igen in range(mgen+1):
+				ax1[0].errorbar(hts, np.transpose(df['cgens']['avg'][icnd])[igen], yerr=np.transpose(df['cgens']['sem'][icnd])[igen], color=cp[igen], fmt='.', ms=9, label=f"Gen {igen}")
+				ax1[0].plot(times, ext_cells_per_gen[igen], c=cp[igen])
+				ax1[0].fill_between(times, conf['ext_cells_per_gen'][0][igen], conf['ext_cells_per_gen'][1][igen], fc=cp[igen], ec=None, alpha=0.5)
 
-	# 		ax1[0].set_ylabel("Cell number")
-	# 		ax1[0].plot(times, ext_total_live_cells, 'k-', label='Model')
-	# 		ax1[0].fill_between(times, conf['ext_total_live_cells'][0], conf['ext_total_live_cells'][1], fc='k', ec=None, alpha=0.3)
-	# 		ax1[0].ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-	# 		ax1[0].yaxis.major.formatter._useMathText = True
-	# 		ax1[0].set_ylim(bottom=0)
-	# 		handles, labels = ax1[0].get_legend_handles_labels()
-	# 		if rep == 1:
-	# 			ax1[0].legend(handles[2:], labels[2:], fontsize=14)
-	# 		elif rep == 3:
-	# 			ax1[0].legend(handles[:2], labels[:2], fontsize=14, columnspacing=1, handletextpad=0.1)
+			ax1[0].set_ylabel("Cell number")
+			ax1[0].plot(times, ext_total_live_cells, 'k-', label='Model')
+			ax1[0].fill_between(times, conf['ext_total_live_cells'][0], conf['ext_total_live_cells'][1], fc='k', ec=None, alpha=0.3)
+			ax1[0].ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+			ax1[0].yaxis.major.formatter._useMathText = True
+			ax1[0].set_ylim(bottom=0)
+			handles, labels = ax1[0].get_legend_handles_labels()
+			if rep == 1:
+				ax1[0].legend(handles[2:], labels[2:], fontsize=14)
+			elif rep == 3:
+				ax1[0].legend(handles[:2], labels[:2], fontsize=14, columnspacing=1, handletextpad=0.1)
 
-	# 		ax1[1].set_title(f"$m = {m:.2f} \pm_{{{m-err_m[0]:.2f}}}^{{{err_m[1]-m:.2f}}}$", x=0.01, ha='left')
-	# 		tdiv0_pdf, tdiv0_cdf = lognorm_pdf(times, mDiv0, sDiv0), lognorm_cdf(times, mDiv0, sDiv0)
-	# 		tdd_pdf, tdd_cdf = lognorm_pdf(times, mDD, sDD), lognorm_cdf(times, mDD, sDD)
-	# 		tdie_pdf, tdie_cdf = lognorm_pdf(times, mDie, sDie), lognorm_cdf(times, mDie, sDie)
-	# 		ax1[1].plot(times, tdiv0_cdf, color='blue', label=f"$T_{{div}}^0 \sim \mathcal{{LN}}({mDiv0:.2f}\pm_{{{mDiv0-err_mDiv0[0]:.2f}}}^{{{err_mDiv0[1]-mDiv0:.2f}}}, {sDiv0:.2f} \pm_{{{sDiv0-err_sDiv0[0]:.2f}}}^{{{err_sDiv0[1]-sDiv0:.2f}}})$")
-	# 		ax1[1].fill_between(times, conf['tdiv0_cdf'][0], conf['tdiv0_cdf'][1], fc='blue', ec=None, alpha=0.5)
-	# 		ax1[1].plot(times, tdd_cdf, color='green', label=f"$T_{{dd}} \sim \mathcal{{LN}}({mDD:.2f}\pm_{{{mDD-err_mDD[0]:.2f}}}^{{{err_mDD[1]-mDD:.2f}}}, {sDD:.2f}\pm_{{{sDD-err_sDD[0]:.2}}}^{{{err_sDD[1]-sDD:.2f}}})$")
-	# 		ax1[1].fill_between(times, conf['tdd_cdf'][0], conf['tdd_cdf'][1], fc='green', ec=None, alpha=0.5)
-	# 		ax1[1].plot(times, tdie_cdf, color='red', label=f"$T_{{die}} \sim \mathcal{{LN}}({mDie:.2f}\pm_{{{mDie-err_mDie[0]:.2f}}}^{{{err_mDie[1]-mDie:.2f}}}, {sDie:.2f}\pm_{{{sDie-err_sDie[0]:.2f}}}^{{{err_sDie[1]-sDie:.2f}}})$")
-	# 		ax1[1].fill_between(times, conf['tdie_cdf'][0], conf['tdie_cdf'][1], fc='red', ec=None, alpha=0.5)
-	# 		ax1[1].set_ylabel("CDF")
-	# 		ax1[1].set_xlabel("Time (hour)")
-	# 		ax1[1].set_ylim(bottom=0, top=1)
-	# 		ax1[1].set_xlim(left=t0, right=tf)
-	# 		ax1[1].legend(loc='upper left', fontsize=14)
+			ax1[1].set_title(f"$m = {m:.2f} \pm_{{{m-err_m[0]:.2f}}}^{{{err_m[1]-m:.2f}}}$", x=0.01, ha='left')
+			tdiv0_pdf, tdiv0_cdf = lognorm_pdf(times, mDiv0, sDiv0), lognorm_cdf(times, mDiv0, sDiv0)
+			tdd_pdf, tdd_cdf = lognorm_pdf(times, mDD, sDD), lognorm_cdf(times, mDD, sDD)
+			tdie_pdf, tdie_cdf = lognorm_pdf(times, mDie, sDie), lognorm_cdf(times, mDie, sDie)
+			ax1[1].plot(times, tdiv0_cdf, color='blue', label=f"$T_{{div}}^0 \sim \mathcal{{LN}}({mDiv0:.2f}\pm_{{{mDiv0-err_mDiv0[0]:.2f}}}^{{{err_mDiv0[1]-mDiv0:.2f}}}, {sDiv0:.2f} \pm_{{{sDiv0-err_sDiv0[0]:.2f}}}^{{{err_sDiv0[1]-sDiv0:.2f}}})$")
+			ax1[1].fill_between(times, conf['tdiv0_cdf'][0], conf['tdiv0_cdf'][1], fc='blue', ec=None, alpha=0.5)
+			ax1[1].plot(times, tdd_cdf, color='green', label=f"$T_{{dd}} \sim \mathcal{{LN}}({mDD:.2f}\pm_{{{mDD-err_mDD[0]:.2f}}}^{{{err_mDD[1]-mDD:.2f}}}, {sDD:.2f}\pm_{{{sDD-err_sDD[0]:.2}}}^{{{err_sDD[1]-sDD:.2f}}})$")
+			ax1[1].fill_between(times, conf['tdd_cdf'][0], conf['tdd_cdf'][1], fc='green', ec=None, alpha=0.5)
+			ax1[1].plot(times, tdie_cdf, color='red', label=f"$T_{{die}} \sim \mathcal{{LN}}({mDie:.2f}\pm_{{{mDie-err_mDie[0]:.2f}}}^{{{err_mDie[1]-mDie:.2f}}}, {sDie:.2f}\pm_{{{sDie-err_sDie[0]:.2f}}}^{{{err_sDie[1]-sDie:.2f}}})$")
+			ax1[1].fill_between(times, conf['tdie_cdf'][0], conf['tdie_cdf'][1], fc='red', ec=None, alpha=0.5)
+			ax1[1].set_ylabel("CDF")
+			ax1[1].set_xlabel("Time (hour)")
+			ax1[1].set_ylim(bottom=0, top=1)
+			ax1[1].set_xlim(left=t0, right=tf)
+			ax1[1].legend(loc='upper left', fontsize=14)
 
-	# 		fig1.subplots_adjust(hspace=0, wspace=0)
-	# 		fig1.tight_layout(rect=(0.0, 0.0, 1, 1))
+			fig1.subplots_adjust(hspace=0, wspace=0)
+			fig1.tight_layout(rect=(0.0, 0.0, 1, 1))
 
-	# 		fig1.savefig(f"{path}/f0_{rep}reps.pdf", dpi=300)
+			fig1.savefig(f"{path}/f0_{rep}reps.pdf", dpi=300)
 
 	#########################################################################################
 	#								ANALYSE PRECISION										#
@@ -745,6 +746,7 @@ if __name__ == "__main__":
 		coord = out['loadings'].multiply(np.sqrt(eigv), axis=0)  # get coordinates of variables; loading = coord / sqrt(eigv)
 		cos2 = coord * coord
 		contrib = (cos2*100).multiply(1/cos2.sum(axis=1), axis=0)
+		
 
 		print("> Linear correlation (or coordinates)")
 		tmp_df = coord.rename(columns={
@@ -769,7 +771,6 @@ if __name__ == "__main__":
 			'$m_{div}^0$': 'mDiv0', '$s_{div}^0$': 'sDiv0', '$m_{DD}$': 'mDD', '$s_{DD}$': 'sDD', '$m_{die}$': 'mDie', '$s_{die}$': 'sDie', '$m$': 'm'
 		})
 		print(tmp_df)
-
 
 
 		pc1_contrib = contrib.sort_values(by='PC1', ascending=False, axis=1).loc['PC1',:]
@@ -836,7 +837,6 @@ if __name__ == "__main__":
 		fig3.savefig(f'{path}/f1c_ica.pdf', dpi=300)
 		fig4.savefig(f'{path}/f1d_umap.pdf', dpi=300)
 
-		continue
 
 		#########################################################################################
 		#							MARGINAL DISTRIBUTION										#
