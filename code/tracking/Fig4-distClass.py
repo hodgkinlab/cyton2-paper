@@ -1,30 +1,57 @@
 """
-Last update: 10-February-2021
+Last update: 16-May-2021
 
 Bayesian inference to select the best distribution class (i.e. model selection) given the observed times
-Run this for generating Fig4 in the main article; FigS4, FigS5 in the Supplementary Material.
+[Output] Fig4 in the main article; FigS4, FigS5 in the Supplementary Material
 """
-import os
+import sys, os
 import numpy as np
 import pandas as pd
 pd.set_option('display.max_rows', 999999)
 pd.set_option('display.max_columns', 999999)
 pd.set_option('display.expand_frame_repr', False)
 import seaborn as sns
+import matplotlib as mpl; mpl.use('pdf')
 import matplotlib.pyplot as plt
 import scipy.stats as sps
 import arviz as az
 import pymc3 as pm
+import theano as TT
 import xarray as xr
+from _func import ecdf
 rng = np.random.RandomState(seed=10230721)
 
-from _func import ecdf
+## Check library versions
+try:
+	assert(pm.__version__=='3.9.3')
+	assert(TT.__version__=='1.0.5')
+	assert(az.__version__=='0.11.0')
+	assert(sns.__version__=='0.10.1')
+except AssertionError as ae:
+	print("[VersionError] Please check if the following versions of PyMC3, Theano, Arviz, seaborn libraries are installed:")
+	print("pymc3==3.9.3")
+	print("Theano==1.0.5")
+	print("arviz==0.11.0")
+	print("seaborn==0.10.1")
+	sys.exit()
+
+## Check library versions
+try:
+	assert(pm.__version__=='3.9.3')
+	assert(az.__version__=='0.11.0')
+except AssertionError as ae:
+	print("[VersionError] Please check if the following versions of PyMC3, Theano and Arviz libraries are installed:")
+	print("pymc3==3.9.3")
+	print("arviz==0.11.0")
+	sys.exit()
 
 # GLOBAL PLOT SETTINGS
 rc = {
-	'font.size': 14, 'axes.titlesize': 14, 'axes.labelsize': 12,
-	# 'xtick.labelsize': 14, 'ytick.labelsize': 14,
 	'figure.figsize': (8, 6),
+	'font.size': 16, 
+	'axes.titlesize': 16, 'axes.labelsize': 16,
+	'xtick.labelsize': 16, 'ytick.labelsize': 16,
+	'legend.fontsize': 16, 'legend.title_fontsize': None,
 	# 'axes.grid': True, 'axes.grid.axis': 'x', 'axes.grid.axis': 'y',
 	'axes.axisbelow': True, 'axes.titlepad': 0,
 	'axes.spines.top': False, 'axes.spines.right': False,
@@ -158,13 +185,13 @@ if __name__ == "__main__":
 	path_data = [path for path in path_data if path not in excl]  # exclude individual IL-2 dataset (use aggregated one)
 
 	## SET ITERATION AND TUNING NUMBERS
-	niter, ntune = 100000, 10000
+	niter, ntune = 1000000, 10000
 	nchain = ncore = 5
 	nsubsample = 10000
 	dt = 1000
 
 	### HALF-NORMAL PRIORS FOR WEIBULL (UNIFORM PRIORS DOESN'T WORK)
-	HALFN_STD = 500 * np.sqrt(1 / (1 - 2/np.pi))  # For sqrt(var(Half-Normal)) = 200
+	HALFN_STD = 500 * np.sqrt(1 / (1 - 2/np.pi))
 	for path in path_data:
 		fname = os.path.basename(os.path.splitext(path)[0])
 		print(f'\n======================== BEGIN {fname} ========================')
@@ -186,7 +213,7 @@ if __name__ == "__main__":
 			# Decide which axis to draw
 			if var in ['tdiv0', 'tdiv']: 
 				ploc = 0
-				axes[0].set_title(f"Time to first division ({VAR_MAP['tdiv0']}) & Avg. Subsequent division time ({VAR_MAP['tdiv']})", x=0.01, ha='left', fontsize=13.5)
+				axes[0].set_title(f"Time to first division ({VAR_MAP['tdiv0']}) & Avg. sub div time ({VAR_MAP['tdiv']})", x=0.01, ha='left', fontsize=13.5)
 			elif var == 'tld':
 				ploc = 1
 				axes[1].set_title(f"Time to last division ({VAR_MAP['tld']})", x=0.01, ha='left', fontsize=13.5)
@@ -196,7 +223,7 @@ if __name__ == "__main__":
 			axes[ploc].set_ylabel("eCDF")
 
 			if i == 0: ax2[0].set_title(f"Time to first division ({VAR_MAP['tdiv0']})", fontdict={'color': 'blue'})
-			if i == 1: ax2[1].set_title(f"Avg. Subsequent division time ({VAR_MAP['tdiv']})", fontdict={'color': 'orange'})
+			if i == 1: ax2[1].set_title(f"Avg. sub div time ({VAR_MAP['tdiv']})", fontdict={'color': 'orange'})
 			if i == 2: ax2[2].set_title(f"Time to last division ({VAR_MAP['tld']})", fontdict={'color': 'green'})
 			if i == 3: ax2[3].set_title(f"Time to death ({VAR_MAP['tdie']})", fontdict={'color': 'red'})
 
@@ -224,7 +251,6 @@ if __name__ == "__main__":
 											return_inferencedata=True)
 				gamma_waic = az.waic(gamma_trace, gamma_model, scale='deviance')  # calculate WAIC
 				gamma_summary = pm.summary(gamma_trace)
-				# gamma_summary = az.summary(gamma_trace)  # for PyMC3 >= 3.11.0
 
 				## Sample from posterior distribution to generate cdfs and plot over eCDF
 				# all_gamma_cdfs = xr.apply_ufunc(
@@ -266,7 +292,6 @@ if __name__ == "__main__":
 											return_inferencedata=True)
 				lnorm_waic = az.waic(lnorm_trace, lnorm_model, scale='deviance')
 				lnorm_summary = pm.summary(lnorm_trace)
-				# lnorm_summary = az.summary(lnorm_trace)  # for PyMC3 >= 3.11.0
 				
 				## Get random subset of the posterior
 				idx = rng.choice(lnorm_trace.posterior.mu1.size, nsubsample)
@@ -301,7 +326,6 @@ if __name__ == "__main__":
 											return_inferencedata=True)
 				norm_waic = az.waic(norm_trace, norm_model, scale='deviance')
 				norm_summary = pm.summary(norm_trace)
-				# norm_summary = az.summary(norm_trace)  # for PyMC3 >= 3.11.0
 
 				## Get random subset of the posterior
 				idx = rng.choice(norm_trace.posterior.mu2.size, nsubsample)
@@ -338,7 +362,6 @@ if __name__ == "__main__":
 												return_inferencedata=True)
 				weibull_waic = az.waic(weibull_trace, weibull_model, scale='deviance')
 				weibull_summary = pm.summary(weibull_trace)
-				# weibull_summary = az.summary(weibull_trace)  # for PyMC3 >= 3.11.0
 
 				## Get random subset of the posterior
 				idx = rng.choice(weibull_trace.posterior.alpha2.size, nsubsample)
@@ -356,28 +379,34 @@ if __name__ == "__main__":
 				print(weibull_summary, end='\n\n')
 
 				axes[ploc].grid(True, which='major', axis='both', linestyle='--')
-				if ploc == 0  :
-					axes[ploc].legend(loc='lower right', fontsize=10, ncol=2, columnspacing=0.2)
+				if ploc == 0:
+					axes[ploc].legend(loc='lower right', fontsize=11, ncol=2, columnspacing=0.2)
 				else:
-					axes[ploc].legend(loc='upper left', fontsize=10, ncol=1)
+					axes[ploc].legend(loc='upper left', fontsize=11, ncol=1)
 
 				#########################################################################################################
 				# 								COMPARE DISTRIBUTIONS (WAIC)											#
 				#########################################################################################################
 				print("-->>>>>> MODEL SELECTION: WAIC")
-				my_waic = compare_waics([gamma_trace, lnorm_trace, norm_trace, weibull_trace], ['Gamma', 'Log-normal', 'Normal', 'Weibull'])
+				my_waic = compare_waics([gamma_trace, lnorm_trace, norm_trace, weibull_trace], ['Gam', 'LN', 'N', 'Wei'])
 				print(">>> Compare WAIC")
 				print(my_waic, end='\n')
 
 				# print(">>> PyMC3/Arviz WAIC")
 				dfwaic = az.compare(  # Identical to compare_waic() defined above. But it's convenient to use this for plotting the results
-					{'Gamma': gamma_trace, 'Log-normal': lnorm_trace, 'Normal': norm_trace, 'Weibull': weibull_trace}, 
+					{'Gam': gamma_trace, 'LN': lnorm_trace, 'N': norm_trace, 'Wei': weibull_trace}, 
 					ic='WAIC', method='stacking', scale='deviance')
 				# print(dfwaic, end='\n\n')
-				az.plot_compare(dfwaic, ax=ax2[i])
+				plt.rcParams.update({'axes.titlesize': 14, 'axes.labelsize': 14,
+									'xtick.labelsize': 14, 'ytick.labelsize': 14})
+				az.plot_compare(dfwaic, textsize=16, ax=ax2[i])
+				plt.rcParams.update({'axes.titlesize': rc['axes.titlesize'], 'axes.labelsize': rc['axes.labelsize'],
+									'xtick.labelsize': rc['xtick.labelsize'], 'ytick.labelsize': rc['ytick.labelsize']})
 			else:
 				print(f'CANNOT PROCEED. {var} HAS NO DATA!')
-				ax2[i].annotate("NA", xy=(0.5, 0.5), xycoords='axes fraction', weight='bold', fontsize=14)
+				ax2[i].annotate("NA", xy=(0.45, 0.5), xycoords='axes fraction', weight='bold', fontsize=16)
+				ax2[i].set_xticklabels([])
+				ax2[i].set_yticklabels([])
 
 			print(f'------------------------ END of {var} ({fname}) ------------------------\n\n')
 		print(f'======================== END of {fname} ========================')
@@ -386,7 +415,7 @@ if __name__ == "__main__":
 		fig1.tight_layout(rect=(0, 0, 1, 1))
 		fig1.subplots_adjust(hspace=0.17, wspace=0)
 		fig2.tight_layout(rect=(0, 0, 1, 1))
-		fig2.subplots_adjust(hspace=0.2, wspace=0.2)
+		fig2.subplots_adjust(hspace=0.255, wspace=0.2)
 
 		fig1.savefig(f'./out/Fig4-dist/{fname}_f1.pdf', dpi=300)
 		fig2.savefig(f'./out/Fig4-dist/{fname}_f2.pdf', dpi=300)

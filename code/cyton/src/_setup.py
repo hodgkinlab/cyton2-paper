@@ -13,13 +13,6 @@ extensions = [
         # language='c++',
         extra_compile_args=['-O3'],
         include_dirs=[numpy.get_include()]
-    ),
-    Extension(
-        name="rmodel",
-        sources=["rmodel.pyx"],
-        # language='c++',
-        extra_compile_args=['-O3'],
-        include_dirs=[numpy.get_include()]
     )
 ]
 

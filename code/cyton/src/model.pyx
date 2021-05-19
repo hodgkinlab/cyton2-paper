@@ -132,7 +132,6 @@ class Cyton15Model:
 					model.append(cell)
 		return np.asfarray(model)
 
-	# following function is a copy of 'cyton15' but with extra dead cell computation
 	def extrapolate(self, model_times, params):
 		# Unstimulated death parameters
 		cdef DTYPE_t mUns = params['mUns']

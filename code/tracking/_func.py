@@ -1,5 +1,5 @@
 """
-Last edit: 16-November-2020
+Last edit: 16-May-2021
 
 Functions to process the filming data.
 Extra plot tools
@@ -8,6 +8,7 @@ import os, copy
 import numpy as np
 import pandas as pd
 import scipy.io as sio
+options = {'strings_to_formulas': False, 'strings_to_urls': False}  # for saving fit results to excel file
 
 def parse_data(paths):
 	df_exp = {}
@@ -181,23 +182,21 @@ def filter_data(df_exp, exps):
 def save_dataframes(exps, df_exp, df_CC, df_F):
 	for exp in exps:
 		file_name = exp.replace('/','-')
-		excel_wrter = pd.ExcelWriter(f'out/data/_processed/_parse/{file_name}.xlsx', engine='openpyxl')
-		df_exp[exp].to_excel(excel_wrter, sheet_name='raw')
+		with pd.ExcelWriter(f'./data/_processed/_parse/{file_name}.xlsx', engine='xlsxwriter', options=options, mode='w') as writer:
+			df_exp[exp].to_excel(writer, sheet_name='raw', index=False)
 
-		conds = np.unique(df_exp[exp]['stim'])
-		for cnd in conds:
-			df_F[exp][cnd].to_excel(excel_wrter, sheet_name=f'Filtered_{cnd}')
-			df_CC[exp][cnd].to_excel(excel_wrter, sheet_name=f'{cnd}')
-			excel_wrter.save()
-		excel_wrter.close()
+			conds = np.unique(df_exp[exp]['stim'])
+			for cond in conds:
+				df_F[exp][cond].to_excel(writer, sheet_name=f'Filtered_{cond}', index=False)
+				df_CC[exp][cond].to_excel(writer, sheet_name=f'Filtered_CC_{cond}', index=False)
+			writer.save()
 
-def save_cc_times(exps, df_exp):
+def save_cc_times(exps, df_F):
 	for exp in exps:
 		exp_lab = exp.replace('/', '_')
-		# conds = np.unique(df_exp[exp]['stim'])
-		conds = np.unique(list(df_exp[exp].keys()))  # find unique conditions
-		for cond in conds:
-			df = df_exp[exp][cond].copy()  # filtered data
+		conds = np.unique(list(df_F[exp].keys()))  # find unique conditions
+		for cond in conds: 
+			df = df_F[exp][cond].copy()  # filtered data
 
 			CONDS = []; CONDS.append(cond)
 			TIME_TO_FIRST_DIV = []
@@ -211,7 +210,6 @@ def save_cc_times(exps, df_exp):
 				tdiv0 = df[(df.clone==cl) & (df.fate=='divided') & (df.gen==0)].t_div.to_numpy() # time to first division
 				tdiv = np.mean(df[(df.clone==cl) & (df.fate=='divided') & (df.gen>0)].lifetime.to_numpy())  # average subsequent division time
 
-				# NOTE: surrogate of division destiny times. It is problematic that, by my definition, Tld = Tdiv0 + Sub.Div. Which means that we won't see Tld < Tdiv0 case. Also, it's self circulating stupid logic that I've defined it to be correlated by definition, and determining its correlation coefficient. Probably, this is why as a proxy to measure Tdd, Giulio previously used Quiescence duration.
 				cell_rel = df[(df.clone==cl) & (df.fate=='died')].relation.to_numpy()
 				cell_rel_prec = [label[:-1] for label in cell_rel]  # determine the relation in the family tree
 				y_clo = df[(df.clone==cl) & (df.fate=='divided') & (df.relation.isin(cell_rel_prec))].t_div.to_numpy()

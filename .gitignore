@@ -18,6 +18,7 @@
 # Code output directories
 /code/**/out/**/*.R
 /code/**/out/**/*.pdf
+/code/tracking/out/Fig3-Simulation/**/clones/
 /code/**/out/**/*.xlsx
 /code/**/out/**/*.jpg
 /code/**/out/**/*.log
@@ -28,6 +29,12 @@
 /code/**/out
 !/code/**/out/
 !/code/**/out/**/.gitkeep
+!/code/tracking/out/**/*.pdf
+!/code/tracking/out/**/*.log
+!/code/cyton/out/**/_lognormal/indiv/Fig5/**/*.pdf
+!/code/cyton/out/**/_lognormal/indiv/Fig5/**/*.xlsx
+!/code/cyton/out/**/_normal/joint/Fig6/**/*.pdf
+!/code/cyton/out/**/_normal/joint/Fig6/**/*.xlsx
 
 # Byte-compiled / optimised / DLL files
 /code/**/__pycache__/

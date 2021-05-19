@@ -1,0 +1,1849 @@
+
+======================== BEGIN t_misc_20140325_1.0 ========================
+------------------------ BEGIN tdiv0 (t_misc_20140325_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  132.084  36.248  74.245  200.000      0.043    0.030  721567.0  721567.0  684763.0  676609.0    1.0
+beta1     3.862   1.063   2.065    5.793      0.001    0.001  722818.0  722818.0  694283.0  707021.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.529  0.030   3.471    3.586        0.0      0.0  2413263.0  2413263.0  2506358.0  2277387.0    1.0
+sigma1  0.105  0.025   0.065    0.152        0.0      0.0  2085597.0  1937272.0  2326170.0  2281606.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     34.224  1.072  32.197   36.252      0.001      0.0  2375846.0  2375846.0  2462222.0  2208360.0    1.0
+sigma2   3.716  0.899   2.285    5.367      0.001      0.0  2085686.0  1940422.0  2327084.0  2272966.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2  10.465  2.201   6.423   14.629      0.002    0.001  2116328.0  2116328.0  2080641.0  2307245.0    1.0
+beta2   35.912  1.101  33.813   37.974      0.001    0.001  1930750.0  1930750.0  1963929.0  1999024.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name       waic    p_waic        se  delta_waic  delta_se
+rank                                                          
+0     Gam  69.607701  1.527594  5.146487    0.000000  0.000000
+1      LN  70.090629  1.491043  4.242904    0.482928  0.923317
+2       N  71.113049  1.521463  3.879249    1.505348  1.285937
+3     Wei  73.363917  1.439794  3.007824    3.756216  2.484519
+------------------------ END of tdiv0 (t_misc_20140325_1.0) ------------------------
+
+
+------------------------ BEGIN tdiv (t_misc_20140325_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  52.410  21.383  16.137   92.247      0.026    0.019  688700.0  650994.0  693938.0  771099.0    1.0
+beta1    5.069   2.077   1.555    8.946      0.003    0.002  689733.0  653045.0  694207.0  779766.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     2.325  0.070   2.194    2.457        0.0      0.0  1868160.0  1868160.0  2046289.0  1848004.0    1.0
+sigma1  0.196  0.064   0.104    0.311        0.0      0.0  1751509.0  1562869.0  2100445.0  2045336.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     10.365  0.808   8.835   11.888      0.001      0.0  1919494.0  1919494.0  2106125.0  1748906.0    1.0
+sigma2   2.282  0.746   1.203    3.608      0.001      0.0  1692290.0  1545847.0  1994928.0  2006594.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   5.162  1.221   2.910    7.465      0.001    0.001  1938011.0  1938011.0  1903329.0  2093063.0    1.0
+beta2   11.359  0.879   9.719   13.007      0.001    0.000  1950363.0  1921307.0  2031086.0  2115638.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name       waic    p_waic         se  delta_waic  delta_se
+rank                                                           
+0      LN  39.232609  2.290659   6.907763    0.000000  0.000000
+1     Gam  41.618107  3.815254  11.935809    2.385498  5.043738
+2       N  41.917990  2.553150   6.889335    2.685381  0.482747
+3     Wei  43.284604  2.282956   6.291364    4.051996  0.981942
+------------------------ END of tdiv (t_misc_20140325_1.0) ------------------------
+
+
+------------------------ BEGIN tld (t_misc_20140325_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  41.719  14.740  16.166   69.372      0.018    0.013  694628.0  668534.0  695028.0  794449.0    1.0
+beta1    0.969   0.344   0.376    1.618      0.000    0.000  694698.0  668928.0  694773.0  789610.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.750  0.059   3.638    3.861        0.0      0.0  2322257.0  2322257.0  2411573.0  2214305.0    1.0
+sigma1  0.204  0.049   0.126    0.295        0.0      0.0  2130744.0  1979479.0  2382880.0  2304182.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     43.142  2.441  38.548   47.783      0.002    0.001  2548149.0  2548149.0  2643006.0  2260181.0    1.0
+sigma2   8.452  2.047   5.197   12.212      0.001    0.001  2118916.0  1965770.0  2369793.0  2292139.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   7.249  1.693   4.181   10.447      0.001    0.001  2135850.0  2135850.0  2099367.0  2339179.0    1.0
+beta2   46.506  2.072  42.576   50.410      0.001    0.001  1957811.0  1957811.0  2016318.0  2010009.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name       waic    p_waic        se  delta_waic  delta_se
+rank                                                          
+0     Wei  91.353848  1.513070  3.569033    0.000000  0.000000
+1       N  92.147197  1.251985  2.612591    0.793349  1.449928
+2     Gam  92.846709  1.763057  3.837696    1.492861  1.865822
+3      LN  92.877828  1.305002  2.509718    1.523980  2.381729
+------------------------ END of tld (t_misc_20140325_1.0) ------------------------
+
+
+------------------------ BEGIN tdie (t_misc_20140325_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  36.368  12.835  14.032   60.464      0.015    0.011  742092.0  711246.0  742356.0  813440.0    1.0
+beta1    0.745   0.265   0.287    1.243      0.000    0.000  742731.0  712605.0  742311.0  808014.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.874  0.064   3.753    3.994        0.0      0.0  2386608.0  2386608.0  2480555.0  2259972.0    1.0
+sigma1  0.221  0.053   0.137    0.320        0.0      0.0  2086405.0  1946653.0  2316015.0  2283924.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     48.943  2.895  43.484   54.434      0.002    0.001  2343382.0  2343382.0  2435307.0  2127539.0    1.0
+sigma2  10.018  2.420   6.186   14.490      0.002    0.001  2163057.0  2001931.0  2442510.0  2307207.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   7.450  1.793   4.216   10.841      0.001    0.001  2114430.0  2114430.0  2075387.0  2337294.0    1.0
+beta2   52.772  2.292  48.430   57.107      0.002    0.001  1938942.0  1938942.0  2007128.0  1998517.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name       waic    p_waic        se  delta_waic  delta_se
+rank                                                          
+0     Wei  95.247489  1.857353  5.084612    0.000000  0.000000
+1       N  96.752059  1.397111  3.372429    1.504570  1.962009
+2     Gam  98.213706  2.009070  4.779124    2.966217  1.756130
+3      LN  98.467396  1.482420  2.897626    3.219907  2.967108
+------------------------ END of tdie (t_misc_20140325_1.0) ------------------------
+
+
+======================== END of t_misc_20140325_1.0 ========================
+
+======================== BEGIN aggre_3U_2.0 ========================
+------------------------ BEGIN tdiv0 (aggre_3U_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  49.477  11.505  28.698   71.173      0.014     0.01  649245.0  640072.0  648844.0  760354.0    1.0
+beta1    1.187   0.277   0.687    1.711      0.000     0.00  649139.0  640169.0  648599.0  764929.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.720  0.027   3.669    3.770        0.0      0.0  2965060.0  2965060.0  2981637.0  2690531.0    1.0
+sigma1  0.152  0.020   0.117    0.189        0.0      0.0  2769072.0  2681607.0  2877867.0  2672688.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     41.712  1.233  39.393   44.036      0.001    0.001  2738759.0  2738759.0  2751328.0  2583154.0    1.0
+sigma2   7.029  0.924   5.413    8.782      0.001    0.000  2901882.0  2800597.0  3024786.0  2714045.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   5.323  0.601   4.203    6.458      0.000    0.000  2277939.0  2277939.0  2268591.0  2453249.0    1.0
+beta2   44.858  1.594  41.891   47.888      0.001    0.001  2409256.0  2409256.0  2407378.0  2528487.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0      LN  223.452598  3.105059  14.846153    0.000000  0.000000
+1     Gam  226.648179  3.934640  18.329339    3.195581  3.601592
+2       N  232.839392  4.344657  18.531032    9.386795  4.379659
+3     Wei  244.286660  4.913247  18.492301   20.834062  5.443823
+------------------------ END of tdiv0 (aggre_3U_2.0) ------------------------
+
+
+------------------------ BEGIN tdiv (aggre_3U_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk   ess_tail  r_hat
+alpha1  5.254  1.824   2.107    8.677      0.002    0.001  954789.0  902758.0  966946.0  1061363.0    1.0
+beta1   0.268  0.097   0.100    0.451      0.000    0.000  959830.0  907063.0  970502.0  1072761.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     2.870  0.145   2.595    3.143        0.0      0.0  2248976.0  2248976.0  2336953.0  2059428.0    1.0
+sigma1  0.502  0.121   0.309    0.725        0.0      0.0  2231390.0  2054702.0  2511922.0  2366586.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     19.927  4.420  11.497   28.260      0.003    0.002  1986555.0  1986555.0  2076135.0  1466583.0    1.0
+sigma2  15.366  3.709   9.470   22.211      0.003    0.002  1957199.0  1813391.0  2205558.0  2140826.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   1.708  0.320   1.111    2.308      0.000    0.000  2264402.0  2264402.0  2236115.0  2286701.0    1.0
+beta2   24.242  4.654  15.996   32.912      0.003    0.002  2063769.0  1940893.0  2119421.0  2208168.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0      LN   96.305499  3.379929  13.141913    0.000000  0.000000
+1     Gam  103.293028  5.679021  19.822235    6.987529  6.725706
+2     Wei  103.957644  3.189943  11.579393    7.652145  1.620460
+3       N  112.780316  4.819274  14.587010   16.474817  1.769120
+------------------------ END of tdiv (aggre_3U_2.0) ------------------------
+
+
+------------------------ BEGIN tld (aggre_3U_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  26.654  6.190  15.469   38.324      0.007    0.005  767440.0  750966.0  767124.0  836127.0    1.0
+beta1    0.562  0.132   0.324    0.810      0.000    0.000  767989.0  751484.0  767566.0  836718.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.840  0.037   3.771    3.909        0.0      0.0  2755299.0  2755299.0  2771997.0  2585204.0    1.0
+sigma1  0.209  0.027   0.161    0.261        0.0      0.0  2854024.0  2751106.0  2978573.0  2681620.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     47.511  1.881  43.972   51.052      0.001    0.001  2837683.0  2837683.0  2853182.0  2589463.0    1.0
+sigma2  10.720  1.410   8.239   13.376      0.001    0.001  2849897.0  2748455.0  2975195.0  2682306.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   4.485  0.542   3.470    5.503      0.000    0.000  2440078.0  2440078.0  2424857.0  2591515.0    1.0
+beta2   51.964  2.194  47.859   56.115      0.001    0.001  2275426.0  2275426.0  2272290.0  2398141.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0      LN  251.977028  2.000248  10.103801    0.000000  0.000000
+1     Gam  254.204345  2.481914  12.076753    2.227317  2.200803
+2       N  259.337398  2.673796  11.894430    7.360370  3.040630
+3     Wei  264.688536  3.017613  12.074061   12.711509  4.273815
+------------------------ END of tld (aggre_3U_2.0) ------------------------
+
+
+------------------------ BEGIN tdie (aggre_3U_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  15.451  3.582   8.954   22.166      0.004    0.003  741181.0  731109.0  740008.0  893887.0    1.0
+beta1    0.229  0.054   0.132    0.332      0.000    0.000  740804.0  730650.0  739775.0  896019.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     4.176  0.049   4.085    4.268        0.0      0.0  2708581.0  2708581.0  2722848.0  2601235.0    1.0
+sigma1  0.277  0.036   0.213    0.346        0.0      0.0  2929358.0  2827806.0  3054168.0  2750407.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     67.485  3.481  60.945   74.048      0.002    0.001  2954599.0  2954599.0  2969118.0  2665390.0    1.0
+sigma2  19.838  2.609  15.247   24.755      0.002    0.001  2788706.0  2684687.0  2917248.0  2617678.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   3.685  0.468   2.817    4.569      0.000    0.000  2251779.0  2251779.0  2237282.0  2489982.0    1.0
+beta2   75.156  3.862  67.927   82.459      0.002    0.002  2460855.0  2460855.0  2458981.0  2504424.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      LN  293.438189  1.644578  8.470443    0.000000  0.000000
+1     Gam  295.309982  1.974393  9.560703    1.871793  1.504792
+2       N  300.372878  2.015664  8.728585    6.934689  2.533969
+3     Wei  301.668561  1.991986  8.150097    8.230372  2.916381
+------------------------ END of tdie (aggre_3U_2.0) ------------------------
+
+
+======================== END of aggre_3U_2.0 ========================
+
+======================== BEGIN aggre_1U_1.0 ========================
+------------------------ BEGIN tdiv0 (aggre_1U_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  85.130  21.597  46.368  125.917      0.026    0.019  701999.0  672816.0  709057.0  715520.0    1.0
+beta1    2.367   0.602   1.288    3.505      0.001    0.001  702468.0  673605.0  709273.0  727359.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.577  0.023   3.533    3.620        0.0      0.0  3021576.0  3021576.0  3044579.0  2728047.0    1.0
+sigma1  0.119  0.017   0.088    0.151        0.0      0.0  2600637.0  2507153.0  2720083.0  2590166.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     35.985  0.904  34.282   37.688      0.001      0.0  2890500.0  2890500.0  2912997.0  2603289.0    1.0
+sigma2   4.666  0.687   3.478    5.962      0.000      0.0  2600748.0  2499825.0  2732143.0  2574030.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   6.636  0.816   5.112    8.175      0.001    0.000  2398714.0  2398714.0  2387719.0  2524371.0    1.0
+beta2   38.185  1.205  35.912   40.444      0.001    0.001  2165201.0  2165201.0  2164502.0  2361238.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0      LN  163.204394  3.586131  15.296604    0.000000  0.000000
+1     Gam  165.870865  4.537719  19.211533    2.666472  3.956233
+2       N  169.980587  4.649224  18.270744    6.776193  3.318855
+3     Wei  181.826490  4.981294  17.736694   18.622096  3.809645
+------------------------ END of tdiv0 (aggre_1U_1.0) ------------------------
+
+
+------------------------ BEGIN tdiv (aggre_1U_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  75.086  37.862  12.732  147.166      0.046    0.033  689676.0  652812.0  685752.0  722906.0    1.0
+beta1    3.935   1.991   0.655    7.718      0.002    0.002  691904.0  657794.0  688155.0  751309.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     2.944  0.291   2.522    3.367      0.000    0.000  388334.0  388334.0  823462.0  593911.0    1.0
+sigma1  0.377  0.530   0.080    0.876      0.001    0.001  475938.0  475938.0  767513.0  677465.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd   ess_bulk  ess_tail  r_hat
+mu2     19.345  4.667  11.716   26.721      0.006    0.005  647359.0  519858.0  1084982.0  698066.0    1.0
+sigma2   6.720  7.353   1.480   15.583      0.010    0.007  567765.0  567765.0   730120.0  867953.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   7.874  3.281   2.202   14.007      0.003    0.002  1364004.0  1364004.0  1242117.0  1277210.0    1.0
+beta2   21.049  5.236  17.210   24.777      0.011    0.008   215045.0   215045.0  1197008.0   915856.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name       waic    p_waic        se  delta_waic  delta_se
+rank                                                          
+0     Wei  23.881803  1.731961  2.576658    0.000000  0.000000
+1     Gam  25.540122  2.690771  4.647137    1.658319  2.227217
+2       N  25.630516  1.662260  1.004411    1.748713  1.608893
+3      LN  26.031335  1.753907  0.896833    2.149532  1.973100
+------------------------ END of tdiv (aggre_1U_1.0) ------------------------
+
+
+------------------------ BEGIN tld (aggre_1U_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  48.296  12.224  26.475   71.553      0.015    0.011  656595.0  645611.0  656578.0  771532.0    1.0
+beta1    1.274   0.324   0.693    1.887      0.000    0.000  657074.0  646484.0  656736.0  775039.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.625  0.031   3.567    3.683        0.0      0.0  2663850.0  2663850.0  2685014.0  2537386.0    1.0
+sigma1  0.158  0.023   0.118    0.202        0.0      0.0  2722838.0  2613514.0  2864717.0  2630924.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     37.953  1.255  35.597   40.329      0.001    0.001  2980857.0  2980857.0  3004884.0  2615975.0    1.0
+sigma2   6.484  0.955   4.830    8.285      0.001    0.000  2637563.0  2531413.0  2776676.0  2569997.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   5.792  0.775   4.352    7.255      0.001    0.000  2377220.0  2377220.0  2360616.0  2520503.0    1.0
+beta2   40.838  1.480  38.053   43.630      0.001    0.001  2258352.0  2258352.0  2260442.0  2376557.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0      LN  180.139345  2.171875   9.696214    0.000000  0.000000
+1     Gam  182.019817  2.645955  11.530270    1.880473  1.907869
+2       N  185.459063  2.503621   9.963916    5.319718  1.276819
+3     Wei  191.381613  2.364495   8.808234   11.242269  2.541230
+------------------------ END of tld (aggre_1U_1.0) ------------------------
+
+
+------------------------ BEGIN tdie (aggre_1U_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  22.992  5.830  12.550   34.032      0.006    0.005  813383.0  781855.0  819681.0  837294.0    1.0
+beta1    0.502  0.129   0.273    0.747      0.000    0.000  813782.0  782161.0  820010.0  844520.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.801  0.044   3.718    3.884        0.0      0.0  2648171.0  2648171.0  2668432.0  2529156.0    1.0
+sigma1  0.228  0.034   0.169    0.291        0.0      0.0  2806635.0  2694316.0  2947745.0  2677167.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     45.850  2.246  41.601   50.066      0.001    0.001  3113364.0  3113364.0  3139027.0  2682010.0    1.0
+sigma2  11.598  1.708   8.633   14.813      0.001    0.001  2496660.0  2401194.0  2627115.0  2503051.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   4.109  0.558   3.069    5.159      0.000    0.000  2358888.0  2358888.0  2342699.0  2528971.0    1.0
+beta2   50.598  2.584  45.747   55.468      0.002    0.001  2333932.0  2333932.0  2331865.0  2399946.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0      LN  210.200965  2.010887   9.554854    0.000000  0.000000
+1     Gam  212.712638  2.474408  11.059635    2.511673  1.658064
+2       N  217.824671  2.346631   9.269720    7.623706  1.634893
+3     Wei  220.555584  2.016920   7.893110   10.354619  2.636735
+------------------------ END of tdie (aggre_1U_1.0) ------------------------
+
+
+======================== END of aggre_1U_1.0 ========================
+
+======================== BEGIN t_misc_20140211_2.0 ========================
+------------------------ BEGIN tdiv0 (t_misc_20140211_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  101.808  29.890  48.421  158.946      0.036    0.026  707422.0  672632.0  705605.0  673120.0    1.0
+beta1     3.022   0.889   1.440    4.728      0.001    0.001  707888.0  673721.0  706128.0  685534.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.512  0.027   3.460    3.564        0.0      0.0  2580436.0  2580436.0  2626760.0  2440411.0    1.0
+sigma1  0.116  0.022   0.079    0.156        0.0      0.0  2495595.0  2359382.0  2691678.0  2518715.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     33.709  0.977  31.865   35.553      0.001      0.0  2702991.0  2702991.0  2753807.0  2456558.0    1.0
+sigma2   4.129  0.770   2.833    5.564      0.001      0.0  2355122.0  2225424.0  2544159.0  2426606.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   7.913  1.261   5.581   10.302      0.001    0.001  2246945.0  2246945.0  2225490.0  2369078.0    1.0
+beta2   35.635  1.162  33.438   37.817      0.001    0.001  2190204.0  2190204.0  2201257.0  2281533.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0      LN  106.548942  2.326609   8.829454    0.000000  0.000000
+1     Gam  107.766645  2.939225  11.472320    1.217703  2.667853
+2       N  109.476694  2.697023   9.610719    2.927752  1.131375
+3     Wei  115.662271  2.992749   9.868416    9.113329  2.382893
+------------------------ END of tdiv0 (t_misc_20140211_2.0) ------------------------
+
+
+------------------------ BEGIN tdiv (t_misc_20140211_2.0) ------------------------
+CANNOT PROCEED. tdiv HAS NO DATA!
+------------------------ END of tdiv (t_misc_20140211_2.0) ------------------------
+
+
+------------------------ BEGIN tld (t_misc_20140211_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  78.650  23.589  36.969  123.235      0.028    0.020  715523.0  669017.0  728224.0  701145.0    1.0
+beta1    2.286   0.688   1.068    3.583      0.001    0.001  716875.0  670867.0  729006.0  710689.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.531  0.031   3.473    3.590        0.0      0.0  2587931.0  2587931.0  2633265.0  2442052.0    1.0
+sigma1  0.132  0.025   0.091    0.178        0.0      0.0  2439394.0  2303016.0  2633025.0  2494571.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     34.428  1.135  32.277   36.560      0.001      0.0  2660917.0  2660917.0  2706807.0  2431843.0    1.0
+sigma2   4.805  0.896   3.307    6.484      0.001      0.0  2472347.0  2332909.0  2669368.0  2486461.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   7.350  1.215   5.101    9.648      0.001    0.001  2184304.0  2184304.0  2162298.0  2362924.0    1.0
+beta2   36.623  1.289  34.207   39.065      0.001    0.001  2228593.0  2228593.0  2242391.0  2288436.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      LN  111.840658  1.958397  7.237866    0.000000  0.000000
+1     Gam  113.047291  2.521298  9.279012    1.206633  2.069547
+2       N  114.485418  2.148340  7.244026    2.644759  0.634123
+3     Wei  118.718831  2.040730  6.357923    6.878173  1.706340
+------------------------ END of tld (t_misc_20140211_2.0) ------------------------
+
+
+------------------------ BEGIN tdie (t_misc_20140211_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  70.100  21.093  32.877  109.832      0.026    0.018  680404.0  652855.0  684789.0  730942.0    1.0
+beta1    1.759   0.531   0.825    2.763      0.001    0.000  681227.0  654326.0  685242.0  740937.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.678  0.034   3.614    3.741        0.0      0.0  2615049.0  2615049.0  2658898.0  2461424.0    1.0
+sigma1  0.143  0.027   0.098    0.192        0.0      0.0  2470252.0  2336124.0  2658857.0  2514083.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     39.880  1.341  37.344   42.407      0.001    0.001  2648282.0  2648282.0  2695036.0  2419764.0    1.0
+sigma2   5.676  1.058   3.891    7.643      0.001    0.000  2447583.0  2306883.0  2652342.0  2462135.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   8.012  1.361   5.496   10.586      0.001    0.001  2204390.0  2204390.0  2180161.0  2358968.0    1.0
+beta2   42.330  1.364  39.751   44.896      0.001    0.001  2193542.0  2193542.0  2210713.0  2254665.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      LN  119.975625  1.652356  5.343864    0.000000  0.000000
+1     Gam  120.320946  2.121728  7.206042    0.345322  1.913629
+2       N  120.394950  1.810243  6.061126    0.419325  1.124042
+3     Wei  123.212396  2.590587  8.198748    3.236771  3.642375
+------------------------ END of tdie (t_misc_20140211_2.0) ------------------------
+
+
+======================== END of t_misc_20140211_2.0 ========================
+
+======================== BEGIN b_cpg_cpg3_0.0 ========================
+------------------------ BEGIN tdiv0 (b_cpg_cpg3_0.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  67.089  11.196  46.453   88.141      0.014     0.01  656503.0  649199.0  657124.0  747338.0    1.0
+beta1    1.733   0.290   1.202    2.283      0.000     0.00  656421.0  649266.0  656920.0  748356.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.648  0.016   3.619    3.678        0.0      0.0  3260596.0  3260596.0  3264927.0  2875767.0    1.0
+sigma1  0.128  0.011   0.107    0.150        0.0      0.0  3004317.0  2956028.0  3056055.0  2771704.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     38.711  0.611  37.564   39.860        0.0      0.0  2919387.0  2919387.0  2923478.0  2719465.0    1.0
+sigma2   4.985  0.445   4.179    5.824        0.0      0.0  3081135.0  3024382.0  3142916.0  2785635.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   8.052  0.709   6.730    9.387        0.0      0.0  2319400.0  2319400.0  2311257.0  2579916.0    1.0
+beta2   40.940  0.667  39.686   42.194        0.0      0.0  2515402.0  2515402.0  2516948.0  2633219.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0      LN  416.350753  2.012997  12.056196    0.000000  0.000000
+1     Gam  416.631816  2.118094  12.891820    0.281064  1.143962
+2       N  418.214094  2.069640  12.229866    1.863341  2.247661
+3     Wei  427.960898  2.527762  12.737891   11.610145  5.774184
+------------------------ END of tdiv0 (b_cpg_cpg3_0.0) ------------------------
+
+
+------------------------ BEGIN tdiv (b_cpg_cpg3_0.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  20.154  3.707  13.416   27.198      0.004    0.003  776998.0  765524.0  776911.0  849164.0    1.0
+beta1    1.802  0.336   1.190    2.437      0.000    0.000  778272.0  766407.0  778006.0  849551.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     2.389  0.032   2.330    2.449        0.0      0.0  3192716.0  3192716.0  3200474.0  2832494.0    1.0
+sigma1  0.233  0.023   0.191    0.277        0.0      0.0  2889747.0  2832218.0  2954911.0  2737417.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     11.194  0.381  10.479   11.911        0.0      0.0  2995463.0  2995463.0  3001570.0  2690783.0    1.0
+sigma2   2.797  0.279   2.297    3.326        0.0      0.0  3194502.0  3120386.0  3275554.0  2843110.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   3.984  0.371   3.290    4.680        0.0      0.0  2362871.0  2362871.0  2354881.0  2599491.0    1.0
+beta2   12.309  0.451  11.461   13.156        0.0      0.0  2585686.0  2585686.0  2580767.0  2674219.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0      LN  264.188151  2.227011  13.443749    0.000000  0.000000
+1     Gam  267.129459  2.634630  15.465471    2.941308  2.462263
+2       N  276.118167  3.153411  16.715577   11.930015  5.120585
+3     Wei  283.252366  3.495355  16.218821   19.064215  6.166168
+------------------------ END of tdiv (b_cpg_cpg3_0.0) ------------------------
+
+
+------------------------ BEGIN tld (b_cpg_cpg3_0.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  25.881  4.325  17.958   34.059      0.005    0.003  810801.0  797387.0  811164.0  840457.0    1.0
+beta1    0.472  0.080   0.326    0.623      0.000    0.000  810417.0  796999.0  810739.0  838798.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.985  0.026   3.936    4.033        0.0      0.0  2984259.0  2984259.0  2987997.0  2772841.0    1.0
+sigma1  0.212  0.019   0.177    0.247        0.0      0.0  3155770.0  3101071.0  3212138.0  2841312.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     54.875  1.347  52.345   57.407      0.001    0.001  2979370.0  2979370.0  2982522.0  2750429.0    1.0
+sigma2  10.975  0.979   9.201   12.822      0.001    0.000  2998673.0  2945018.0  3059868.0  2781054.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   5.722  0.536   4.724    6.734      0.000    0.000  2410896.0  2410896.0  2401549.0  2644235.0    1.0
+beta2   59.349  1.356  56.799   61.899      0.001    0.001  2519286.0  2519286.0  2519668.0  2621052.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0       N  526.927750  1.892510  11.061135    0.000000   0.00000
+1     Wei  527.785643  1.926220  10.694336    0.857893   2.56615
+2     Gam  529.569883  2.251808  12.926894    2.642132   3.03832
+3      LN  532.359087  2.338920  12.862868    5.431337   3.95357
+------------------------ END of tld (b_cpg_cpg3_0.0) ------------------------
+
+
+------------------------ BEGIN tdie (b_cpg_cpg3_0.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  33.469  5.570  23.345   44.117      0.007    0.005  712042.0  700677.0  714815.0  781140.0    1.0
+beta1    0.380  0.064   0.264    0.501      0.000    0.000  711935.0  700697.0  714567.0  783473.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     4.462  0.023   4.420    4.505        0.0      0.0  3051665.0  3051665.0  3055524.0  2802009.0    1.0
+sigma1  0.184  0.016   0.154    0.215        0.0      0.0  2999819.0  2950182.0  3053715.0  2792604.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     88.035  1.923  84.425   91.654      0.001    0.001  3106722.0  3106722.0  3111223.0  2808384.0    1.0
+sigma2  15.670  1.397  13.148   18.314      0.001    0.001  2971204.0  2915715.0  3036600.0  2752671.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   6.458  0.607   5.327    7.601      0.000    0.000  2521871.0  2521871.0  2511224.0  2708303.0    1.0
+beta2   94.580  1.916  90.965   98.171      0.001    0.001  2417979.0  2417979.0  2418715.0  2557408.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0       N  575.854544  1.697415   9.735195    0.000000  0.000000
+1     Gam  577.056676  1.860316  10.638922    1.202132  2.082419
+2     Wei  577.073440  1.993514  10.427938    1.218897  2.920067
+3      LN  578.553462  1.840763  10.205308    2.698918  2.815079
+------------------------ END of tdie (b_cpg_cpg3_0.0) ------------------------
+
+
+======================== END of b_cpg_cpg3_0.0 ========================
+
+======================== BEGIN b_cpg_cpg4_0.0 ========================
+------------------------ BEGIN tdiv0 (b_cpg_cpg4_0.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  58.188  9.378  41.017   76.016      0.011    0.008  698573.0  688914.0  700166.0  749553.0    1.0
+beta1    1.389  0.225   0.974    1.813      0.000    0.000  698669.0  689131.0  700156.0  752091.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.726  0.016   3.696    3.758        0.0      0.0  3147140.0  3147140.0  3151246.0  2844667.0    1.0
+sigma1  0.138  0.012   0.117    0.161        0.0      0.0  3008317.0  2958194.0  3061697.0  2777721.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     41.902  0.682  40.620   43.185        0.0      0.0  3190144.0  3190144.0  3194918.0  2809136.0    1.0
+sigma2   5.725  0.495   4.832    6.665        0.0      0.0  2961822.0  2913385.0  3014423.0  2748004.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   7.171  0.574   6.098    8.255        0.0      0.0  2433202.0  2433202.0  2427135.0  2602988.0    1.0
+beta2   44.411  0.787  42.936   45.895        0.0      0.0  2523490.0  2523490.0  2522935.0  2650638.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic   delta_se
+rank                                                             
+0     Gam  463.354850  3.138977  19.079696    0.000000   0.000000
+1       N  463.791302  3.057752  18.250432    0.436452   4.705790
+2      LN  464.379793  3.170484  18.508257    1.024943   2.397914
+3     Wei  479.837538  5.307789  23.679344   16.482689  14.090840
+------------------------ END of tdiv0 (b_cpg_cpg4_0.0) ------------------------
+
+
+------------------------ BEGIN tdiv (b_cpg_cpg4_0.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  18.548  3.208  12.682   24.649      0.004    0.003  794901.0  783669.0  795937.0  859138.0    1.0
+beta1    1.488  0.261   1.010    1.983      0.000    0.000  794588.0  783261.0  795264.0  862275.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     2.496  0.031   2.437    2.554        0.0      0.0  3224909.0  3224909.0  3230176.0  2819150.0    1.0
+sigma1  0.243  0.023   0.202    0.286        0.0      0.0  2955926.0  2901126.0  3018183.0  2766181.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     12.480  0.409  11.709   13.246        0.0      0.0  3151271.0  3151271.0  3156280.0  2743947.0    1.0
+sigma2   3.178  0.298   2.638    3.737        0.0      0.0  2929154.0  2874070.0  2990803.0  2739525.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   4.000  0.357   3.334    4.673        0.0      0.0  2496191.0  2496191.0  2486958.0  2662025.0    1.0
+beta2   13.734  0.472  12.852   14.626        0.0      0.0  2342014.0  2342014.0  2338480.0  2519428.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0      LN  315.456563  1.946603  12.464009    0.000000  0.000000
+1     Gam  317.795946  2.254716  14.187049    2.339382  2.345172
+2       N  326.065610  2.775672  15.999186   10.609046  5.783870
+3     Wei  332.980579  3.622801  17.141153   17.524016  8.102775
+------------------------ END of tdiv (b_cpg_cpg4_0.0) ------------------------
+
+
+------------------------ BEGIN tld (b_cpg_cpg4_0.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  23.771  3.851  16.734   31.077      0.004    0.003  800807.0  785867.0  803454.0  832168.0    1.0
+beta1    0.396  0.065   0.278    0.520      0.000    0.000  800302.0  785371.0  802983.0  836562.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     4.073  0.026   4.024    4.123        0.0      0.0  3162060.0  3162060.0  3164759.0  2863576.0    1.0
+sigma1  0.221  0.019   0.186    0.257        0.0      0.0  3034394.0  2986751.0  3086050.0  2804768.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     60.068  1.479  57.300   62.856      0.001    0.001  3254070.0  3254070.0  3257718.0  2841256.0    1.0
+sigma2  12.401  1.073  10.464   14.438      0.001    0.000  2904136.0  2856286.0  2959001.0  2733053.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   5.724  0.535   4.732    6.737      0.000    0.000  2446781.0  2446781.0  2437581.0  2659731.0    1.0
+beta2   65.066  1.441  62.362   67.781      0.001    0.001  2552010.0  2552010.0  2553060.0  2626537.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0     Wei  573.719777  1.742496  10.063300    0.000000  0.000000
+1       N  575.129749  1.737783  10.252140    1.409973  1.984569
+2     Gam  578.789321  2.020914  11.537984    5.069544  4.149949
+3      LN  582.038936  2.066538  11.228687    8.319159  4.868958
+------------------------ END of tld (b_cpg_cpg4_0.0) ------------------------
+
+
+------------------------ BEGIN tdie (b_cpg_cpg4_0.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  25.507  4.125  17.986   33.374      0.005    0.003  803903.0  789588.0  806795.0  834812.0    1.0
+beta1    0.288  0.047   0.202    0.377      0.000    0.000  804722.0  790483.0  807441.0  837655.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     4.465  0.026   4.416    4.514        0.0      0.0  3043624.0  3043624.0  3046615.0  2789192.0    1.0
+sigma1  0.218  0.019   0.184    0.254        0.0      0.0  3132866.0  3081594.0  3183788.0  2819918.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     88.706  2.029  84.900   92.523      0.001    0.001  3217455.0  3217455.0  3221451.0  2856753.0    1.0
+sigma2  17.027  1.473  14.368   19.821      0.001    0.001  2848633.0  2795761.0  2911086.0  2689751.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   6.318  0.584   5.226    7.413      0.000    0.000  2543558.0  2543558.0  2533508.0  2712943.0    1.0
+beta2   95.433  1.910  91.838   99.018      0.001    0.001  2615471.0  2615471.0  2615918.0  2647489.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0     Wei  618.153162  2.216065  13.828356    0.000000  0.000000
+1       N  622.090512  2.372652  14.378283    3.937350  3.173610
+2     Gam  632.017084  3.159074  17.604347   13.863922  7.356755
+3      LN  638.964394  3.462792  17.877479   20.811232  8.633613
+------------------------ END of tdie (b_cpg_cpg4_0.0) ------------------------
+
+
+======================== END of b_cpg_cpg4_0.0 ========================
+
+======================== BEGIN t_misc_20140211_3.0 ========================
+------------------------ BEGIN tdiv0 (t_misc_20140211_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  118.262  32.158  60.926  180.475      0.038    0.028  703423.0  679701.0  684213.0  643069.0    1.0
+beta1     3.585   0.977   1.860    5.492      0.001    0.001  703589.0  680689.0  686479.0  661517.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.492  0.024   3.446    3.537        0.0      0.0  2699798.0  2699798.0  2744550.0  2507244.0    1.0
+sigma1  0.105  0.019   0.073    0.140        0.0      0.0  2500688.0  2365373.0  2688247.0  2496770.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     33.001  0.857  31.377    34.61      0.001      0.0  2499502.0  2499502.0  2532870.0  2394181.0    1.0
+sigma2   3.720  0.672   2.589     4.98      0.000      0.0  2553778.0  2418460.0  2744209.0  2559902.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   8.034  1.209   5.781   10.311      0.001    0.001  2272033.0  2272033.0  2254558.0  2387004.0    1.0
+beta2   34.782  1.085  32.748   36.836      0.001    0.001  2236498.0  2236498.0  2243679.0  2331419.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0      LN  108.239671  2.947773  11.465967    0.000000  0.000000
+1     Gam  109.211735  3.350093  14.092832    0.972063  2.644561
+2       N  112.073537  3.486610  12.706026    3.833865  1.512941
+3     Wei  120.194067  3.732000  12.506022   11.954396  2.292612
+------------------------ END of tdiv0 (t_misc_20140211_3.0) ------------------------
+
+
+------------------------ BEGIN tdiv (t_misc_20140211_3.0) ------------------------
+CANNOT PROCEED. tdiv HAS NO DATA!
+------------------------ END of tdiv (t_misc_20140211_3.0) ------------------------
+
+
+------------------------ BEGIN tld (t_misc_20140211_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  118.262  32.158  60.926  180.475      0.038    0.028  703423.0  679701.0  684213.0  643069.0    1.0
+beta1     3.585   0.977   1.860    5.492      0.001    0.001  703589.0  680689.0  686479.0  661517.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.492  0.024   3.446    3.537        0.0      0.0  2699798.0  2699798.0  2744550.0  2507244.0    1.0
+sigma1  0.105  0.019   0.073    0.140        0.0      0.0  2500688.0  2365373.0  2688247.0  2496770.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     33.001  0.857  31.377    34.61      0.001      0.0  2499502.0  2499502.0  2532870.0  2394181.0    1.0
+sigma2   3.720  0.672   2.589     4.98      0.000      0.0  2553778.0  2418460.0  2744209.0  2559902.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   8.034  1.209   5.781   10.311      0.001    0.001  2272033.0  2272033.0  2254558.0  2387004.0    1.0
+beta2   34.782  1.085  32.748   36.836      0.001    0.001  2236498.0  2236498.0  2243679.0  2331419.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0      LN  108.239671  2.947773  11.465967    0.000000  0.000000
+1     Gam  109.211735  3.350093  14.092832    0.972063  2.644561
+2       N  112.073537  3.486610  12.706026    3.833865  1.512941
+3     Wei  120.194067  3.732000  12.506022   11.954396  2.292612
+------------------------ END of tld (t_misc_20140211_3.0) ------------------------
+
+
+------------------------ BEGIN tdie (t_misc_20140211_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  78.950  23.189  37.956  122.854      0.028    0.020  710361.0  675320.0  717232.0  718903.0    1.0
+beta1    2.134   0.629   1.021    3.322      0.001    0.001  710856.0  676330.0  717341.0  728365.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.604  0.030   3.547    3.662        0.0      0.0  2724763.0  2724763.0  2768641.0  2513898.0    1.0
+sigma1  0.132  0.024   0.092    0.177        0.0      0.0  2390468.0  2270947.0  2560518.0  2450079.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     37.028  1.147  34.863   39.192      0.001      0.0  2633174.0  2633174.0  2677713.0  2427805.0    1.0
+sigma2   4.988  0.899   3.473    6.672      0.001      0.0  2526155.0  2384611.0  2726513.0  2515893.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   8.361  1.420   5.753   11.060      0.001    0.001  2259729.0  2259729.0  2235090.0  2408976.0    1.0
+beta2   39.243  1.182  36.999   41.455      0.001    0.001  2169729.0  2169729.0  2187739.0  2213217.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      LN  120.075031  1.497428  5.046020    0.000000  0.000000
+1     Gam  120.607144  1.872000  6.334163    0.532113  1.349666
+2       N  121.211594  1.560904  4.935139    1.136563  0.746894
+3     Wei  123.728209  1.672294  4.829856    3.653178  1.984353
+------------------------ END of tdie (t_misc_20140211_3.0) ------------------------
+
+
+======================== END of t_misc_20140211_3.0 ========================
+
+======================== BEGIN aggre_10U_3.0 ========================
+------------------------ BEGIN tdiv0 (aggre_10U_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  30.484  5.922  19.725   41.718      0.007    0.005  766539.0  748211.0  769492.0  809678.0    1.0
+beta1    0.714  0.140   0.458    0.977      0.000    0.000  766761.0  748361.0  769611.0  811291.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.737  0.027   3.687    3.787        0.0      0.0  3109586.0  3109586.0  3117971.0  2798751.0    1.0
+sigma1  0.185  0.020   0.150    0.222        0.0      0.0  2798227.0  2735884.0  2870693.0  2686150.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     42.733  1.337  40.219   45.249      0.001    0.001  3005341.0  3005341.0  3013391.0  2697317.0    1.0
+sigma2   9.270  0.983   7.511   11.128      0.001    0.000  2832972.0  2764695.0  2914835.0  2680885.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   4.080  0.370   3.386    4.777      0.000    0.000  2319393.0  2319393.0  2314020.0  2521298.0    1.0
+beta2   46.618  1.772  43.296   49.957      0.001    0.001  2404585.0  2404585.0  2400202.0  2570569.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0      LN  349.588876  3.723763  20.312258    0.000000  0.000000
+1     Gam  355.945984  4.770994  24.528512    6.357108  4.493819
+2       N  370.309682  6.015833  27.191687   20.720806  8.091352
+3     Wei  383.579711  5.985412  24.335426   33.990835  7.153980
+------------------------ END of tdiv0 (aggre_10U_3.0) ------------------------
+
+
+------------------------ BEGIN tdiv (aggre_10U_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+         mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  44.81  14.536   19.29   72.112      0.018    0.013  687819.0  669322.0  686080.0  786828.0    1.0
+beta1    2.63   0.858    1.13    4.246      0.001    0.001  687838.0  669682.0  685807.0  782204.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     2.823  0.049   2.731    2.916        0.0      0.0  2440818.0  2440818.0  2501378.0  2316807.0    1.0
+sigma1  0.189  0.039   0.124    0.262        0.0      0.0  2356398.0  2204006.0  2584977.0  2441365.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     17.06  0.781  15.579   18.532        0.0      0.0  2446052.0  2446052.0  2507581.0  2228435.0    1.0
+sigma2   3.02  0.631   1.983    4.191        0.0      0.0  2383190.0  2223929.0  2620239.0  2444021.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   7.464  1.479   4.769   10.278      0.001    0.001  2144023.0  2144023.0  2113064.0  2329093.0    1.0
+beta2   18.271  0.696  16.952   19.581      0.000    0.000  2162365.0  2162365.0  2196501.0  2193209.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name       waic    p_waic        se  delta_waic  delta_se
+rank                                                          
+0     Wei  80.532857  1.965185  6.045813    0.000000  0.000000
+1       N  81.272249  1.823038  5.543658    0.739392  1.589200
+2     Gam  82.962361  2.584795  8.083161    2.429505  3.350001
+3      LN  83.247167  2.064943  5.952328    2.714310  2.617635
+------------------------ END of tdiv (aggre_10U_3.0) ------------------------
+
+
+------------------------ BEGIN tld (aggre_10U_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  24.143  4.683  15.586   32.983      0.005    0.004  800535.0  783546.0  802412.0  840957.0    1.0
+beta1    0.497  0.097   0.319    0.681      0.000    0.000  800914.0  783729.0  802794.0  840722.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.862  0.031   3.804    3.920        0.0      0.0  3100611.0  3100611.0  3109433.0  2768241.0    1.0
+sigma1  0.213  0.023   0.173    0.256        0.0      0.0  2812667.0  2748975.0  2887613.0  2693591.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     48.639  1.611  45.622   51.679      0.001    0.001  2881701.0  2881701.0  2888309.0  2639430.0    1.0
+sigma2  11.152  1.183   9.025   13.379      0.001    0.000  3052291.0  2975603.0  3137078.0  2776720.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   4.396  0.441   3.574    5.228      0.000    0.000  2421130.0  2421130.0  2410035.0  2591471.0    1.0
+beta2   53.222  1.874  49.703   56.753      0.001    0.001  2269672.0  2269672.0  2267554.0  2415071.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0      LN  374.327500  1.959714  11.689024    0.000000  0.000000
+1     Gam  377.140885  2.310124  13.214010    2.813386  1.877612
+2       N  384.406995  2.579245  13.358299   10.079496  3.435924
+3     Wei  391.164331  2.883283  13.227157   16.836832  4.951809
+------------------------ END of tld (aggre_10U_3.0) ------------------------
+
+
+------------------------ BEGIN tdie (aggre_10U_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  16.429  3.175  10.646   22.445      0.004    0.003  770942.0  760669.0  771019.0  873727.0    1.0
+beta1    0.249  0.049   0.160    0.342      0.000    0.000  771073.0  760637.0  771114.0  874580.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     4.157  0.038   4.085    4.229        0.0      0.0  3147422.0  3147422.0  3156943.0  2797559.0    1.0
+sigma1  0.265  0.028   0.215    0.318        0.0      0.0  2860921.0  2795499.0  2937667.0  2709556.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     65.981  2.531  61.219   70.734      0.001    0.001  3297314.0  3297314.0  3306702.0  2812729.0    1.0
+sigma2  17.537  1.861  14.208   21.051      0.001    0.001  2831014.0  2759882.0  2917413.0  2657922.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   4.155  0.448   3.323    5.003      0.000    0.000  2443409.0  2443409.0  2431469.0  2629717.0    1.0
+beta2   72.836  2.712  67.737   77.943      0.002    0.001  2458256.0  2458256.0  2456605.0  2508975.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      LN  425.033947  1.602122  8.537592    0.000000  0.000000
+1     Gam  425.494488  1.754325  9.211575    0.460540  1.266368
+2       N  428.742318  1.751981  8.728594    3.708370  2.807904
+3     Wei  430.325251  1.879733  8.602242    5.291304  3.783798
+------------------------ END of tdie (aggre_10U_3.0) ------------------------
+
+
+======================== END of aggre_10U_3.0 ========================
+
+======================== BEGIN t_misc_20140325_4.0 ========================
+------------------------ BEGIN tdiv0 (t_misc_20140325_4.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd   hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  153.156  28.516  105.157  200.000      0.035    0.024  681263.0  681263.0  640044.0  642483.0    1.0
+beta1     4.474   0.836    3.013    5.862      0.001    0.001  681982.0  681982.0  653609.0  710251.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.530  0.017   3.499    3.562        0.0      0.0  2879812.0  2879812.0  2903932.0  2641669.0    1.0
+sigma1  0.084  0.013   0.062    0.108        0.0      0.0  2675995.0  2568774.0  2811830.0  2612396.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     34.244  0.596  33.123   35.369        0.0      0.0  2830491.0  2830491.0  2854075.0  2619535.0    1.0
+sigma2   3.018  0.453   2.234    3.873        0.0      0.0  2745952.0  2627564.0  2892820.0  2645297.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2  10.299  1.346   7.783   12.830      0.001    0.001  2279711.0  2279711.0  2266251.0  2448998.0    1.0
+beta2   35.704  0.741  34.312   37.101      0.000    0.000  2335620.0  2335620.0  2340392.0  2460087.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0     Gam  134.279878  1.852394  10.942131    0.000000  0.000000
+1      LN  135.222611  2.591387  10.994251    0.942733  0.209040
+2       N  138.248724  2.985372  12.074583    3.968846  1.429584
+3     Wei  149.167748  3.757282  13.319126   14.887870  3.857461
+------------------------ END of tdiv0 (t_misc_20140325_4.0) ------------------------
+
+
+------------------------ BEGIN tdiv (t_misc_20140325_4.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  34.842  12.671  12.937   58.594      0.015    0.011  680775.0  656678.0  679944.0  792506.0    1.0
+beta1    2.983   1.092   1.094    5.028      0.001    0.001  681273.0  657551.0  680050.0  787610.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     2.442  0.068   2.313    2.572        0.0      0.0  2289463.0  2289463.0  2392740.0  2138246.0    1.0
+sigma1  0.227  0.058   0.136    0.333        0.0      0.0  2018214.0  1866607.0  2271168.0  2241683.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     11.711  0.784  10.233   13.200      0.001      0.0  2322627.0  2322627.0  2442933.0  2063556.0    1.0
+sigma2   2.605  0.669   1.558    3.828      0.000      0.0  2008013.0  1844093.0  2270968.0  2227119.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   6.130  1.452   3.509    8.891      0.001    0.001  2103492.0  2103492.0  2062015.0  2286415.0    1.0
+beta2   12.755  0.705  11.418   14.081      0.001    0.000  1918668.0  1918668.0  1973766.0  1973026.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name       waic    p_waic        se  delta_waic  delta_se
+rank                                                          
+0     Wei  56.551655  1.444922  2.851353    0.000000  0.000000
+1       N  56.731451  1.212991  2.375875    0.179796  1.099944
+2      LN  56.820878  1.255447  2.716684    0.269223  2.141014
+3     Gam  57.004028  1.738870  3.867288    0.452374  2.114400
+------------------------ END of tdiv (t_misc_20140325_4.0) ------------------------
+
+
+------------------------ BEGIN tld (t_misc_20140325_4.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  34.962  9.018  18.835   52.047      0.011    0.008  732974.0  709491.0  736700.0  790689.0    1.0
+beta1    0.880  0.228   0.469    1.310      0.000    0.000  733768.0  709822.0  737548.0  795417.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.668  0.037   3.597    3.737        0.0      0.0  2806670.0  2806670.0  2832409.0  2578027.0    1.0
+sigma1  0.188  0.028   0.139    0.241        0.0      0.0  2681021.0  2567788.0  2826322.0  2573213.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     39.789  1.571  36.834   42.749      0.001    0.001  2801843.0  2801843.0  2825886.0  2522031.0    1.0
+sigma2   7.956  1.196   5.884   10.209      0.001    0.001  2725573.0  2607437.0  2877763.0  2604542.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   5.199  0.722   3.849    6.554      0.000    0.000  2344945.0  2344945.0  2326639.0  2519627.0    1.0
+beta2   43.194  1.778  39.866   46.565      0.001    0.001  2261138.0  2261138.0  2262747.0  2361731.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      LN  184.921434  1.805248  8.101018    0.000000  0.000000
+1     Gam  186.488664  2.251805  9.786186    1.567229  1.827585
+2       N  189.563893  2.183543  8.726804    4.642459  1.715823
+3     Wei  193.830683  2.367736  8.702702    8.909249  2.846048
+------------------------ END of tld (t_misc_20140325_4.0) ------------------------
+
+
+------------------------ BEGIN tdie (t_misc_20140325_4.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  40.485  10.430  21.792   60.194      0.013    0.009  677272.0  663553.0  677965.0  777571.0    1.0
+beta1    0.917   0.238   0.491    1.367      0.000    0.000  677690.0  664179.0  678250.0  781438.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.775  0.035   3.709    3.840        0.0      0.0  2867537.0  2867537.0  2891981.0  2637907.0    1.0
+sigma1  0.176  0.026   0.130    0.226        0.0      0.0  2625236.0  2524955.0  2754406.0  2592336.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     44.189  1.594  41.192   47.202      0.001    0.001  2650926.0  2650926.0  2672612.0  2495565.0    1.0
+sigma2   8.084  1.215   5.974   10.368      0.001    0.001  2823549.0  2696828.0  2985561.0  2659198.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   5.814  0.822   4.288    7.363      0.001    0.000  2359929.0  2359929.0  2339138.0  2530772.0    1.0
+beta2   47.679  1.754  44.387   50.994      0.001    0.001  2216763.0  2216763.0  2219321.0  2303481.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      LN  186.944718  1.698508  7.213455    0.000000  0.000000
+1     Gam  187.999178  2.070608  8.656657    1.054460  1.565555
+2       N  190.097449  1.942730  7.587655    3.152731  1.385683
+3     Wei  193.965689  2.132947  7.631452    7.020971  2.563942
+------------------------ END of tdie (t_misc_20140325_4.0) ------------------------
+
+
+======================== END of t_misc_20140325_4.0 ========================
+
+======================== BEGIN t_misc_20140325_3.0 ========================
+------------------------ BEGIN tdiv0 (t_misc_20140325_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd   hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  163.310  27.491  113.569   200.00      0.033    0.024  682441.0  682441.0  674149.0  721323.0    1.0
+beta1     4.725   0.800    3.228     5.88      0.001    0.001  684443.0  684443.0  699960.0  707039.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.541  0.019   3.506    3.577        0.0      0.0  2533978.0  2533901.0  2590194.0  2404550.0    1.0
+sigma1  0.075  0.015   0.050    0.103        0.0      0.0  2413145.0  2267315.0  2618473.0  2474047.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     34.58  0.659  33.324   35.813        0.0      0.0  2498672.0  2498672.0  2552272.0  2374814.0    1.0
+sigma2   2.63  0.528   1.757    3.613        0.0      0.0  2379461.0  2228752.0  2594173.0  2448385.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2  14.990  2.761   9.931   20.239      0.002    0.001  2194708.0  2194708.0  2167843.0  2364277.0    1.0
+beta2   35.782  0.657  34.539   37.021      0.000    0.000  2127308.0  2127308.0  2154226.0  2174845.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name       waic    p_waic        se  delta_waic  delta_se
+rank                                                          
+0     Gam  79.886987  0.891605  3.763755    0.000000  0.000000
+1      LN  80.862139  1.537681  4.595624    0.975152  0.841142
+2       N  81.283716  1.563291  4.545933    1.396729  0.858341
+3     Wei  83.761300  1.692186  4.612940    3.874313  1.855398
+------------------------ END of tdiv0 (t_misc_20140325_3.0) ------------------------
+
+
+------------------------ BEGIN tdiv (t_misc_20140325_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  58.616  21.318  21.858   98.683      0.025    0.019  699737.0  660338.0  706576.0  744604.0    1.0
+beta1    5.649   2.063   2.085    9.520      0.002    0.002  700292.0  661656.0  706523.0  754477.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     2.330  0.052   2.232    2.429        0.0      0.0  2274639.0  2274639.0  2383810.0  2158455.0    1.0
+sigma1  0.173  0.044   0.103    0.254        0.0      0.0  2044663.0  1894119.0  2297861.0  2253992.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     10.391  0.547   9.353   11.422        0.0      0.0  2275920.0  2275920.0  2385091.0  2067339.0    1.0
+sigma2   1.816  0.466   1.089    2.670        0.0      0.0  2027513.0  1873916.0  2279758.0  2233024.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   7.071  1.562   4.215   10.026      0.001    0.001  2084235.0  2084235.0  2046963.0  2249690.0    1.0
+beta2   11.157  0.531  10.155   12.156      0.000    0.000  2003642.0  2003642.0  2052817.0  2083218.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name       waic    p_waic        se  delta_waic  delta_se
+rank                                                          
+0      LN  47.892459  1.479589  3.823470    0.000000  0.000000
+1     Gam  48.462633  2.114088  5.729680    0.570174  1.965309
+2       N  48.482533  1.541967  3.802544    0.590074  0.611925
+3     Wei  49.448452  1.685901  4.058999    1.555993  1.364160
+------------------------ END of tdiv (t_misc_20140325_3.0) ------------------------
+
+
+------------------------ BEGIN tld (t_misc_20140325_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  63.809  20.186  28.283  101.699      0.025    0.018  663159.0  643328.0  664239.0  757435.0    1.0
+beta1    1.531   0.486   0.679    2.448      0.001    0.000  663676.0  644489.0  664315.0  758170.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.722  0.038   3.649    3.794        0.0      0.0  2541685.0  2541685.0  2596303.0  2407220.0    1.0
+sigma1  0.153  0.031   0.102    0.210        0.0      0.0  2331139.0  2196016.0  2529389.0  2429333.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     41.712  1.588  38.722   44.722      0.001    0.001  2573774.0  2573774.0  2630377.0  2356671.0    1.0
+sigma2   6.334  1.272   4.220    8.690      0.001    0.001  2324284.0  2184542.0  2533614.0  2430063.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   8.164  1.560   5.310   11.123      0.001    0.001  2151763.0  2151763.0  2124370.0  2370927.0    1.0
+beta2   44.401  1.498  41.578   47.240      0.001    0.001  2191858.0  2191858.0  2220179.0  2222328.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      LN  110.926986  1.403488  3.822607    0.000000  0.000000
+1       N  110.989155  1.415842  3.835120    0.062170  0.760489
+2     Gam  111.116437  1.798509  5.114654    0.189451  1.381782
+3     Wei  111.606833  1.603312  4.328699    0.679847  2.000109
+------------------------ END of tld (t_misc_20140325_3.0) ------------------------
+
+
+------------------------ BEGIN tdie (t_misc_20140325_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  56.273  17.812  24.850   89.687      0.021    0.015  692079.0  666078.0  694489.0  761066.0    1.0
+beta1    1.188   0.378   0.522    1.897      0.000    0.000  692357.0  666878.0  694316.0  766646.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.848  0.041   3.771    3.926        0.0      0.0  2551090.0  2551090.0  2605825.0  2392651.0    1.0
+sigma1  0.165  0.033   0.110    0.226        0.0      0.0  2357366.0  2220644.0  2554502.0  2450145.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     47.416  1.881  43.863   50.970      0.001    0.001  2670032.0  2670032.0  2730837.0  2373287.0    1.0
+sigma2   7.517  1.508   5.010   10.319      0.001    0.001  2265399.0  2132195.0  2470451.0  2361891.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   8.303  1.628   5.313   11.372      0.001    0.001  2143057.0  2143057.0  2112849.0  2353457.0    1.0
+beta2   50.509  1.676  47.317   53.653      0.001    0.001  2153245.0  2153245.0  2184073.0  2177233.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0     Wei  116.359454  1.691220  5.032567    0.000000  0.000000
+1       N  116.969186  1.541169  4.498255    0.609732  1.479755
+2     Gam  117.950148  2.085673  6.302883    1.590694  2.526338
+3      LN  118.085373  1.672668  4.702145    1.725918  2.274935
+------------------------ END of tdie (t_misc_20140325_3.0) ------------------------
+
+
+======================== END of t_misc_20140325_3.0 ========================
+
+======================== BEGIN t_misc_20140325_2.0 ========================
+------------------------ BEGIN tdiv0 (t_misc_20140325_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  92.634  33.557  33.904  157.153      0.040    0.029  703031.0  658362.0  701830.0  659573.0    1.0
+beta1    2.347   0.853   0.861    3.992      0.001    0.001  703892.0  660449.0  702880.0  676338.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.670  0.044   3.586    3.753        0.0      0.0  2106693.0  2106693.0  2220140.0  2062100.0    1.0
+sigma1  0.139  0.038   0.080    0.209        0.0      0.0  2028908.0  1849564.0  2342016.0  2234366.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     39.511  1.805  36.083   42.918      0.001    0.001  2098223.0  2098223.0  2218144.0  1988824.0    1.0
+sigma2   5.714  1.569   3.307    8.566      0.001    0.001  1998014.0  1815897.0  2317646.0  2197151.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   8.327  1.919   4.826   11.960      0.001    0.001  2038266.0  2038266.0  1999362.0  2223575.0    1.0
+beta2   42.011  1.788  38.616   45.362      0.001    0.001  1965215.0  1961871.0  2023853.0  2049439.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name       waic    p_waic        se  delta_waic  delta_se
+rank                                                          
+0      LN  68.474447  1.380550  3.660516    0.000000  0.000000
+1     Gam  69.024220  1.938316  5.320981    0.549774  1.694286
+2       N  69.507461  1.429122  3.282669    1.033014  0.609052
+3     Wei  70.956522  1.453750  2.860794    2.482075  1.594411
+------------------------ END of tdiv0 (t_misc_20140325_2.0) ------------------------
+
+
+------------------------ BEGIN tdiv (t_misc_20140325_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  19.632  8.756   5.056   35.891      0.010    0.007  729111.0  710791.0  719648.0  869265.0    1.0
+beta1    1.487  0.671   0.376    2.737      0.001    0.001  730088.0  712587.0  719968.0  863267.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     2.551  0.156   2.258    2.843        0.0      0.0  1595722.0  1595722.0  1937367.0  1579137.0    1.0
+sigma1  0.377  0.161   0.170    0.648        0.0      0.0  1263841.0  1263841.0  1561134.0  1663912.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     13.310  2.148   9.256   17.353      0.002    0.001  1347785.0  1347785.0  1584702.0  1189045.0    1.0
+sigma2   5.222  2.212   2.352    8.955      0.002    0.001  1320909.0  1175152.0  1700612.0  1657387.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   3.771  1.111   1.765    5.867      0.001    0.001  1811448.0  1811448.0  1757680.0  1955300.0    1.0
+beta2   15.334  2.058  11.732   19.015      0.002    0.001  1414201.0  1382988.0  1768232.0  1665401.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name       waic    p_waic        se  delta_waic  delta_se
+rank                                                          
+0      LN  41.498944  1.307615  2.971634    0.000000  0.000000
+1     Wei  42.394218  1.552900  2.930635    0.895274  1.388746
+2     Gam  42.397552  2.248220  5.296663    0.898608  2.515857
+3       N  42.755848  1.417353  2.507925    1.256904  1.071732
+------------------------ END of tdiv (t_misc_20140325_2.0) ------------------------
+
+
+------------------------ BEGIN tld (t_misc_20140325_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  56.892  21.475  19.998   97.209      0.026    0.019  671908.0  645626.0  672112.0  765972.0    1.0
+beta1    1.165   0.442   0.406    1.995      0.001    0.000  672489.0  646991.0  672078.0  758948.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.879  0.058   3.769    3.988        0.0      0.0  2154973.0  2154973.0  2279220.0  2082014.0    1.0
+sigma1  0.183  0.050   0.106    0.275        0.0      0.0  1987358.0  1822400.0  2284572.0  2197272.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     48.904  2.746  43.715   54.108      0.002    0.001  2214858.0  2214858.0  2345049.0  2042430.0    1.0
+sigma2   8.690  2.393   5.026   13.043      0.002    0.001  1917810.0  1754416.0  2198446.0  2153181.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   7.806  1.887   4.381   11.380      0.001    0.001  2092830.0  2092830.0  2048612.0  2230687.0    1.0
+beta2   52.394  2.388  47.864   56.882      0.002    0.001  1897472.0  1895273.0  1964650.0  1967725.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name       waic    p_waic        se  delta_waic  delta_se
+rank                                                          
+0     Wei  78.512694  1.685529  3.994324    0.000000  0.000000
+1       N  78.756062  1.447656  3.235589    0.243368  1.096302
+2      LN  79.229846  1.479744  3.169900    0.717152  1.680215
+3     Gam  79.497487  2.134577  5.187755    0.984793  1.831935
+------------------------ END of tld (t_misc_20140325_2.0) ------------------------
+
+
+------------------------ BEGIN tdie (t_misc_20140325_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  108.944  36.839  45.150  180.997      0.044    0.032  697564.0  669717.0  676414.0  645567.0    1.0
+beta1     1.999   0.678   0.813    3.310      0.001    0.001  698705.0  671849.0  680453.0  672146.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.993  0.041   3.917    4.070        0.0      0.0  2164063.0  2164063.0  2296453.0  2124218.0    1.0
+sigma1  0.128  0.035   0.074    0.192        0.0      0.0  2032143.0  1838033.0  2336758.0  2262916.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     54.550  2.208  50.379   58.742      0.001    0.001  2174638.0  2174638.0  2297880.0  2058694.0    1.0
+sigma2   6.988  1.919   4.031   10.467      0.001    0.001  1978083.0  1805040.0  2285949.0  2188293.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   9.846  2.261   5.696   14.113      0.002    0.001  2087663.0  2087663.0  2047178.0  2215266.0    1.0
+beta2   57.513  2.065  53.608   61.406      0.001    0.001  1981661.0  1981661.0  2039140.0  2073027.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name       waic    p_waic        se  delta_waic  delta_se
+rank                                                          
+0     Gam  73.851199  1.938504  5.498411    0.000000  0.000000
+1      LN  73.950410  1.532884  3.650535    0.099210  1.875573
+2       N  74.140470  1.583125  3.816722    0.289270  1.708908
+3     Wei  75.290158  1.932846  4.833279    1.438959  1.534510
+------------------------ END of tdie (t_misc_20140325_2.0) ------------------------
+
+
+======================== END of t_misc_20140325_2.0 ========================
+
+======================== BEGIN t_misc_20140211_4.0 ========================
+------------------------ BEGIN tdiv0 (t_misc_20140211_4.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  115.643  28.306  64.439  170.232      0.035    0.025  657763.0  629199.0  655049.0  611092.0    1.0
+beta1     3.218   0.789   1.788    4.737      0.001    0.001  658245.0  630285.0  656048.0  623237.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.577  0.020   3.540    3.615        0.0      0.0  2766023.0  2766023.0  2787460.0  2610730.0    1.0
+sigma1  0.104  0.015   0.077    0.133        0.0      0.0  2695518.0  2593502.0  2824807.0  2635575.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     35.949  0.728  34.577   37.322        0.0      0.0  2798328.0  2798328.0  2820343.0  2586791.0    1.0
+sigma2   3.762  0.554   2.805    4.808        0.0      0.0  2720158.0  2614511.0  2854524.0  2631272.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2  10.641  1.526   7.813   13.524      0.001    0.001  2298565.0  2298565.0  2279953.0  2497206.0    1.0
+beta2   37.648  0.742  36.247   39.044      0.000    0.000  2339420.0  2339420.0  2350060.0  2389872.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      LN  153.245178  1.570452  5.937271    0.000000  0.000000
+1     Gam  153.383226  1.767490  6.982917    0.138048  1.097613
+2       N  153.900580  1.614409  5.983974    0.655402  0.749717
+3     Wei  157.216133  1.866417  6.463282    3.970954  2.732049
+------------------------ END of tdiv0 (t_misc_20140211_4.0) ------------------------
+
+
+------------------------ BEGIN tdiv (t_misc_20140211_4.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  135.167  42.639  61.579   200.00      0.050    0.036  717321.0  717321.0  706331.0  737538.0    1.0
+beta1     8.416   2.675   3.563    12.69      0.003    0.002  720763.0  720763.0  725084.0  718303.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     2.776  0.172   2.550    2.994      0.000      0.0  298019.0  298019.0  772870.0  595806.0    1.0
+sigma1  0.199  0.311   0.042    0.459      0.001      0.0  362685.0  362685.0  751169.0  640474.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     16.137  2.342  12.522   19.623      0.003    0.003  449202.0  378280.0  897386.0  615631.0    1.0
+sigma2   3.154  3.875   0.686    7.372      0.005    0.004  500528.0  500528.0  775234.0  740979.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2  13.071  5.302   3.827   22.967      0.005    0.003  1363662.0  1363662.0  1266792.0  1385658.0    1.0
+beta2   16.975  4.325  15.143   18.737      0.010    0.007   204782.0   204782.0  1293219.0  1049726.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name       waic    p_waic        se  delta_waic  delta_se
+rank                                                          
+0     Gam  15.956236  1.072726  1.730820    0.000000  0.000000
+1     Wei  17.861644  1.509252  1.515083    1.905408  1.178697
+2      LN  19.383281  1.648254  0.927614    3.427044  0.836608
+3       N  19.395143  1.614591  0.766867    3.438907  0.969296
+------------------------ END of tdiv (t_misc_20140211_4.0) ------------------------
+
+
+------------------------ BEGIN tld (t_misc_20140211_4.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  60.997  15.477  33.478   90.504      0.019    0.014  676646.0  656324.0  680075.0  739642.0    1.0
+beta1    1.622   0.413   0.884    2.406      0.001    0.000  677131.0  656980.0  680369.0  745193.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.619  0.028   3.566    3.671        0.0      0.0  2859687.0  2859687.0  2881493.0  2650564.0    1.0
+sigma1  0.143  0.021   0.107    0.183        0.0      0.0  2630002.0  2528669.0  2759459.0  2576746.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     37.630  1.074  35.605   39.653      0.001      0.0  2886252.0  2886252.0  2911354.0  2587089.0    1.0
+sigma2   5.547  0.817   4.131    7.085      0.001      0.0  2662152.0  2553304.0  2803020.0  2606692.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   7.131  0.986   5.305    8.994      0.001    0.000  2254980.0  2254980.0  2238157.0  2430837.0    1.0
+beta2   40.099  1.179  37.881   42.324      0.001    0.001  2363029.0  2363029.0  2369659.0  2406507.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      LN  173.521880  1.714891  7.227164    0.000000  0.000000
+1     Gam  174.395920  2.061847  8.669991    0.874041  1.537681
+2       N  176.004736  1.917738  7.644916    2.482856  1.292046
+3     Wei  180.994355  2.309736  8.347905    7.472476  3.213407
+------------------------ END of tld (t_misc_20140211_4.0) ------------------------
+
+
+------------------------ BEGIN tdie (t_misc_20140211_4.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  34.382  8.695  18.770   50.803       0.01    0.007  714511.0  693364.0  718005.0  782711.0    1.0
+beta1    0.773  0.197   0.421    1.146       0.00    0.000  715162.0  694070.0  718479.0  788099.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.78  0.037   3.711    3.850        0.0      0.0  2803170.0  2803170.0  2825009.0  2604940.0    1.0
+sigma1  0.19  0.028   0.142    0.243        0.0      0.0  2644572.0  2545253.0  2771432.0  2622572.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     44.555  1.705  41.343   47.765      0.001    0.001  2919473.0  2919473.0  2942658.0  2588204.0    1.0
+sigma2   8.799  1.296   6.547   11.232      0.001    0.001  2739719.0  2628320.0  2882031.0  2614311.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   5.417  0.754   4.025    6.847      0.000    0.000  2371584.0  2371584.0  2353042.0  2545262.0    1.0
+beta2   48.299  1.870  44.791   51.832      0.001    0.001  2222853.0  2222853.0  2224787.0  2338386.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      LN  198.656037  1.734818  7.435331    0.000000  0.000000
+1     Gam  199.680659  2.085514  8.810488    1.024622  1.517840
+2       N  201.907140  1.953060  7.685378    3.251102  1.499709
+3     Wei  205.331142  2.054362  7.441178    6.675105  2.500114
+------------------------ END of tdie (t_misc_20140211_4.0) ------------------------
+
+
+======================== END of t_misc_20140211_4.0 ========================
+
+======================== BEGIN t_misc_20140211_1.0 ========================
+------------------------ BEGIN tdiv0 (t_misc_20140211_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  94.787  22.252  54.675  137.063      0.027    0.019  687840.0  658063.0  695963.0  680028.0    1.0
+beta1    2.763   0.650   1.586    3.994      0.001    0.001  688569.0  659050.0  696474.0  688844.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.530  0.020   3.492    3.568        0.0      0.0  2893734.0  2893734.0  2910601.0  2675432.0    1.0
+sigma1  0.114  0.015   0.087    0.142        0.0      0.0  2779599.0  2685202.0  2895723.0  2672824.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     34.313  0.694  33.010   35.624        0.0      0.0  2951256.0  2951256.0  2969307.0  2666981.0    1.0
+sigma2   3.892  0.521   2.974    4.870        0.0      0.0  2831210.0  2732019.0  2951783.0  2671157.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2  10.152  1.371   7.599   12.730      0.001    0.001  2399147.0  2399147.0  2380733.0  2592479.0    1.0
+beta2   36.046  0.682  34.752   37.321      0.000    0.000  2341630.0  2341630.0  2351587.0  2406431.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      LN  183.028921  1.389644  5.196615    0.000000  0.000000
+1     Gam  183.136590  1.585730  6.079973    0.107669  0.986096
+2       N  183.401660  1.445639  5.438353    0.372739  0.962616
+3     Wei  185.755340  1.833996  6.683621    2.726419  3.242214
+------------------------ END of tdiv0 (t_misc_20140211_1.0) ------------------------
+
+
+------------------------ BEGIN tdiv (t_misc_20140211_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  26.847  9.483  10.421   44.645      0.011    0.008  786146.0  735924.0  795875.0  829681.0    1.0
+beta1    1.874  0.668   0.717    3.128      0.001    0.001  787999.0  737738.0  797318.0  835422.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     2.642  0.072   2.505    2.777        0.0      0.0  2329203.0  2329203.0  2421148.0  2184906.0    1.0
+sigma1  0.249  0.060   0.153    0.359        0.0      0.0  2161497.0  2006627.0  2416672.0  2328341.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     14.364  1.066  12.348   16.383      0.001      0.0  2348121.0  2348121.0  2439267.0  2058443.0    1.0
+sigma2   3.697  0.893   2.271    5.333      0.001      0.0  2045643.0  1907366.0  2275041.0  2254487.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   4.701  0.993   2.879    6.577      0.001    0.000  2124105.0  2124105.0  2088791.0  2296208.0    1.0
+beta2   15.873  1.086  13.829   17.914      0.001    0.001  2066263.0  2066263.0  2102147.0  2120567.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name       waic    p_waic        se  delta_waic  delta_se
+rank                                                          
+0      LN  69.439980  1.474097  4.444673    0.000000  0.000000
+1     Gam  70.268723  2.079032  6.188634    0.828744  1.874443
+2       N  71.070374  1.582194  4.244133    1.630395  1.091183
+3     Wei  71.811227  1.683617  4.375618    2.371247  1.721907
+------------------------ END of tdiv (t_misc_20140211_1.0) ------------------------
+
+
+------------------------ BEGIN tld (t_misc_20140211_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  22.626  5.313  13.078   32.713      0.006    0.004  785753.0  757394.0  792884.0  825360.0    1.0
+beta1    0.553  0.131   0.317    0.802      0.000    0.000  785966.0  758726.0  792667.0  822987.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.688  0.041   3.611    3.766        0.0      0.0  2986995.0  2986995.0  3005117.0  2710943.0    1.0
+sigma1  0.231  0.031   0.176    0.288        0.0      0.0  2577921.0  2494977.0  2685849.0  2570347.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     40.962  1.749  37.659   44.244      0.001    0.001  3035190.0  3035190.0  3051817.0  2666950.0    1.0
+sigma2   9.817  1.315   7.500   12.286      0.001    0.001  2933997.0  2822715.0  3066365.0  2705949.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   4.545  0.593   3.454    5.676      0.000    0.000  2408757.0  2408757.0  2391963.0  2639864.0    1.0
+beta2   44.965  1.905  41.371   48.547      0.001    0.001  2334862.0  2334862.0  2333676.0  2412559.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      LN  240.418287  1.583141  7.507162    0.000000  0.000000
+1     Gam  241.652235  1.863899  8.477716    1.233948  1.249750
+2       N  244.864718  1.797546  7.447330    4.446431  1.812878
+3     Wei  247.198243  1.803967  6.974121    6.779955  2.653692
+------------------------ END of tld (t_misc_20140211_1.0) ------------------------
+
+
+------------------------ BEGIN tdie (t_misc_20140211_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  26.950  6.345  15.480   38.914      0.007    0.005  773423.0  746731.0  778690.0  820169.0    1.0
+beta1    0.549  0.130   0.315    0.796      0.000    0.000  774163.0  747604.0  779156.0  825957.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu1     3.875  0.038   3.804    3.946        0.0      0.0  2951214.0  2951214.0  2968177.0  2693179.0    1.0
+sigma1  0.212  0.028   0.162    0.265        0.0      0.0  2779107.0  2685181.0  2895290.0  2668260.0    1.0
+
+-->>>>>> NORMAL
+█> Resul NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+mu2     49.179  1.913  45.557   52.758      0.001    0.001  2864698.0  2864698.0  2879505.0  2619377.0    1.0
+sigma2  10.735  1.436   8.228   13.453      0.001    0.001  2827107.0  2723706.0  2953214.0  2676656.0    1.0
+
+-->>>>>> WEIBULL
+█> Resul WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd   ess_mean     ess_sd   ess_bulk   ess_tail  r_hat
+alpha2   5.002  0.655   3.789    6.239      0.000    0.000  2287027.0  2287027.0  2272288.0  2523118.0    1.0
+beta2   53.644  2.061  49.791   57.557      0.001    0.001  2412336.0  2412336.0  2414403.0  2455385.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+     name        waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      LN  247.074481  1.566003  7.197224    0.000000  0.000000
+1     Gam  248.091043  1.833951  8.161765    1.016562  1.207070
+2       N  250.691351  1.743639  7.159656    3.616870  1.631794
+3     Wei  253.349051  1.774120  6.734776    6.274570  2.557441
+------------------------ END of tdie (t_misc_20140211_1.0) ------------------------
+
+
+======================== END of t_misc_20140211_1.0 ========================

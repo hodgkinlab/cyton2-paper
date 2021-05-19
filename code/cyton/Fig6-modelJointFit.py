@@ -1,34 +1,40 @@
 """
-Cyton model application: T cell signal integration
-Last edit: 10-February-2021
+Last edit: 16-May-2021
 
+Application of the Cyton2 model: T cell signal integration
 Data received from Dr. Julia M. Marchingo. (Fig.3 DOI:10.1126/science.1260044)
 OT-1/Bcl2l11-/- CD8+ T cells stimulated with [N4(medium), aCD27, aCD28, IL-12, aCD27+IL-12, aCD27+aCD28, aCD28+IL-12, aCD27+aCD28+IL-12]
 Joint fitting script for N4, aCD27, aCD28 with a shared subsequent division time
-Run this to get fit results for Fig6. Then, run "Fig6-modelPlot.py" for generating the plots (double check the path to fit results i.e. excel files).
+[Output] Data files (in excel format) for Fig6 -> Run "Fig6-Plot.py" for generating the plots
 """
-import os, time, datetime, copy
+import sys, os, time, datetime, copy
 import tqdm
 import numpy as np
 import pandas as pd
-import matplotlib as mpl
+import matplotlib as mpl; mpl.use('pdf')
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 import seaborn as sns
 import multiprocessing as mp
 import lmfit as lmf
-mpl.use('Agg')  # switch plot backend to avoid fork errors for parallel processing
+from src.parse import parse_data
+from src.utils import conf_iterval, norm_pdf, norm_cdf, lognorm_pdf, lognorm_cdf
+from src.model import Cyton15Model   # Full Cyton model. (Options: choose all variable to be either logN or N)
 rng = np.random.RandomState(seed=54755083)
 
-from src.parse import parse_data
-from src.utils import conf_iterval, norm_pdf, norm_cdf, truncnorm_cdf, lognorm_pdf, lognorm_cdf, lognorm_statistics
-from src.model import Cyton15Model   # Full Cyton model. (Options: choose all variable to be either logN or N)
-# from src.rmodel import Cyton15Model  # Reduced Cyton model. No unstimulated section (Options: choose all variables to be either logN or N)
+## Check library version
+try:
+	assert(sns.__version__=='0.10.1')
+except AssertionError as ae:
+	print("[VersionError] Please check if the following version of seaborn library is installed:")
+	print("seaborn==0.10.1")
+	sys.exit()
 
 rc = {
+	'figure.figsize': (9, 7),
 	# 'font.size': 14, 'axes.titlesize': 14, 'axes.labelsize': 12,
 	# 'xtick.labelsize': 14, 'ytick.labelsize': 14,
-	'figure.figsize': (9, 7),
+	# 'legend.fontsize': 14, 'legend.title_fontsize': None,
 	# 'axes.grid': True, 'axes.grid.axis': 'x', 'axes.grid.axis': 'y',
 	'axes.axisbelow': True, 'axes.titlepad': 0,
 	'axes.spines.top': False, 'axes.spines.right': False,
@@ -48,10 +54,6 @@ LM_FIT_KWS = {      # [LMFIT/SciPy] Key-word arguements pass to LMFIT minimizer 
 	# 'gtol': 0.0,    # Orthogonality desired between the function vector and the columns of the Jacobian. DEFAULT: 0.0
 	'epsfcn': 1E-4  # A variable used in determining a suitable step length for the forward-difference approximation of the Jacobian (for Dfun=None). Normally the actual step length will be sqrt(epsfcn)*x If epsfcn is less than the machine precision, it is assumed that the relative errors are of the order of the machine precision. Default value is around 2E-16. As it turns out, the optimisation routine starts by making a very small move (functinal evaluation) and calculating the finite-difference Jacobian matrix to determine the direction to move. The default value is too small to detect sensitivity of 'm' parameter.
 }
-# DE_FIT_KWS = {      # [LMFIT/SciPy] Key-word arguements pass to LMFIT minimizer for Differential Evolution algorithm
-# 	'popsize': 15,  # A multiplier for setting the total population size. The population has popsize * len(x) individuals (unless the initial population is supplied via the init keyword).
-# 	'seed': rng
-# }
 
 LOGNORM = False	 	# All variables ~ LN(m,s); Otherwisee, all variables ~ N(mu,sig)
 RGS = 95            # [BOOTSTRAP] alpha for confidence interval
@@ -127,7 +129,6 @@ def bootstrap(key, df, targets, hts, nreps, params, paramExcl, lognorm):
 
 		err_count = 0
 		candidates = {'algo': [], 'result': [], 'residual': []}  # store fitted parameter and its residual
-		# for s in range(ITER_SEARCH):
 		tqdm_trange2 = tqdm.trange(ITER_SEARCH, leave=False, position=2*pos+2)
 		for s in tqdm_trange2:
 			# Random initial values
@@ -146,22 +147,6 @@ def bootstrap(key, df, targets, hts, nreps, params, paramExcl, lognorm):
 				result = res_lm
 				resid = res_lm.chisqr
 
-				# mini_de = lmf.Minimizer(residual, pars, fcn_args=(x_boot, y_boot, models), **DE_FIT_KWS)
-				# res_de = mini_de.minimize(method='differential_evolution', max_nfev=MAX_NFEV)  # Differential evolution
-
-				# # compare two algorithms
-				# resid_lm = res_lm.chisqr
-				# resid_de = res_de.chisqr
-				# if resid_lm < resid_de:
-				# 	algo = 'LM'
-				# 	result = res_lm
-				# 	resid = resid_lm
-				# else:
-				# 	algo = 'DE'
-				# 	result = res_de
-				# 	resid = resid_de
-
-				# print(f">[BOOTSTRAP][{b+1}/{ITER_BOOTS}:{(b+1)/ITER_BOOTS*100:.1f}%][{s+1}/{ITER_SEARCH}:{(s+1)/ITER_SEARCH*100:.1f}%] > {key}: Joint Fit > {targets} > [{algo}] {resid:.10e}")
 				tqdm_trange2.set_description(f" > {key} > {targets}")
 				tqdm_trange2.set_postfix({'RSS': f"{resid:.5e}"})
 				tqdm_trange2.refresh()
@@ -171,11 +156,7 @@ def bootstrap(key, df, targets, hts, nreps, params, paramExcl, lognorm):
 				candidates['residual'].append(resid)
 			except ValueError as ve:
 				err_count += 1
-				# print(f"[BOOTSTRAP][{err_count}] ValueError on {key} Joint Fit > {targets} > {ve}")
 				tqdm_trange2.update()
-			# except:
-			# 	err_count += 1
-			# 	print(f"[BOOTSTRAP][{err_count}] Error on {key} Joint Fit > {targets} > {sys.exc_info()[0]}")
 
 		fit_results = pd.DataFrame(candidates)
 		fit_results.sort_values('residual', ascending=True, inplace=True)  # sort based on residual
@@ -227,12 +208,10 @@ def bootstrap(key, df, targets, hts, nreps, params, paramExcl, lognorm):
 		pred_aCD27_aCD28['m'].append(shared_m)
 		pred_aCD27_aCD28['p'].append(1)
 	boots = pd.DataFrame(boots)
-	# return boots
 	preds = pd.DataFrame(pred_aCD27_aCD28)
 	return boots, preds
 
 
-# def joint_fit(key, df, lognorm=True):
 def joint_fit(inputs):
 	key, df, lognorm = inputs
 
@@ -327,7 +306,6 @@ def joint_fit(inputs):
 
 	err_count = 0
 	candidates = {'algo': [], 'result': [], 'residual': []}  # store fitted parameter and its residual
-	# for s in range(ITER_SEARCH):
 	pos = mp.current_process()._identity[0]-1  # For progress bar
 	tqdm_trange = tqdm.trange(ITER_SEARCH, leave=False, position=2*pos+1)
 	for s in tqdm_trange:
@@ -347,22 +325,6 @@ def joint_fit(inputs):
 			result = res_lm
 			resid = res_lm.chisqr
 
-			# mini_de = lmf.Minimizer(residual, params, fcn_args=(x_gens, y_cells, models), **DE_FIT_KWS)
-			# res_de = mini_de.minimize(method='differential_evolution', max_nfev=MAX_NFEV)  # Differential evolution
-
-			# # compare two algorithms
-			# resid_lm = res_lm.chisqr
-			# resid_de = res_de.chisqr
-			# if resid_lm < resid_de:
-			# 	algo = 'LM'
-			# 	result = res_lm
-			# 	resid = resid_lm
-			# else:
-			# 	algo = 'DE'
-			# 	result = res_de
-			# 	resid = resid_de
-
-			# print(f"[SEARCH][{s+1}/{ITER_SEARCH}:{(s+1)/ITER_SEARCH*100:.1f}%] > {key}: Joint Fit > {target_conditions} > [{algo}] {resid:.10e}")
 			tqdm_trange.set_description(f"[SEARCH] > {key} > {target_conditions}")
 			tqdm_trange.set_postfix({'RSS': f"{resid:.5e}"})
 			tqdm_trange.refresh()
@@ -372,17 +334,12 @@ def joint_fit(inputs):
 			candidates['residual'].append(resid)
 		except ValueError as ve:
 			err_count += 1
-			# print(f"[{err_count}] ValueError on {key} Joint Fit > {target_conditions} > {ve}")
-		# except:
-		# 	err_count += 1
-		# 	print(f"[{err_count}] Error on {key} Joint Fit > {target_conditions} > {sys.exc_info()[0]}")
 
 	fit_results = pd.DataFrame(candidates)
 	fit_results.sort_values('residual', ascending=True, inplace=True)  # sort based on residual
 	best_fit = fit_results.iloc[0]['result'].params.valuesdict()  # Extract best-fit parameters
 
 	### RUN BOOTSTRAP
-	# boots = bootstrap(key, df, target_conditions, hts, nreps, params, paramExcl, lognorm)
 	boots, preds = bootstrap(key, df, target_conditions, hts, nreps, params, paramExcl, lognorm)
 
 	## Calculate prediction for aCD27 + aCD28
@@ -435,13 +392,13 @@ def joint_fit(inputs):
 		index=["mUns", "sUns", "mDiv0", "sDiv0", "mDD", "sDD", "mDie", "sDie", "m", "p"]
 	)
 	if lognorm:
-		excel_path = f"./out/_all_Lognormal/joint/{key}_result.xlsx"
+		excel_path = f"./out/_lognormal/joint/{key}_result.xlsx"
 	else:
-		excel_path = f"./out/_all_Normal/joint/{key}_result.xlsx"
+		excel_path = f"./out/_normal/joint/{key}_result.xlsx"
 	if os.path.isfile(excel_path): 
-		writer = pd.ExcelWriter(excel_path, mode='a')
+		writer = pd.ExcelWriter(excel_path, engine='openpyxl', mode='a')
 	else: 
-		writer = pd.ExcelWriter(excel_path, mode='w')
+		writer = pd.ExcelWriter(excel_path, engine='openpyxl', mode='w')
 	save_pred.to_excel(writer, sheet_name="pars_pred_aCD27_aCD28")
 	pred_boots = preds[['mUns', 'sUns', 'mDiv0', 'sDiv0', 'mDD', 'sDD', 'mDie', 'sDie', 'm', 'p']]
 	pred_boots.to_excel(writer, sheet_name="boot_pred_aCD27_aCD28")
@@ -556,9 +513,9 @@ def joint_fit(inputs):
 				"vary": np.append([v for p, v in vary.items()], "False")}, 
 			index=["mUns", "sUns", "mDiv0", "sDiv0", "mDD", "sDD", "mDie", "sDie", "m", "p", "N0"])
 		if os.path.isfile(excel_path): 
-			writer = pd.ExcelWriter(excel_path, mode='a')
+			writer = pd.ExcelWriter(excel_path, engine='openpyxl', mode='a')
 		else: 
-			writer = pd.ExcelWriter(excel_path, mode='w')
+			writer = pd.ExcelWriter(excel_path, engine='openpyxl', mode='w')
 		save_best_fit.to_excel(writer, sheet_name=f"pars_{cond}")
 
 		sboots = boots[[f'mUns_{icnd}', f'sUns_{icnd}', f'mDiv0_{icnd}', f'sDiv0_{icnd}', f'mDD_{icnd}', f'sDD_{icnd}', f'mDie_{icnd}', f'sDie_{icnd}', 'm', f'p_{icnd}', f'N0_{icnd}', 'algo']]
@@ -606,8 +563,6 @@ def joint_fit(inputs):
 			label_Tdiv0 = f"$T_{{div}}^0 \sim \mathcal{{N}}({mDiv0:.2f}\pm_{{{mDiv0-err_mDiv0[0]:.2f}}}^{{{err_mDiv0[1]-mDiv0:.2f}}}, {sDiv0:.3f} \pm_{{{sDiv0-err_sDiv0[0]:.3f}}}^{{{err_sDiv0[1]-sDiv0:.3f}}})$"
 			label_Tdd = f"$T_{{dd}} \sim \mathcal{{N}}({mDD:.2f}\pm_{{{mDD-err_mDD[0]:.2f}}}^{{{err_mDD[1]-mDD:.2f}}}, {sDD:.3f}\pm_{{{sDD-err_sDD[0]:.3f}}}^{{{err_sDD[1]-sDD:.3f}}})$"
 			label_Tdie = f"$T_{{die}} \sim \mathcal{{N}}({mDie:.2f}\pm_{{{mDie-err_mDie[0]:.2f}}}^{{{err_mDie[1]-mDie:.2f}}}, {sDie:.3f}\pm_{{{sDie-err_sDie[0]:.3f}}}^{{{err_sDie[1]-sDie:.3f}}})$"
-			# label_Tdd = f"$T_{{dd}} \sim t\mathcal{{N}}({mDD:.2f}\pm_{{{mDD-err_mDD[0]:.2f}}}^{{{err_mDD[1]-mDD:.2f}}}, {sDD:.3f}\pm_{{{sDD-err_sDD[0]:.3f}}}^{{{err_sDD[1]-sDD:.3f}}})$"
-			# label_Tdie = f"$T_{{die}} \sim t\mathcal{{N}}({mDie:.2f}\pm_{{{mDie-err_mDie[0]:.2f}}}^{{{err_mDie[1]-mDie:.2f}}}, {sDie:.3f}\pm_{{{sDie-err_sDie[0]:.3f}}}^{{{err_sDie[1]-sDie:.3f}}})$"
 		# ax1[0,0].plot(times, -unst_pdf, color='orange', ls='--', label=label_Tuns)
 		# ax1[0,0].fill_between(times, -conf['unst_pdf'][0], -conf['unst_pdf'][1], fc='orange', ec=None, alpha=0.5)
 		ax1[0,0].plot(times, tdiv0_pdf, color='blue', ls='-', label=label_Tdiv0)
@@ -836,14 +791,14 @@ def joint_fit(inputs):
 		grid.fig.tight_layout()
 
 		if lognorm:
-			with PdfPages(f"./out/_all_Lognormal/joint/{key}_{cond}.pdf") as pdf:
+			with PdfPages(f"./out/_lognormal/joint/{key}_{cond}.pdf") as pdf:
 				pdf.savefig(fig1)
 				pdf.savefig(fig2)
 				pdf.savefig(fig3)
 				pdf.savefig(fig4)
 				pdf.savefig(grid.fig)
 		else:
-			with PdfPages(f"./out/_all_Normal/joint/{key}_{cond}.pdf") as pdf:
+			with PdfPages(f"./out/_normal/joint/{key}_{cond}.pdf") as pdf:
 				pdf.savefig(fig1)
 				pdf.savefig(fig2)
 				pdf.savefig(fig3)
