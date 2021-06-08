@@ -35,15 +35,6 @@ except AssertionError as ae:
 	print("seaborn==0.10.1")
 	sys.exit()
 
-## Check library versions
-try:
-	assert(pm.__version__=='3.9.3')
-	assert(az.__version__=='0.11.0')
-except AssertionError as ae:
-	print("[VersionError] Please check if the following versions of PyMC3, Theano and Arviz libraries are installed:")
-	print("pymc3==3.9.3")
-	print("arviz==0.11.0")
-	sys.exit()
 
 # GLOBAL PLOT SETTINGS
 rc = {
