@@ -13,7 +13,7 @@ import seaborn as sns
 import lmfit as lmf
 from src.parse import parse_data
 from src.utils import conf_iterval, norm_cdf, norm_pdf
-from src.model import Cyton15Model
+from src.model import Cyton2Model
 
 rc = {
 	'figure.figsize': (10, 8),
@@ -104,7 +104,7 @@ for key in KEYS:
 			gens = np.array([i for i in range(mgen+1)])
 
 			### GET CYTON BEST-FIT CURVES
-			model = Cyton15Model(hts, df['cells']['avg'][icnd][0], mgen, dt, nreps, False)
+			model = Cyton2Model(hts, df['cells']['avg'][icnd][0], mgen, dt, nreps, False)
 			extrapolate = model.extrapolate(times, best_params)  # get extrapolation for all "times" (discretised) and at harvested timepoints
 			ext_total_live_cells = extrapolate['ext']['total_live_cells']
 			ext_cells_per_gen = extrapolate['ext']['cells_gen']
@@ -153,7 +153,7 @@ for key in KEYS:
 				tdie_pdf_curves.append(b_tdie_pdf); tdie_cdf_curves.append(b_tdie_cdf)
 
 				# Calculate model prediction for each set of parameter
-				b_model = Cyton15Model(hts, b_N0, mgen, dt, nreps, False)
+				b_model = Cyton2Model(hts, b_N0, mgen, dt, nreps, False)
 				b_extrapolate = b_model.extrapolate(times, b_params)  # get extrapolation for all "times" (discretised) and at harvested timepoints
 				b_ext_total_live_cells.append(b_extrapolate['ext']['total_live_cells'])
 				b_ext_total_cohorts = np.sum(np.transpose(b_extrapolate['ext']['cells_gen']) * np.power(2.,-gens), axis=1)
@@ -301,7 +301,7 @@ for key in KEYS:
 		tdie_pdf_curves.append(pb_tdie_pdf); tdie_cdf_curves.append(pb_tdie_cdf)
 
 		# Calculate model prediction for each set of parameter
-		pb_model = Cyton15Model(hts, pb_N0, mgen, dt, nreps, False)
+		pb_model = Cyton2Model(hts, pb_N0, mgen, dt, nreps, False)
 		pb_extrapolate = pb_model.extrapolate(times, pb_params)  # get extrapolation for all "times" (discretised) and at harvested timepoints
 		pb_ext_total_live_cells.append(pb_extrapolate['ext']['total_live_cells'])
 		pb_ext_total_cohorts = np.sum(np.transpose(pb_extrapolate['ext']['cells_gen']) * np.power(2.,-gens), axis=1)
@@ -337,7 +337,7 @@ for key in KEYS:
 	ax2[2].plot(times, tdie_cdf, '--', lw=2, color=cp[icnd])
 	ax2[2].fill_between(times, conf['tdie_cdf'][0], conf['tdie_cdf'][1], fc=cp[icnd], ec=None, alpha=0.5, label=f"$\mathcal{{N}}({pred_params['mDie'].value:.2f}\pm_{{{pred_params['mDie'].value-err_mDie[0]:.2f}}}^{{{err_mDie[1]-pred_params['mDie'].value:.2f}}}, {pred_params['sDie'].value:.2f}\pm_{{{pred_params['sDie'].value-err_sDie[0]:.2f}}}^{{{err_sDie[1]-pred_params['sDie'].value:.2f}}})$")
 
-	pred_model = Cyton15Model(hts, df['cells']['avg'][icnd][0], mgen, dt, nreps, False)
+	pred_model = Cyton2Model(hts, df['cells']['avg'][icnd][0], mgen, dt, nreps, False)
 	extrapolate = pred_model.extrapolate(times, pred_params)
 	ax1.plot(times, extrapolate['ext']['total_live_cells'], '--', lw=2, color=cp[icnd], label='Predicted')
 	ax1.fill_between(times, conf['ext_total_live_cells'][0], conf['ext_total_live_cells'][1], fc=cp[icnd], ec=None, alpha=0.5)

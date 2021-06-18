@@ -19,7 +19,7 @@ import multiprocessing as mp
 import lmfit as lmf
 from src.parse import parse_data
 from src.utils import conf_iterval, norm_pdf, norm_cdf, lognorm_pdf, lognorm_cdf
-from src.model import Cyton15Model   # Full Cyton model. (Options: choose all variable to be either logN or N)
+from src.model import Cyton2Model   # Full Cyton model. (Options: choose all variable to be either logN or N)
 rng = np.random.RandomState(seed=54755083)
 
 ## Check library version
@@ -124,7 +124,7 @@ def bootstrap(key, df, targets, hts, nreps, params, paramExcl, lognorm):
 
 		models = []
 		for icnd, _ in enumerate(targets):
-			model = Cyton15Model(hts[icnd], N0[icnd], int(max(x_boot[icnd])), DT, nreps[icnd], lognorm)  # define cyton model object
+			model = Cyton2Model(hts[icnd], N0[icnd], int(max(x_boot[icnd])), DT, nreps[icnd], lognorm)  # define cyton model object
 			models.append(model)
 
 		err_count = 0
@@ -301,7 +301,7 @@ def joint_fit(inputs):
 	models = []
 	for icnd, _ in enumerate(target_conditions):
 		N0 = df['cells']['avg'][icnd][0]  # Initial cell number = # cells measured at the first time point
-		model = Cyton15Model(hts[icnd], N0, mgen[icnd], DT, nreps[icnd], lognorm)
+		model = Cyton2Model(hts[icnd], N0, mgen[icnd], DT, nreps[icnd], lognorm)
 		models.append(model)
 
 	err_count = 0
@@ -473,7 +473,7 @@ def joint_fit(inputs):
 			tdie_pdf_curves.append(b_tdie_pdf); tdie_cdf_curves.append(b_tdie_cdf)
 
 			# Calculate model prediction for each set of parameter
-			b_model = Cyton15Model(hts[icnd], b_N0, mgen[icnd], DT, nreps[icnd], lognorm)
+			b_model = Cyton2Model(hts[icnd], b_N0, mgen[icnd], DT, nreps[icnd], lognorm)
 			b_extrapolate = b_model.extrapolate(times, b_params)  # get extrapolation for all "times" (discretised) and at harvested timepoints
 			b_ext_total_live_cells.append(b_extrapolate['ext']['total_live_cells'])
 			b_ext_total_cohorts = np.sum(np.transpose(b_extrapolate['ext']['cells_gen']) * np.power(2.,-gens), axis=1)

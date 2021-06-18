@@ -16,7 +16,7 @@ import multiprocessing as mp
 import lmfit as lmf
 from src.parse import parse_data
 from src.utils import conf_iterval, norm_pdf, norm_cdf, lognorm_pdf, lognorm_cdf
-from src.model import Cyton15Model   # Full Cyton model. (Options: choose all variable to be either logN or N)
+from src.model import Cyton2Model   # Full Cyton model. (Options: choose all variable to be either logN or N)
 rng = np.random.RandomState(seed=89907530)
 
 ## Check library version
@@ -159,7 +159,7 @@ def fit_reps(inputs):
 	all_y_cells = np.asfarray(all_y_cells)
 	all_Ndata = len(all_y_cells)
 	orig_N0 = df['cells']['avg'][icnd][0]
-	orig_model = Cyton15Model(hts, orig_N0, mgen, DT, nreps, lognorm)
+	orig_model = Cyton2Model(hts, orig_N0, mgen, DT, nreps, lognorm)
 
 	pos = mp.current_process()._identity[0]-1  # For progress bar
 	tqdm_trange1 = tqdm.trange(ITER_BOOTS, leave=False, position=2*pos+1)
@@ -197,7 +197,7 @@ def fit_reps(inputs):
 			params.add(par, value=pars[par], min=bounds['lb'][par], max=bounds['ub'][par], vary=vary[par])
 		paramExcl = [p for p in params if not params[p].vary]  # List of parameters excluded from fitting (i.e. vary=False)
 
-		model = Cyton15Model(_hts, avgN0, mgen, DT, _nreps, lognorm)
+		model = Cyton2Model(_hts, avgN0, mgen, DT, _nreps, lognorm)
 
 		candidates = {'algo': [], 'result': [], 'residual': []}  # store fitted parameter and its residual
 		tqdm_trange2 = tqdm.trange(ITER_SEARCH, leave=False, position=2*pos+2)
@@ -314,7 +314,7 @@ def fit_reps(inputs):
 		tdie_pdf_curves.append(b_tdie_pdf); tdie_cdf_curves.append(b_tdie_cdf)
 
 		# Calculate model prediction for each set of parameter
-		b_model = Cyton15Model(hts, b_N0, mgen, DT, nreps, lognorm)
+		b_model = Cyton2Model(hts, b_N0, mgen, DT, nreps, lognorm)
 		b_extrapolate = b_model.extrapolate(times, b_params)  # get extrapolation for all "times" (discretised) and at harvested timepoints
 		b_ext_total_live_cells.append(b_extrapolate['ext']['total_live_cells'])
 		b_ext_total_cohorts = np.sum(np.transpose(b_extrapolate['ext']['cells_gen']) * np.power(2.,-gens), axis=1)
@@ -365,7 +365,7 @@ def fit_reps(inputs):
 	writer.close()
 
 	## Get extrapolation: 1. for given time range t \in [t0, tf]; 2. at harvested time points
-	model = Cyton15Model(hts, N0, mgen, DT, nreps, lognorm)
+	model = Cyton2Model(hts, N0, mgen, DT, nreps, lognorm)
 	extrapolate = model.extrapolate(times, mean_params)  # get extrapolation for all "times" (discretised) and at harvested timepoints
 	ext_total_live_cells = extrapolate['ext']['total_live_cells']
 	ext_cells_per_gen = extrapolate['ext']['cells_gen']

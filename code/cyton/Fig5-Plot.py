@@ -26,7 +26,7 @@ from sklearn.decomposition import FastICA
 import lmfit as lmf
 from src.parse import parse_data
 from src.utils import conf_iterval, lognorm_cdf, lognorm_pdf
-from src.model import Cyton15Model
+from src.model import Cyton2Model
 
 ## Check library version
 try:
@@ -122,7 +122,7 @@ def embed_plot(axis, combination, display, color):
 	times = np.linspace(t0, tf, num=int(tf/dt)+1)
 
 	### GET CYTON BEST-FIT CURVES
-	model = Cyton15Model(hts, fit_pars.loc['N0', 'mean'], mgen, dt, nreps, True)
+	model = Cyton2Model(hts, fit_pars.loc['N0', 'mean'], mgen, dt, nreps, True)
 	extrapolate = model.extrapolate(times, best_params)  # get extrapolation for all "times" (discretised) and at harvested timepoints
 	ext_total_live_cells = extrapolate['ext']['total_live_cells']
 	ext_cells_per_gen = extrapolate['ext']['cells_gen']
@@ -148,7 +148,7 @@ def embed_plot(axis, combination, display, color):
 		b_params['m'].set(value=b_m); b_params['p'].set(value=b_p)
 
 		# Calculate model prediction for each set of parameter
-		b_model = Cyton15Model(hts, b_N0, mgen, dt, nreps, True)
+		b_model = Cyton2Model(hts, b_N0, mgen, dt, nreps, True)
 		b_extrapolate = b_model.extrapolate(times, b_params)  # get extrapolation for all "times" (discretised) and at harvested timepoints
 		b_ext_total_live_cells.append(b_extrapolate['ext']['total_live_cells'])
 		b_ext_cells_per_gen.append(b_extrapolate['ext']['cells_gen'])
@@ -426,7 +426,7 @@ if __name__ == "__main__":
 		gens = np.array([i for i in range(mgen+1)])
 
 		### GET CYTON BEST-FIT CURVES
-		model = Cyton15Model(hts, df['cells']['avg'][icnd][0], mgen, dt, nreps, True)
+		model = Cyton2Model(hts, df['cells']['avg'][icnd][0], mgen, dt, nreps, True)
 		extrapolate = model.extrapolate(times, best_params)  # get extrapolation for all "times" (discretised) and at harvested timepoints
 		ext_total_live_cells = extrapolate['ext']['total_live_cells']
 		ext_cells_per_gen = extrapolate['ext']['cells_gen']
@@ -474,7 +474,7 @@ if __name__ == "__main__":
 			tdie_pdf_curves.append(b_tdie_pdf); tdie_cdf_curves.append(b_tdie_cdf)
 
 			# Calculate model prediction for each set of parameter
-			b_model = Cyton15Model(hts, b_N0, mgen, dt, nreps, True)
+			b_model = Cyton2Model(hts, b_N0, mgen, dt, nreps, True)
 			b_extrapolate = b_model.extrapolate(times, b_params)  # get extrapolation for all "times" (discretised) and at harvested timepoints
 			b_ext_total_live_cells.append(b_extrapolate['ext']['total_live_cells'])
 			b_ext_total_cohorts = np.sum(np.transpose(b_extrapolate['ext']['cells_gen']) * np.power(2.,-gens), axis=1)

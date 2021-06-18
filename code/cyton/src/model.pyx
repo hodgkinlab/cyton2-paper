@@ -16,7 +16,7 @@ cimport cython
 @cython.wraparound(True)
 @cython.nonecheck(True)
 @cython.cdivision(True)
-class Cyton15Model:
+class Cyton2Model:
 	def __init__(self, ht, n0, max_div, dt, nreps, logn=True):
 		self.t0 = <DTYPE_t>(0.0)
 		self.tf = <DTYPE_t>(max(ht) + dt)
