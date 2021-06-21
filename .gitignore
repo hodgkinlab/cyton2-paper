@@ -35,6 +35,8 @@
 !/code/cyton/out/**/_lognormal/indiv/Fig5/**/*.xlsx
 !/code/cyton/out/**/_normal/joint/Fig6/**/*.pdf
 !/code/cyton/out/**/_normal/joint/Fig6/**/*.xlsx
+!/code/cyton/out/FigS7-Simulation/EX127_mdn.pdf
+!/code/cyton/out/FigS7-Simulation/EX130b_mdn.pdf
 
 # Byte-compiled / optimised / DLL files
 /code/**/__pycache__/
