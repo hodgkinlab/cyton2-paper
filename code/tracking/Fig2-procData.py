@@ -225,15 +225,40 @@ def plot_cascade(df_exp, exps):
 			# complete_df = data[data['clone'].isin(complete)].copy()
 			# frayed_df = data[data['clone'].isin(frayed)].copy()
 			filtered_df = data[data['clone'].isin(filtered)].copy()
+			rest_df = data[~data['clone'].isin(filtered)].copy()
+
+			_rest_unique_clones = np.unique(rest_df['clone'])
+			not_divided, incomplete = [], []
+			for uc in _rest_unique_clones:
+				clone = data[data['clone'] == uc]
+				## Get times
+				lost_times = np.array(clone['t_loss'])
+				death_times = np.array(clone['t_death'])
+				div_times = np.array(clone['t_div'])
+				number_cells = len(clone['clone'])
+				number_lost_cells = len(lost_times[~np.isnan(lost_times)])
+				max_lost_time = np.nanmax(lost_times)
+				max_death_time = np.nanmax(death_times)
+				max_div_time = np.nanmax(div_times)
+
+				if number_cells == 1:
+					not_divided.append(uc)
+				
+				if (number_lost_cells > 0) and (np.nanmax([max_lost_time, max_death_time, max_div_time]) == max_lost_time):
+					incomplete.append(uc)
 
 			total_clones = len(unique_clone)
 			num_complete = len(complete); perc_complete = num_complete/total_clones*100
 			num_frayed = len(frayed); perc_frayed = num_frayed/total_clones*100
 			num_final = len(filtered); perc_final = num_final/total_clones*100
+			num_no_div = len(not_divided); perc_no_div = num_no_div/total_clones*100
+			num_incomplete = len(incomplete); perc_incomplete = num_incomplete/total_clones*100
 			print(f"\n[{exp}] [{cond_labs[exp][cond]}] consists of...")
 			print(f" >> Total {total_clones} clones...")
 			print(f" > Complete family: {num_complete} clones ({perc_complete:.2f}%)")
 			print(f" > Frayed family: {num_frayed} clones ({perc_frayed:.2f}%)")
+			print(f" >> No division family: {not_divided} ({perc_no_div:.2f}%)")
+			print(f" >> Incomplete family: {num_incomplete} ({perc_incomplete:.2f}%)")
 			print(f" > [Selected] Complete + Frayed without End of Movie family: {num_final} clones ({perc_final:.2f}%)\n")
 
 			#### Cascade Plot
@@ -424,18 +449,18 @@ def plot_cascade(df_exp, exps):
 					if len(df_tdiv0['tdiv0']) > 0:
 						ax[0][0].set_title(r"Time to first division ($T_{div}^0$)")
 						ax[0][0].set_ylabel('Time (hour)')
-						ax[0][0].set_xlabel("")
+						ax[0][0].set_xlabel('Clone')
 						ax[0][0].grid(True, which='major', axis='both', linestyle='--')
 						ax[0][0].set_xticklabels([]) # ax[0][0].set_xticklabels(ax[0][0].get_xticklabels(), fontsize=10.5, rotation=90)
 						ax[0][0].set_ylim(bottom=0)
 
 						ax[0][1].set_title(r"Subsequent division time ($T_{div}^k$)")
 						if len(df_tdiv["gen"]) > 0:
-							if iax == 0: ax[0][1].set_ylabel("")
+							if iax == 0: ax[0][1].set_ylabel('')
 							elif iax == 1: ax[0][1].set_ylabel('Time (hour)')
 						else:
-							ax[0][1].set_ylabel("")
-						ax[0][1].set_xlabel("")
+							ax[0][1].set_ylabel('')
+						ax[0][1].set_xlabel('Clone')
 						ax[0][1].grid(True, which='major', axis='both', linestyle='--')
 						ax[0][1].set_xticklabels([]) # ax[0][1].set_xticklabels(ax[0][1].get_xticklabels(), fontsize=10.5, rotation=90)
 						ax[0][1].set_ylim(bottom=0)
@@ -445,7 +470,7 @@ def plot_cascade(df_exp, exps):
 					ax[1][0].set_title(r"Time to last division ($T_{ld}$)")
 					ax[1][0].set_ylabel('Time (hour)')
 					if iax == 0: ax[1][0].set_xlabel('Clone')
-					elif iax == 1: ax[1][0].set_xlabel("")
+					elif iax == 1: ax[1][0].set_xlabel('Clone')
 					ax[1][0].grid(True, which='major', axis='both', linestyle='--')
 					ax[1][0].set_xticklabels([]) # ax[1][0].set_xticklabels(ax[1][0].get_xticklabels(), fontsize=10.5, rotation=90)
 					ax[1][0].set_ylim(bottom=0)
@@ -466,12 +491,183 @@ def plot_cascade(df_exp, exps):
 					leg.set_title("Generation", prop = {'size': 16})
 					ax[1][1].legend_.remove()
 				figS1.tight_layout(rect=(0, 0, 1, 1))
-				figS1.subplots_adjust(hspace=0.2, wspace=0.02)
+				figS1.subplots_adjust(hspace=0.37, wspace=0.02)
 				figS1.savefig(f"./out/Fig2-2-raw/Style1/{exp_lab}-{cond_labs[exp][cond]}_S1_cascade.pdf", dpi=300)
 
 				figS2.tight_layout(rect=(0, 0, 1, 1))
-				figS2.subplots_adjust(hspace=0.2, wspace=0.02)
+				figS2.subplots_adjust(hspace=0.37, wspace=0.02)
 				figS2.savefig(f"./out/Fig2-2-raw/Style2/{exp_lab}-{cond_labs[exp][cond]}_S2_cascade.pdf", dpi=300)
+
+def plot_example_family_and_collapsed_clone(df_exp, exps):
+	for exp in exps:
+		exp_lab = exp.replace('/', '_')
+		conditions = np.unique(df_exp[exp]['stim'])
+		if exp in ["t_il2/20140121", "t_il2/20131218"]:
+			continue
+		
+		## Location to save
+		save_path = "./out/Fig2-1-clones/" + exp_lab.replace('/','_')
+		if not os.path.exists(save_path): os.mkdir(save_path)
+		else: pass
+		for cond in conditions:
+			save_path_real = save_path + f"/{cond_labs[exp][cond]}"
+			if not os.path.exists(save_path_real): os.mkdir(save_path_real)
+			else: pass
+
+			data = df_exp[exp][df_exp[exp]['stim'] == cond]
+
+			#### FILTER DATA
+			unique_clone = np.unique(data['clone'])
+
+			filtered = []  # final decision: complete + frayed families whose death is the last event (i.e. remove End of Movie families)
+			for uc in unique_clone:
+				clone = data[data['clone'] == uc]
+				
+				## Get times
+				lost_times = np.array(clone['t_loss'])
+				death_times = np.array(clone['t_death'])
+				div_times = np.array(clone['t_div'])
+				number_cells = len(clone['clone'])
+				number_lost_cells = len(lost_times[~np.isnan(lost_times)])
+				max_lost_time = np.nanmax(lost_times)
+				max_death_time = np.nanmax(death_times)
+				max_div_time = np.nanmax(div_times)
+
+				## FILTER RULE 
+				# 1. At lesat divided once
+				# 2. Clones whose last event is death, not division or lost
+				if (number_cells > 1) and \
+					(number_lost_cells > 0 and max_death_time > max_lost_time) or \
+					(number_lost_cells == 0 and max_death_time > max_div_time):
+					filtered.append(uc)
+			
+			def _plot_fam(clone, rel, ax, y=0, ystep=1):
+				cell = clone[clone['relation'] == rel]
+				if cell.empty:
+					pass
+				else:
+					fate = cell['fate'].values
+					xLeft = cell['t_birth']
+					if fate == 'divided':
+						color = "blue"
+						xRight = cell['t_div']
+					elif fate == 'died':
+						color = "red"
+						xRight = cell['t_death']
+					elif fate == 'lost':
+						color = "grey"
+						xRight = cell['t_loss']
+
+					ax.plot([xLeft, xRight], [y, y], lw=2, c=color)
+				
+					yTop = y + ystep
+					yBtm = y - ystep
+					if fate not in ['died', 'lost']:
+						ax.plot([xRight, xRight], [yBtm, yTop], lw=2, c=color)
+
+					return _plot_fam(clone, rel+'1', ax, yTop, ystep/2), _plot_fam(clone, rel+'0', ax, yBtm, ystep/2)
+
+			## Draw trees here
+			for uc in filtered:
+				widths = [1]
+				heights = [6, 1]
+				gs_kw = dict(width_ratios=widths, height_ratios=heights)
+				fig, axes = plt.subplots(nrows=2, sharex=True, gridspec_kw=gs_kw)
+
+				clone = data[data['clone'] == uc].copy().reset_index(drop=True)
+				mgen = int(np.nanmax(clone['gen']))
+
+				## plot founder cell first
+				y = 0
+				ystep = 1
+				founder_fate = clone.loc[0, 'fate']
+				xLeft = clone.loc[0, 't_birth']
+				if founder_fate == 'divided':
+					color = "blue"
+					xRight = clone.loc[0, 't_div']
+				elif founder_fate == 'died':
+					color = "red"
+					xRight = clone.loc[0, 't_death']
+				elif founder_fate == 'lost':
+					color = "grey"
+					xRight = clone.loc[0, 't_loss']
+				axes[0].plot([xLeft, xRight], [y, y], lw=2, c=color)
+				yTop = y + ystep
+				yBtm = y - ystep
+				if founder_fate not in ['died', 'lost']:
+					axes[0].plot([xRight, xRight], [yBtm, yTop], lw=2, c=color)
+					if exp not in ['b_cpg/cpg3', 'b_cpg/cpg4']:
+						init_rel = clone.loc[0, 'relation']
+						if int(init_rel):
+							rel_left = f'{init_rel}1'
+							rel_right = f'{init_rel}0'
+						else:
+							rel_left = f'{init_rel}0'
+							rel_right = f'{init_rel}1'
+					else:
+						rel_left = '1'
+						rel_right = '0'
+					_plot_fam(clone.iloc[1:,:], rel=rel_left, ax=axes[0], y=yTop, ystep=ystep/2)
+					_plot_fam(clone.iloc[1:,:], rel=rel_right, ax=axes[0], y=yBtm, ystep=ystep/2)
+
+				tmax = np.nanmax(np.concatenate(clone.loc[:,['t_birth', 't_death', 't_loss']].to_numpy()))
+
+				tdiv0 = clone[(clone.fate=='divided') & (clone.gen==0)].t_div.to_numpy()[0] # time to first division
+				all_tdivs = []
+				for igen in range(1, mgen):
+					_tdivs = clone[(clone.fate=='divided') & (clone.gen == igen)].t_div.to_numpy()
+					all_tdivs.append(np.nanmean(_tdivs))
+				_ypos = np.ones(shape=mgen-1)
+
+				tdivs = clone[(clone.fate=='divided') & (clone.gen>0)].lifetime.to_numpy()  # average subsequent division time
+				if len(tdivs) > 0: 
+					avg_tdiv = np.nanmean(tdivs)
+				else:
+					avg_tdiv = "NA"
+				dead = clone[clone.fate=='died'].t_death.to_numpy()
+				avg_tdie = np.nanmean(dead)
+
+				cell_rel = np.array(clone[clone.fate=='died'].relation)
+				cell_rel_prec = [label[:-1] for label in cell_rel]  # determine the relation in the family tree
+				y_clo = np.array(clone[(clone.fate=='divided') & (clone.relation.isin(cell_rel_prec))].t_div)
+				y_clo = y_clo[~np.isnan(y_clo)]
+				if len(y_clo) == 1:
+					avg_tld = np.nanmean(y_clo)
+				elif len(y_clo) > 1:
+					avg_tld = np.nanmean(y_clo)
+
+				axes[0].axvline(tdiv0, ls=':', c='blue', zorder=-1)
+				axes[0].axvline(avg_tld, ls=':', c='forestgreen', zorder=-1)
+				axes[0].axvline(avg_tdie, ls=':', c='red', zorder=-1)
+
+				axes[1].scatter(tdiv0, 1, marker='o', ec='k', c='blue', zorder=10, label=f'$t_{{div}}^0 = {tdiv0:.2f}$h')
+				axes[1].axvline(tdiv0, ls=':', c='blue', zorder=-1)
+				if avg_tdiv == "NA":
+					# axes[1].scatter(all_tdivs, _ypos, marker='o', ec='k', c='navy', zorder=10, label=f"$t_{{div}}^{{k\geq1}}=$NA")
+					axes[1].annotate(r"$\rightarrow$" + f"$t_{{div}}^{{k\geq1}}=$NA",
+									 xy=(tdiv0+1, 0.65), xycoords=('data', 'axes fraction'), fontsize='large')
+				else:
+					# axes[1].scatter(all_tdivs, _ypos, marker='o', ec='k', c='navy', zorder=10, label=f"$t_{{div}}^{{k\geq1}}={avg_tdiv:.2f}$h")
+					axes[1].annotate(r"$\rightarrow$" + f"$t_{{div}}^{{k\geq1}}={avg_tdiv:.2f}$h",
+									 xy=(tdiv0+1, 0.65), xycoords=('data', 'axes fraction'), fontsize='large')
+				axes[1].scatter(avg_tld, 1, marker='o', ec='k', c='forestgreen', zorder=10, label=f'$t_{{ld}} = {avg_tld:.2f}$h')
+				axes[1].axvline(avg_tld, ls=':', c='forestgreen', zorder=-1)
+				axes[1].axvline(avg_tdie, ls=':', c='red', zorder=-1)
+				axes[1].plot([0, avg_tdie], [1, 1], 'k', lw=2, zorder=-1)
+				axes[1].scatter(avg_tdie, 1, marker='X', ec='k', c='red', zorder=10, label=f'$t_{{die}} = {avg_tdie:.2f}$h')
+
+				axes[0].set_title(f"Clone #{uc}", x=0.01, ha='left', weight='bold', fontsize='x-large')
+				axes[0].xaxis.set_visible(False)
+				axes[0].spines['bottom'].set_visible(False)
+				axes[1].set_xlim(left=0, right=140)
+				axes[1].set_xlabel("Time (hour)")
+				for ax in axes:
+					ax.yaxis.set_visible(False)
+					ax.spines['left'].set_visible(False)
+				fig.legend(ncol=1, frameon=False, fontsize='large', handletextpad=0.01, columnspacing=0)
+				fig.tight_layout(rect=(0, 0, 1, 1))
+				fig.subplots_adjust(hspace=0, wspace=0)
+				fig.savefig(f"{save_path_real}/c{uc}.pdf", dpi=300)
 
 
 def corr(df_exp, exps):
@@ -712,6 +908,8 @@ if __name__ == "__main__":
 	plot_collapse(df_exp, df_F_CC, exps, flag_all=False)
 	plot_cascade(df_exp, exps)
 
+	plot_example_family_and_collapsed_clone(df_exp, exps)
+
 	#### Correlation analysis
 	corr(df_F, exps)
 
@@ -830,6 +1028,8 @@ if __name__ == "__main__":
 	exps = ['aggre_1U', 'aggre_3U', 'aggre_10U']
 	df_il2 = {'aggre_1U': aggre_1U, 'aggre_3U': aggre_3U, 'aggre_10U': aggre_10U}
 	df_F, df_F_CC = filter_data(df_il2, exps)
+	plot_example_family_and_collapsed_clone(df_il2, exps)
+
 	save_dataframes(exps, df_il2, df_F_CC, df_F)
 	save_cc_times(exps, df_F)
 
