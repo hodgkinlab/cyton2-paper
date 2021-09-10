@@ -32,12 +32,12 @@ code
 Data names:
 - b_cpg/cpg3 (B-exp1)
 - b_cpg/cpg4 (B-exp2)
-- t_il2/20131218 + t_il2/20140121 (1U, 3U and 10U IL-2): CD8+ T cells aggregated dataset
+- t_il2/20131218 + t_il2/20140121 (1U, 3U and 10U IL-2) &#8594; aggregated CD8+ T cells dataset
 - t_misc/20140211 (T-exp1)
 - t_misc/20140325 (T-exp2)
 
 Correspond to Figure 2, 3 and 4 in the paper. 
-- Fig2-1-clones: Clonal collapse
+- Fig2-1-clones: Clonal collapse + family trees
 - Fig2-2-raw: Cascade plot
 - Fig2-3-corr: Correlation pair-plot
 - Fig3-Simulation: Agent-based Model
