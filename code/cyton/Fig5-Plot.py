@@ -19,7 +19,7 @@ from matplotlib.ticker import MaxNLocator
 from matplotlib.patches import Rectangle
 import scipy.stats as sps
 import multiprocessing as mp
-import umap
+# import umap
 from pca import pca  # https://github.com/erdogant/pca
 from sklearn import preprocessing
 from sklearn.decomposition import FastICA
@@ -211,7 +211,7 @@ def embed_plot(axis, combination, display, color):
 		axis.set_xticks([])
 		axis.set_yticklabels([])
 		axis.set_xticklabels([])
-	axis.set_title(f"{'-'.join(map(str, combination+1))}", fontsize=12, weight='bold', color=color)
+	axis.set_title(f"Model fit: ({'-'.join(map(str, combination+1))}) removed", fontsize=12, weight='bold', color=color)
 
 	axis.spines['right'].set_visible(True)
 	axis.spines['top'].set_visible(True)
@@ -244,7 +244,7 @@ if __name__ == "__main__":
 					count += 1
 				except:
 					pass
-			print(f" >> k = -{rm}: {count} combinations")
+			print(f" >> k = {rm}: {count} combinations")
 			intermediate_color = sns.light_palette(base_color[rm-1], n_colors=count+round(0.5*count), reverse=True, input='huls')
 			for c in range(count):
 				cps.append(intermediate_color[c])
@@ -447,13 +447,13 @@ if __name__ == "__main__":
 			'ext_total_cohorts': [], 'ext_total_live_cells': [], 'ext_cells_per_gen': [], 'hts_total_live_cells': [], 'hts_cells_per_gen': []
 		}
 		tmp_N0 = []  # just to calculate confidence interval for N0, but this is not real parameter! The interval is only from bootstrapping... (And recording this would make easier to plot in the future)
-		for bsample in fit_boots.drop('algo', axis=1).iterrows():
-			b_mUns, b_sUns = bsample[1]['mUns'], bsample[1]['sUns']
-			b_mDiv0, b_sDiv0 = bsample[1]['mDiv0'], bsample[1]['sDiv0']
-			b_mDD, b_sDD = bsample[1]['mDD'], bsample[1]['sDD']
-			b_mDie, b_sDie = bsample[1]['mDie'], bsample[1]['sDie']
-			b_m, b_p = bsample[1]['m'], bsample[1]['p']
-			b_N0 = bsample[1]['N0']
+		for _, bsample in fit_boots.drop('algo', axis=1).iterrows():
+			b_mUns, b_sUns = bsample['mUns'], bsample['sUns']
+			b_mDiv0, b_sDiv0 = bsample['mDiv0'], bsample['sDiv0']
+			b_mDD, b_sDD = bsample['mDD'], bsample['sDD']
+			b_mDie, b_sDie = bsample['mDie'], bsample['sDie']
+			b_m, b_p = bsample['m'], bsample['p']
+			b_N0 = bsample['N0']
 
 			b_params = best_params.copy()
 			b_params['mUns'].set(value=b_mUns); b_params['sUns'].set(value=b_sUns)
@@ -519,23 +519,34 @@ if __name__ == "__main__":
 					hts__.append(ht)
 					total_cells__.append(df['cells']['rep'][icnd][itpt][irep])
 		ax1[0].plot(hts_, total_cells_, 'kx', label="Excluded")
-		ax1[0].plot(hts__, total_cells__, 'ro', markersize=8, markeredgecolor='k', label=f"{rep} Random replicates")
-		for igen in range(mgen+1):
-			ax1[0].errorbar(hts, np.transpose(df['cgens']['avg'][icnd])[igen], yerr=np.transpose(df['cgens']['sem'][icnd])[igen], color=cp[igen], fmt='.', ms=9, label=f"Gen {igen}")
-			ax1[0].plot(times, ext_cells_per_gen[igen], c=cp[igen])
-			ax1[0].fill_between(times, conf['ext_cells_per_gen'][0][igen], conf['ext_cells_per_gen'][1][igen], fc=cp[igen], ec=None, alpha=0.5)
-
-		ax1[0].set_ylabel("Cell number")
-		ax1[0].plot(times, ext_total_live_cells, 'k-', label='Model')
+		ax1[0].plot(hts__, total_cells__, 'ro', markersize=8, markeredgecolor='k', label="Random samples")
+		ax1[0].plot(times, ext_total_live_cells, 'k-', label='Total')
 		ax1[0].fill_between(times, conf['ext_total_live_cells'][0], conf['ext_total_live_cells'][1], fc='k', ec=None, alpha=0.3)
+		if rep == 1:
+			for igen in range(mgen+1):
+				ax1[0].errorbar(hts, np.transpose(df['cgens']['avg'][icnd])[igen], yerr=np.transpose(df['cgens']['sem'][icnd])[igen], color=cp[igen], fmt='.', ms=9)
+				ax1[0].plot(times, ext_cells_per_gen[igen], c=cp[igen], label=f"Gen {igen}")
+				ax1[0].fill_between(times, conf['ext_cells_per_gen'][0][igen], conf['ext_cells_per_gen'][1][igen], fc=cp[igen], ec=None, alpha=0.5)
+			handles, labels = ax1[0].get_legend_handles_labels() 
+			leg = ax1[0].legend(handles[2:], labels[2:], markerscale=1.2, columnspacing=0.5, handletextpad=0.2,  fontsize=14, frameon=False)
+			leg.set_title("Model", prop = {'size': 14})
+		elif rep == 3:
+			for igen in range(mgen+1):
+				ax1[0].errorbar(hts, np.transpose(df['cgens']['avg'][icnd])[igen], yerr=np.transpose(df['cgens']['sem'][icnd])[igen], color=cp[igen], fmt='.', ms=9, label=f"Gen {igen}")
+				ax1[0].plot(times, ext_cells_per_gen[igen], c=cp[igen])
+				ax1[0].fill_between(times, conf['ext_cells_per_gen'][0][igen], conf['ext_cells_per_gen'][1][igen], fc=cp[igen], ec=None, alpha=0.5)
+			handles, labels = ax1[0].get_legend_handles_labels() 
+			leg = ax1[0].legend(handles[:2] + handles[3:], labels[:2] + labels[3:], fontsize=14, columnspacing=1, handletextpad=0.1, frameon=False)
+			leg.set_title("Data", prop = {'size': 14})
+		else:
+			for igen in range(mgen+1):
+				ax1[0].errorbar(hts, np.transpose(df['cgens']['avg'][icnd])[igen], yerr=np.transpose(df['cgens']['sem'][icnd])[igen], color=cp[igen], fmt='.', ms=9)
+				ax1[0].plot(times, ext_cells_per_gen[igen], c=cp[igen])
+				ax1[0].fill_between(times, conf['ext_cells_per_gen'][0][igen], conf['ext_cells_per_gen'][1][igen], fc=cp[igen], ec=None, alpha=0.5)
+		ax1[0].set_ylabel("Cell number")
 		ax1[0].ticklabel_format(style='sci', axis='y', scilimits=(0,0))
 		ax1[0].yaxis.major.formatter._useMathText = True
 		ax1[0].set_ylim(bottom=0)
-		handles, labels = ax1[0].get_legend_handles_labels()
-		if rep == 1:
-			ax1[0].legend(handles[2:], labels[2:], markerscale=1.2, columnspacing=0.5, handletextpad=0.2,  fontsize=14)
-		elif rep == 3:
-			ax1[0].legend(handles[:2], labels[:2], fontsize=14, columnspacing=1, handletextpad=0.1)
 
 		ax1[1].set_title(f"$m = {m:.2f} \pm_{{{m-err_m[0]:.2f}}}^{{{err_m[1]-m:.2f}}}$", x=0.01, ha='left', fontsize=22)
 		tdiv0_pdf, tdiv0_cdf = lognorm_pdf(times, mDiv0, sDiv0), lognorm_cdf(times, mDiv0, sDiv0)
@@ -590,8 +601,8 @@ if __name__ == "__main__":
 	red_df = final_df.drop(['mUns', 'sUns', 'p', 'N0', 'Replicate', 'mse-in', 'mse-out', 'rmse-in', 'rmse-out'], axis=1).copy()
 	cats = final_df['Replicate'].to_numpy()
 	data = red_df.to_numpy()
-	data = pd.DataFrame(data, columns=[r'$m_{div}^0$', r'$s_{div}^0$', r'$m_{DD}$', r'$s_{DD}$', r'$m_{die}$', r'$s_{die}$', r'$m$'], index=cats)
-	data_scaled = pd.DataFrame(preprocessing.scale(red_df), columns=[r'$m_{div}^0$', r'$s_{div}^0$', r'$m_{DD}$', r'$s_{DD}$', r'$m_{die}$', r'$s_{die}$', r'$m$'], index=cats)
+	data = pd.DataFrame(data, columns=[r'$m_{div}^0$', r'$s_{div}^0$', r'$m_{dd}$', r'$s_{dd}$', r'$m_{die}$', r'$s_{die}$', r'$m$'], index=cats)
+	data_scaled = pd.DataFrame(preprocessing.scale(red_df), columns=[r'$m_{div}^0$', r'$s_{div}^0$', r'$m_{dd}$', r'$s_{dd}$', r'$m_{die}$', r'$s_{die}$', r'$m$'], index=cats)
 
 	## PCA
 	mpca = pca(n_components=7)
@@ -835,7 +846,7 @@ if __name__ == "__main__":
 		x[i] = f'+{l}'
 
 	fig3, ax3 = plt.subplots(nrows=2, ncols=2, figsize=(12,8))
-	ax3[0,0].set_title("Median")
+	ax3[0,0].set_title("Median of the lognormal distribution")
 	ax3[0,0].errorbar(stats.index, stats['mDiv0']['variation'], 
 						yerr=[stats['mDiv0']['variation']-quants.loc[idx[:,0.025], :]['mDiv0']['variation'], quants.loc[idx[:,0.975], :]['mDiv0']['variation']-stats['mDiv0']['variation']], fmt='o-', ms=6, color='b', label=r"$T_{div}^0$")
 	ax3[0,0].errorbar(stats.index, stats['mDD']['variation'], 
@@ -865,7 +876,7 @@ if __name__ == "__main__":
 	ax3[1,0].set_xlabel(r"$\Delta$#Replicate", fontsize=20)
 
 
-	ax3[0,1].set_title("Shape")
+	ax3[0,1].set_title("Shape of the lognormal distribution")
 	ax3[0,1].errorbar(stats.index, stats['sDiv0']['variation'], 
 						yerr=[stats['sDiv0']['variation']-quants.loc[idx[:,0.025], :]['sDiv0']['variation'], quants.loc[idx[:,0.975], :]['sDiv0']['variation']-stats['sDiv0']['variation']], fmt='o-', ms=6, color='b', label=r"$T_{div}^0$")
 	ax3[0,1].errorbar(stats.index, stats['sDD']['variation'], 
