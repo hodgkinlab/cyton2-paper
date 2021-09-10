@@ -1,0 +1,3049 @@
+
+======================== BEGIN t_misc_20140325_1.0 ========================
+------------------------ BEGIN tdiv0 (t_misc_20140325_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  132.038  36.355  74.136  199.959      0.133    0.094   74201.0  74201.0   70173.0   66315.0    1.0
+beta1     3.861   1.066   2.053    5.790      0.004    0.003   74278.0  74278.0   71199.0   72522.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.529  0.030   3.472    3.587        0.0      0.0  245530.0  245530.0  254303.0  232052.0    1.0
+sigma1  0.105  0.025   0.065    0.151        0.0      0.0  210708.0  196241.0  235805.0  229703.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     34.221  1.073  32.184   36.249      0.002    0.002  235864.0  235864.0  244529.0  220322.0    1.0
+sigma2   3.715  0.900   2.274    5.354      0.002    0.001  207310.0  192558.0  231135.0  228488.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2  10.469  2.200   6.458   14.655      0.005    0.003  214341.0  214341.0  210883.0  232190.0    1.0
+beta2   35.917  1.099  33.824   37.974      0.003    0.002  190712.0  190712.0  193477.0  204202.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.269  0.076   0.136    0.413      0.000      0.0  242679.0  242679.0  236133.0  232041.0    1.0
+c     30.185  0.345  29.580   30.500      0.001      0.0  263771.0  263409.0  200106.0  161115.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean  ess_sd  ess_bulk  ess_tail  r_hat
+muLN      1.509  0.526   0.563    2.608      0.012    0.011    1842.0  1173.0    2522.0     836.0    1.0
+sigmaLN   0.753  0.350   0.139    1.356      0.005    0.004    4743.0  4743.0    2431.0     808.0    1.0
+c        28.166  3.124  22.612   30.500      0.114    0.081     752.0   752.0    2468.0     832.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name       waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0     dExp  64.199866  0.872884  6.374858    0.000000  0.000000
+1      dLN  66.712854  1.836371  5.836360    2.512988  2.291854
+2      Gam  69.607830  1.526818  5.146803    5.407963  3.723597
+3       LN  70.087988  1.491955  4.248163    5.888122  3.674833
+4        N  71.116995  1.522463  3.884961    6.917129  4.055400
+5      Wei  73.358462  1.437973  3.002017    9.158596  5.113248
+>>> PyMC3/Arviz
+      rank       waic    p_waic    d_waic        weight        se       dse  warning waic_scale
+dExp     0  64.199866  0.872884  0.000000  1.000000e+00  6.374858  0.000000    False   deviance
+dLN      1  66.712854  1.836371  2.512988  2.989275e-14  5.836360  2.291854     True   deviance
+Gam      2  69.607830  1.526818  5.407963  5.467848e-15  5.146803  3.723597     True   deviance
+LN       3  70.087988  1.491955  5.888122  5.023759e-15  4.248163  3.674833    False   deviance
+N        4  71.116995  1.522463  6.917129  2.636780e-15  3.884961  4.055400    False   deviance
+Wei      5  73.358462  1.437973  9.158596  0.000000e+00  3.002017  5.113248     True   deviance
+
+------------------------ END of tdiv0 (t_misc_20140325_1.0) ------------------------
+
+
+------------------------ BEGIN tdiv (t_misc_20140325_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  52.445  21.312  16.563   92.526      0.081    0.059   69771.0  66125.0   70403.0   78459.0    1.0
+beta1    5.072   2.070   1.556    8.934      0.008    0.006   69910.0  66458.0   70444.0   78632.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     2.326  0.070   2.192    2.456        0.0      0.0  188879.0  188879.0  204360.0  186135.0    1.0
+sigma1  0.196  0.064   0.104    0.310        0.0      0.0  179926.0  165826.0  212747.0  205034.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     10.366  0.807   8.856   11.901      0.002    0.001  191373.0  191373.0  209571.0  176998.0    1.0
+sigma2   2.281  0.742   1.215    3.610      0.002    0.001  170639.0  157608.0  199889.0  202619.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   5.157  1.221   2.897    7.457      0.003    0.002  191698.0  191698.0  188308.0  210057.0    1.0
+beta2   11.361  0.882   9.734   13.026      0.002    0.001  189938.0  186209.0  199028.0  208372.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+       mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb  0.678  0.229   0.276    1.107        0.0      0.0  219927.0  203054.0  225951.0  223129.0    1.0
+c     8.699  0.214   8.331    8.887        0.0      0.0  234819.0  234725.0  192674.0  167889.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN     0.552  0.436   0.000    1.347      0.008    0.007    2870.0   1726.0    4931.0    1736.0    1.0
+sigmaLN  1.136  0.632   0.216    2.222      0.006    0.004   12873.0  12873.0    4050.0    1256.0    1.0
+c        8.220  0.942   6.686    8.887      0.030    0.021    1012.0   1012.0    4064.0    1363.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name       waic    p_waic         se  delta_waic  delta_se
+rank                                                            
+0      dLN  28.311598  1.762691   7.582247    0.000000  0.000000
+1     dExp  30.088446  1.690421   8.404855    1.776848  3.041737
+2       LN  39.244386  2.298857   6.920784   10.932788  4.605476
+3      Gam  41.591824  3.802694  11.924326   13.280226  7.648138
+4        N  41.890772  2.540199   6.872737   13.579174  4.926783
+5      Wei  43.281657  2.278537   6.276865   14.970059  5.050109
+>>> PyMC3/Arviz
+      rank       waic    p_waic     d_waic        weight         se       dse  warning waic_scale
+dLN      0  28.311598  1.762691   0.000000  9.837405e-01   7.582247  0.000000     True   deviance
+dExp     1  30.088446  1.690421   1.776848  1.625954e-02   8.404855  3.041737     True   deviance
+LN       2  39.244386  2.298857  10.932788  0.000000e+00   6.920784  4.605476     True   deviance
+Gam      3  41.591824  3.802694  13.280226  0.000000e+00  11.924326  7.648138     True   deviance
+N        4  41.890772  2.540199  13.579174  0.000000e+00   6.872737  4.926783     True   deviance
+Wei      5  43.281657  2.278537  14.970059  3.219647e-15   6.276865  5.050109     True   deviance
+
+------------------------ END of tdiv (t_misc_20140325_1.0) ------------------------
+
+
+------------------------ BEGIN tld (t_misc_20140325_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  41.685  14.746  15.977   69.262      0.057    0.041   67503.0  65212.0   67434.0   76211.0    1.0
+beta1    0.968   0.345   0.374    1.619      0.001    0.001   67475.0  65203.0   67367.0   75233.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.750  0.059   3.638    3.861        0.0      0.0  231980.0  231959.0  240305.0  225443.0    1.0
+sigma1  0.204  0.049   0.125    0.294        0.0      0.0  216606.0  201514.0  241749.0  230358.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     43.151  2.434  38.590   47.802      0.005    0.003  261956.0  261956.0  271038.0  233315.0    1.0
+sigma2   8.447  2.043   5.216   12.220      0.004    0.003  215976.0  201656.0  239081.0  233719.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   7.248  1.694   4.167   10.438      0.004    0.003  214211.0  214211.0  211111.0  238368.0    1.0
+beta2   46.505  2.073  42.531   50.384      0.005    0.003  195705.0  195705.0  200779.0  199530.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.088  0.025   0.044    0.134      0.000    0.000  227896.0  227896.0  218949.0  219207.0    1.0
+c     30.778  1.044  28.946   31.737      0.002    0.001  279325.0  279077.0  216869.0  175602.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.985  0.476   2.160    3.776      0.002    0.001   68664.0  68664.0   68868.0  101342.0    1.0
+sigmaLN   0.523  0.313   0.142    1.095      0.001    0.001   68084.0  68084.0   68180.0  113900.0    1.0
+c        19.770  8.503   4.037   31.697      0.032    0.023   69195.0  69195.0   65178.0   87432.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name       waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      Wei  91.361255  1.516399  3.569433    0.000000  0.000000
+1        N  92.135093  1.248340  2.616203    0.773838  1.443695
+2      Gam  92.833123  1.754662  3.830534    1.471869  1.866704
+3       LN  92.879722  1.308807  2.515446    1.518467  2.374288
+4     dExp  92.901525  0.532125  4.556722    1.540271  7.358239
+5      dLN  94.722458  1.891572  2.645648    3.361204  3.787687
+>>> PyMC3/Arviz
+      rank       waic    p_waic    d_waic        weight        se       dse  warning waic_scale
+Wei      0  91.361255  1.516399  0.000000  6.276554e-01  3.569433  0.000000    False   deviance
+N        1  92.135093  1.248340  0.773838  0.000000e+00  2.616203  1.443695    False   deviance
+Gam      2  92.833123  1.754662  1.471869  0.000000e+00  3.830534  1.866704     True   deviance
+LN       3  92.879722  1.308807  1.518467  0.000000e+00  2.515446  2.374288    False   deviance
+dExp     4  92.901525  0.532125  1.540271  3.723446e-01  4.556722  7.358239    False   deviance
+dLN      5  94.722458  1.891572  3.361204  5.218048e-15  2.645648  3.787687     True   deviance
+
+------------------------ END of tld (t_misc_20140325_1.0) ------------------------
+
+
+------------------------ BEGIN tdie (t_misc_20140325_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  36.345  12.861  13.926   60.491      0.047    0.034   76113.0  72020.0   76322.0   82025.0    1.0
+beta1    0.744   0.265   0.284    1.244      0.001    0.001   76026.0  72129.0   76123.0   80614.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.874  0.064   3.752    3.994        0.0      0.0  238933.0  238933.0  248097.0  227193.0    1.0
+sigma1  0.221  0.053   0.137    0.320        0.0      0.0  208502.0  197356.0  229415.0  231227.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     48.948  2.892  43.560   54.491      0.006    0.004  232821.0  232821.0  242892.0  213305.0    1.0
+sigma2  10.017  2.423   6.166   14.476      0.005    0.004  216319.0  197454.0  245792.0  229534.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   7.444  1.789    4.19   10.807      0.004    0.003  215689.0  215689.0  211488.0  236827.0    1.0
+beta2   52.766  2.294   48.48   57.168      0.005    0.004  194015.0  193012.0  202157.0  201046.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.065  0.018   0.032    0.100      0.000    0.000  231665.0  231665.0  222495.0  218560.0    1.0
+c     32.294  1.420  29.805   33.594      0.003    0.002  279701.0  279569.0  224921.0  182696.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      3.330  0.385   2.634    3.927      0.001    0.001   71449.0  71449.0   73540.0  105864.0    1.0
+sigmaLN   0.448  0.247   0.149    0.894      0.001    0.001   70217.0  70217.0   72177.0  109497.0    1.0
+c        17.579  9.051   1.713   32.082      0.034    0.024   71555.0  70706.0   68271.0   94096.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic        se  delta_waic  delta_se
+rank                                                            
+0      Wei   95.243962  1.855413  5.075391    0.000000  0.000000
+1        N   96.749250  1.396093  3.374767    1.505288  1.949388
+2      Gam   98.223969  2.011940  4.780225    2.980007  1.745672
+3       LN   98.472919  1.487133  2.902297    3.228957  2.954082
+4     dExp  100.542411  0.442897  3.982706    5.298449  8.561802
+5      dLN  100.565310  1.912819  2.555633    5.321348  4.022862
+>>> PyMC3/Arviz
+      rank        waic    p_waic    d_waic        weight        se       dse  warning waic_scale
+Wei      0   95.243962  1.855413  0.000000  7.230207e-01  5.075391  0.000000     True   deviance
+N        1   96.749250  1.396093  1.505288  3.098313e-15  3.374767  1.949388    False   deviance
+Gam      2   98.223969  2.011940  2.980007  2.384392e-15  4.780225  1.745672     True   deviance
+LN       3   98.472919  1.487133  3.228957  2.315101e-16  2.902297  2.954082     True   deviance
+dExp     4  100.542411  0.442897  5.298449  2.769793e-01  3.982706  8.561802    False   deviance
+dLN      5  100.565310  1.912819  5.321348  0.000000e+00  2.555633  4.022862     True   deviance
+
+------------------------ END of tdie (t_misc_20140325_1.0) ------------------------
+
+
+======================== END of t_misc_20140325_1.0 ========================
+
+======================== BEGIN aggre_3U_2.0 ========================
+------------------------ BEGIN tdiv0 (aggre_3U_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  49.357  11.478  28.500   70.877      0.045    0.032   65786.0  64342.0   66111.0   75191.0    1.0
+beta1    1.184   0.277   0.691    1.712      0.001    0.001   65637.0  64214.0   65948.0   75539.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.720  0.027   3.669    3.770        0.0      0.0  291746.0  291746.0  293283.0  270103.0    1.0
+sigma1  0.152  0.020   0.117    0.189        0.0      0.0  279669.0  270817.0  290251.0  268881.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     41.711  1.236  39.404   44.052      0.002    0.002  274222.0  274222.0  275469.0  257496.0    1.0
+sigma2   7.029  0.923   5.419    8.779      0.002    0.001  291100.0  281160.0  303409.0  272357.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   5.322  0.601   4.191    6.445      0.001    0.001  228266.0  228266.0  227189.0  244579.0    1.0
+beta2   44.856  1.593  41.898   47.891      0.003    0.002  238831.0  238831.0  238667.0  249142.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.116  0.020   0.080    0.155        0.0      0.0  263729.0  263729.0  260239.0  241055.0    1.0
+c     32.848  0.273  32.357   33.112        0.0      0.0  303310.0  302891.0  214949.0  159154.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.427  0.314   1.869    3.033      0.002    0.001   27667.0  22279.0   39158.0   22254.0    1.0
+sigmaLN   0.522  0.157   0.235    0.821      0.001    0.001   48403.0  48403.0   38420.0   22461.0    1.0
+c        28.392  3.986  21.607   32.855      0.034    0.024   13558.0  13558.0   37575.0   21836.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic   delta_se
+rank                                                              
+0      dLN  216.221415  2.712085  11.385398    0.000000   0.000000
+1     dExp  218.060465  0.662518   9.257455    1.839049   6.312745
+2       LN  223.464163  3.108739  14.842698    7.242748   5.526565
+3      Gam  226.629855  3.923681  18.279140   10.408440   8.822741
+4        N  232.805349  4.325215  18.497345   16.583933   9.748533
+5      Wei  244.268493  4.904151  18.473373   28.047078  10.638481
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight         se        dse  warning waic_scale
+dLN      0  216.221415  2.712085   0.000000  6.817122e-01  11.385398   0.000000     True   deviance
+dExp     1  218.060465  0.662518   1.839049  3.182878e-01   9.257455   6.312745    False   deviance
+LN       2  223.464163  3.108739   7.242748  2.815816e-13  14.842698   5.526565     True   deviance
+Gam      3  226.629855  3.923681  10.408440  3.142003e-13  18.279140   8.822741     True   deviance
+N        4  232.805349  4.325215  16.583933  2.235335e-13  18.497345   9.748533     True   deviance
+Wei      5  244.268493  4.904151  28.047078  0.000000e+00  18.473373  10.638481     True   deviance
+
+------------------------ END of tdiv0 (aggre_3U_2.0) ------------------------
+
+
+------------------------ BEGIN tdiv (aggre_3U_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  5.251  1.827    2.08    8.652      0.006    0.004   93594.0  87460.0   95248.0  103330.0    1.0
+beta1   0.268  0.097    0.10    0.450      0.000    0.000   93909.0  87559.0   95542.0  105899.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     2.871  0.145   2.595    3.145        0.0      0.0  227247.0  227247.0  235230.0  209953.0    1.0
+sigma1  0.502  0.122   0.306    0.722        0.0      0.0  223510.0  205241.0  251824.0  237426.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     19.925  4.419  11.594   28.335      0.010    0.007  193337.0  193337.0  203353.0  143952.0    1.0
+sigma2  15.350  3.699   9.413   22.130      0.008    0.006  194133.0  181702.0  219962.0  210862.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   1.707  0.321   1.117    2.316      0.001    0.000  227667.0  227667.0  224866.0  234269.0    1.0
+beta2   24.254  4.645  16.035   32.945      0.010    0.007  207692.0  201907.0  211060.0  217738.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.112  0.031   0.056    0.171      0.000    0.000  231097.0  231097.0  224323.0  228269.0    1.0
+c     10.173  0.829   8.724   10.931      0.002    0.001  273800.0  273800.0  239085.0  191171.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN     1.825  0.495   0.866    2.733      0.002    0.001   97469.0  97469.0  102980.0   90665.0    1.0
+sigmaLN  1.218  0.493   0.447    2.110      0.002    0.001   94766.0  94766.0   91370.0  121085.0    1.0
+c        9.262  1.802   5.844   10.931      0.006    0.004   88375.0  88375.0   92082.0  111590.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic  delta_se
+rank                                                             
+0     dExp   88.934415  2.335782  12.780140    0.000000  0.000000
+1      dLN   89.286877  3.066406   9.815916    0.352462  3.353774
+2       LN   96.328114  3.394789  13.161552    7.393699  2.299704
+3      Gam  103.342188  5.706569  19.863125   14.407773  7.877045
+4      Wei  103.963816  3.189230  11.567453   15.029401  2.570171
+5        N  112.770448  4.817745  14.598719   23.836033  3.668094
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight         se       dse  warning waic_scale
+dExp     0   88.934415  2.335782   0.000000  6.654332e-01  12.780140  0.000000     True   deviance
+dLN      1   89.286877  3.066406   0.352462  3.345668e-01   9.815916  3.353774     True   deviance
+LN       2   96.328114  3.394789   7.393699  0.000000e+00  13.161552  2.299704     True   deviance
+Gam      3  103.342188  5.706569  14.407773  0.000000e+00  19.863125  7.877045     True   deviance
+Wei      4  103.963816  3.189230  15.029401  0.000000e+00  11.567453  2.570171     True   deviance
+N        5  112.770448  4.817745  23.836033  4.862777e-14  14.598719  3.668094     True   deviance
+
+------------------------ END of tdiv (aggre_3U_2.0) ------------------------
+
+
+------------------------ BEGIN tld (aggre_3U_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  26.672  6.192  15.469   38.392      0.022    0.016   77021.0  75996.0   76678.0   84665.0    1.0
+beta1    0.562  0.132   0.324    0.812      0.000    0.000   77138.0  76098.0   76832.0   85288.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.840  0.037   3.771    3.909        0.0      0.0  278530.0  278530.0  279954.0  264003.0    1.0
+sigma1  0.209  0.027   0.161    0.261        0.0      0.0  284901.0  275158.0  296432.0  269713.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     47.507  1.878  43.961   51.031      0.004    0.002  282412.0  282412.0  283884.0  257540.0    1.0
+sigma2  10.722  1.405   8.207   13.338      0.003    0.002  285364.0  275659.0  297502.0  271174.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   4.485  0.543   3.481    5.516      0.001    0.001  237677.0  237677.0  235938.0  257650.0    1.0
+beta2   51.973  2.198  47.820   56.083      0.005    0.003  226464.0  226464.0  225945.0  238004.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.075  0.013   0.051    0.100      0.000    0.000  242963.0  242963.0  238807.0  232154.0    1.0
+c     33.804  0.422  33.045   34.212      0.001    0.001  299223.0  298564.0  214402.0  162602.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.828  0.325   2.249    3.479      0.001    0.001   69294.0  67320.0   72235.0   74893.0    1.0
+sigmaLN   0.568  0.177   0.238    0.886      0.001    0.000   75372.0  75372.0   72153.0   79074.0    1.0
+c        27.266  5.733  16.292   33.919      0.023    0.016   60992.0  60992.0   69201.0   73485.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic  delta_se
+rank                                                             
+0     dExp  247.673040  0.643684   9.048258    0.000000  0.000000
+1      dLN  248.323207  2.219212   9.469942    0.650167  5.097362
+2       LN  251.988182  2.006204  10.111368    4.315141  6.713691
+3      Gam  254.210890  2.485180  12.082876    6.537849  8.393004
+4        N  259.316561  2.661681  11.883872   11.643520  8.931289
+5      Wei  264.702022  3.022562  12.067015   17.028981  9.531661
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight         se       dse  warning waic_scale
+dExp     0  247.673040  0.643684   0.000000  5.089419e-01   9.048258  0.000000    False   deviance
+dLN      1  248.323207  2.219212   0.650167  3.664283e-01   9.469942  5.097362     True   deviance
+LN       2  251.988182  2.006204   4.315141  2.148872e-15  10.111368  6.713691     True   deviance
+Gam      3  254.210890  2.485180   6.537849  1.246298e-01  12.082876  8.393004     True   deviance
+N        4  259.316561  2.661681  11.643520  2.284270e-15  11.883872  8.931289     True   deviance
+Wei      5  264.702022  3.022562  17.028981  0.000000e+00  12.067015  9.531661     True   deviance
+
+------------------------ END of tld (aggre_3U_2.0) ------------------------
+
+
+------------------------ BEGIN tdie (aggre_3U_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  15.450  3.591   9.048   22.286      0.013    0.009   73960.0  73389.0   73627.0   88269.0    1.0
+beta1    0.229  0.054   0.132    0.332      0.000    0.000   73990.0  73413.0   73641.0   88380.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     4.176  0.049   4.086    4.269        0.0      0.0  267495.0  267495.0  268928.0  254378.0    1.0
+sigma1  0.277  0.036   0.213    0.346        0.0      0.0  291700.0  281916.0  303826.0  271826.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     67.481  3.480  60.895   73.992      0.006    0.005  298232.0  298232.0  299731.0  264720.0    1.0
+sigma2  19.837  2.614  15.222   24.748      0.005    0.004  278395.0  267569.0  292105.0  260329.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   3.687  0.468   2.807    4.563      0.001    0.001  223886.0  223886.0  222521.0  246289.0    1.0
+beta2   75.161  3.864  67.945   82.500      0.008    0.006  242300.0  242300.0  242298.0  246394.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.041  0.007   0.028    0.055      0.000    0.000  258803.0  258803.0  254677.0  244922.0    1.0
+c     42.285  0.778  40.884   43.035      0.001    0.001  302816.0  301776.0  214317.0  160357.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      3.375  0.309   2.838    4.005      0.001    0.001   74603.0  73292.0   76224.0   86058.0    1.0
+sigmaLN   0.617  0.187   0.282    0.953      0.001    0.000   79627.0  79627.0   76315.0   93950.0    1.0
+c        32.007  8.500  15.058   42.648      0.033    0.023   67424.0  67424.0   73165.0   82356.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic        se  delta_waic  delta_se
+rank                                                            
+0     dExp  289.097149  0.654038  9.071353    0.000000  0.000000
+1      dLN  291.176663  2.046243  8.951499    2.079514  4.532880
+2       LN  293.445798  1.648057  8.468465    4.348649  5.728352
+3      Gam  295.319490  1.977543  9.561794    6.222341  6.826674
+4        N  300.378997  2.020025  8.734742   11.281848  7.474393
+5      Wei  301.672847  1.993728  8.153889   12.575698  7.441800
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight        se       dse  warning waic_scale
+dExp     0  289.097149  0.654038   0.000000  7.502708e-01  9.071353  0.000000    False   deviance
+dLN      1  291.176663  2.046243   2.079514  4.927596e-02  8.951499  4.532880    False   deviance
+LN       2  293.445798  1.648057   4.348649  0.000000e+00  8.468465  5.728352    False   deviance
+Gam      3  295.319490  1.977543   6.222341  2.004533e-01  9.561794  6.826674     True   deviance
+N        4  300.378997  2.020025  11.281848  0.000000e+00  8.734742  7.474393     True   deviance
+Wei      5  301.672847  1.993728  12.575698  5.662137e-15  8.153889  7.441800     True   deviance
+
+------------------------ END of tdie (aggre_3U_2.0) ------------------------
+
+
+======================== END of aggre_3U_2.0 ========================
+
+======================== BEGIN aggre_1U_1.0 ========================
+------------------------ BEGIN tdiv0 (aggre_1U_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  85.176  21.639  46.677  126.202      0.082    0.059   69787.0  66416.0   70676.0   71355.0    1.0
+beta1    2.368   0.603   1.293    3.511      0.002    0.002   69734.0  66410.0   70623.0   72308.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.577  0.023   3.533    3.620        0.0      0.0  302616.0  302616.0  304947.0  270563.0    1.0
+sigma1  0.119  0.017   0.088    0.151        0.0      0.0  264228.0  254696.0  276248.0  259950.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     35.985  0.904  34.269   37.680      0.002    0.001  288285.0  288285.0  290639.0  257141.0    1.0
+sigma2   4.667  0.687   3.477    5.963      0.001    0.001  259675.0  249695.0  272632.0  257854.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   6.635  0.814   5.116    8.172      0.002    0.001  242097.0  242097.0  241004.0  251481.0    1.0
+beta2   38.183  1.205  35.917   40.443      0.003    0.002  216549.0  216549.0  216379.0  237022.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.160  0.031   0.104    0.217        0.0      0.0  248248.0  248248.0  244866.0  240265.0    1.0
+c     29.486  0.244  29.047   29.721        0.0      0.0  298610.0  298200.0  215130.0  162794.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.259  0.355   1.650    2.961      0.003    0.002   15320.0  11968.0   22737.0    8977.0    1.0
+sigmaLN   0.428  0.146   0.160    0.698      0.001    0.001   31747.0  31747.0   22658.0    8911.0    1.0
+c        24.984  4.123  17.668   29.427      0.047    0.033    7798.0   7798.0   22495.0    8919.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic  delta_se
+rank                                                             
+0      dLN  157.669827  3.116528  11.458389    0.000000  0.000000
+1     dExp  162.381311  0.553705   7.593006    4.711484  7.619132
+2       LN  163.216044  3.588221  15.294194    5.546217  5.579149
+3      Gam  165.911332  4.560666  19.259259    8.241505  9.250116
+4        N  169.958001  4.635692  18.243392   12.288175  8.754618
+5      Wei  181.783989  4.962187  17.703442   24.114163  9.028364
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight         se       dse  warning waic_scale
+dLN      0  157.669827  3.116528   0.000000  5.630912e-01  11.458389  0.000000     True   deviance
+dExp     1  162.381311  0.553705   4.711484  2.391331e-01   7.593006  7.619132    False   deviance
+LN       2  163.216044  3.588221   5.546217  0.000000e+00  15.294194  5.579149     True   deviance
+Gam      3  165.911332  4.560666   8.241505  1.977757e-01  19.259259  9.250116     True   deviance
+N        4  169.958001  4.635692  12.288175  0.000000e+00  18.243392  8.754618     True   deviance
+Wei      5  181.783989  4.962187  24.114163  1.934009e-13  17.703442  9.028364     True   deviance
+
+------------------------ END of tdiv0 (aggre_1U_1.0) ------------------------
+
+
+------------------------ BEGIN tdiv (aggre_1U_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  75.394  37.981  12.823  147.764      0.145    0.105   69025.0  64822.0   69122.0   71878.0    1.0
+beta1    3.950   1.996   0.639    7.728      0.008    0.006   69402.0  65590.0   69431.0   74521.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+mu1     2.944  0.292   2.523    3.363      0.001    0.001   40089.0  40089.0   83152.0   57503.0    1.0
+sigma1  0.377  0.560   0.082    0.876      0.003    0.002   46333.0  46333.0   76742.0   64471.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean    sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+mu2     19.387  4.66  11.680   26.725      0.017    0.013   72260.0  64350.0  111162.0   73569.0    1.0
+sigma2   6.717  7.31   1.464   15.514      0.029    0.021   62299.0  62299.0   74609.0   93084.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   7.871  3.290   2.142   13.942      0.009    0.007  127046.0  127046.0  118616.0  135082.0    1.0
+beta2   21.037  4.721  17.253   24.878      0.024    0.017   37414.0   37414.0  126622.0   95104.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.242  0.122   0.047    0.467      0.000    0.000  220025.0  220025.0  204993.0  215937.0    1.0
+c     13.627  1.702  10.705   14.987      0.004    0.003  199730.0  199730.0  203917.0  197496.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.109  2.252   0.000    3.444      0.008    0.006   79442.0  79442.0   77396.0   74591.0    1.0
+sigmaLN   2.229  4.607   0.099    6.549      0.020    0.014   55636.0  55636.0   26858.0   18085.0    1.0
+c        11.718  3.638   4.048   14.987      0.020    0.014   33095.0  33095.0   37039.0   31969.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name       waic    p_waic        se  delta_waic   delta_se
+rank                                                            
+0      dLN  19.140922  5.108394  9.191217    0.000000   0.000000
+1     dExp  23.454485  0.856736  2.734028    4.313563   6.976540
+2      Wei  23.891885  1.735101  2.579872    4.750963  11.367372
+3      Gam  25.563615  2.701166  4.673784    6.422693  12.813559
+4        N  25.626342  1.657630  0.998043    6.485420   9.887945
+5       LN  26.029395  1.754319  0.899141    6.888473   9.477685
+>>> PyMC3/Arviz
+      rank       waic    p_waic    d_waic        weight        se        dse  warning waic_scale
+dLN      0  19.140922  5.108394  0.000000  3.877582e-01  9.191217   0.000000     True   deviance
+dExp     1  23.454485  0.856736  4.313563  0.000000e+00  2.734028   6.976540    False   deviance
+Wei      2  23.891885  1.735101  4.750963  2.684750e-01  2.579872  11.367372     True   deviance
+Gam      3  25.563615  2.701166  6.422693  3.437668e-01  4.673784  12.813559     True   deviance
+N        4  25.626342  1.657630  6.485420  0.000000e+00  0.998043   9.887945     True   deviance
+LN       5  26.029395  1.754319  6.888473  2.331468e-15  0.899141   9.477685     True   deviance
+
+------------------------ END of tdiv (aggre_1U_1.0) ------------------------
+
+
+------------------------ BEGIN tld (aggre_1U_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  48.315  12.259  26.634   71.719      0.048    0.034   65795.0  64336.0   66025.0   77363.0    1.0
+beta1    1.274   0.325   0.696    1.891      0.001    0.001   65776.0  64361.0   65974.0   78073.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.625  0.031   3.567    3.682        0.0      0.0  262587.0  262587.0  265146.0  252092.0    1.0
+sigma1  0.158  0.023   0.118    0.202        0.0      0.0  269180.0  258668.0  282431.0  263274.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     37.957  1.256  35.598   40.335      0.002    0.002  300238.0  300238.0  302522.0  263360.0    1.0
+sigma2   6.487  0.955   4.836    8.294      0.002    0.001  264441.0  253651.0  279260.0  253962.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   5.794  0.777   4.364    7.275      0.002    0.001  237464.0  237464.0  235839.0  253884.0    1.0
+beta2   40.843  1.484  38.032   43.620      0.003    0.002  223960.0  223960.0  224292.0  236948.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.122  0.023   0.079    0.165      0.000      0.0  255229.0  255229.0  250692.0  239586.0    1.0
+c     29.412  0.322  28.836   29.721      0.001      0.0  299207.0  298743.0  216557.0  164711.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.381  0.332   1.808    3.050      0.002    0.001   44533.0  39279.0   52757.0   37325.0    1.0
+sigmaLN   0.523  0.164   0.215    0.827      0.001    0.000   60382.0  60382.0   52858.0   37306.0    1.0
+c        25.200  4.085  17.844   29.499      0.024    0.017   29154.0  29154.0   51257.0   36774.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic  delta_se
+rank                                                             
+0      dLN  175.291374  2.378408   9.549889    0.000000  0.000000
+1     dExp  177.738735  0.612433   7.956221    2.447360  5.662292
+2       LN  180.137232  2.171120   9.694187    4.845858  3.106599
+3      Gam  182.044555  2.657620  11.542726    6.753181  4.291002
+4        N  185.460510  2.503002   9.950128   10.169136  4.204817
+5      Wei  191.392657  2.368578   8.807233   16.101283  4.974905
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight         se       dse  warning waic_scale
+dLN      0  175.291374  2.378408   0.000000  7.571319e-01   9.549889  0.000000     True   deviance
+dExp     1  177.738735  0.612433   2.447360  2.428681e-01   7.956221  5.662292    False   deviance
+LN       2  180.137232  2.171120   4.845858  0.000000e+00   9.694187  3.106599     True   deviance
+Gam      3  182.044555  2.657620   6.753181  0.000000e+00  11.542726  4.291002     True   deviance
+N        4  185.460510  2.503002  10.169136  0.000000e+00   9.950128  4.204817     True   deviance
+Wei      5  191.392657  2.368578  16.101283  2.864375e-14   8.807233  4.974905     True   deviance
+
+------------------------ END of tld (aggre_1U_1.0) ------------------------
+
+
+------------------------ BEGIN tdie (aggre_1U_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  22.993  5.854  12.457   34.030      0.021    0.015   80061.0  76232.0   81196.0   80529.0    1.0
+beta1    0.502  0.129   0.268    0.745      0.000    0.000   80153.0  76203.0   81291.0   81519.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.801  0.044   3.717    3.884        0.0      0.0  268396.0  268396.0  270570.0  255022.0    1.0
+sigma1  0.228  0.034   0.169    0.291        0.0      0.0  281298.0  270502.0  294759.0  264566.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     45.853  2.248  41.602   50.073      0.004    0.003  313170.0  313170.0  316180.0  265083.0    1.0
+sigma2  11.599  1.703   8.640   14.803      0.003    0.002  247943.0  238113.0  261956.0  251737.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   4.109  0.557   3.072    5.158      0.001    0.001  234454.0  234454.0  232950.0  252722.0    1.0
+beta2   50.602  2.583  45.741   55.463      0.005    0.004  228846.0  228846.0  228862.0  238917.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.072  0.014   0.047    0.097      0.000    0.000  242464.0  242464.0  237601.0  237389.0    1.0
+c     31.349  0.547  30.366   31.875      0.001    0.001  298424.0  297593.0  217700.0  168335.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.797  0.283   2.291    3.359      0.001    0.001   72556.0  68145.0   80957.0   66223.0    1.0
+sigmaLN   0.579  0.158   0.281    0.869      0.001    0.000   88144.0  88144.0   81070.0   67567.0    1.0
+c        26.294  4.644  17.824   31.580      0.020    0.014   54573.0  54573.0   76861.0   64929.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic  delta_se
+rank                                                             
+0      dLN  205.153254  2.416488  10.195686    0.000000  0.000000
+1     dExp  207.452110  0.676756   8.392621    2.298856  5.588841
+2       LN  210.206496  2.015228   9.560206    5.053242  3.234701
+3      Gam  212.745475  2.490928  11.064777    7.592221  4.038993
+4        N  217.806610  2.333988   9.254611   12.653356  4.570084
+5      Wei  220.543763  2.011634   7.886227   15.390509  5.148392
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight         se       dse  warning waic_scale
+dLN      0  205.153254  2.416488   0.000000  7.720515e-01  10.195686  0.000000     True   deviance
+dExp     1  207.452110  0.676756   2.298856  2.279485e-01   8.392621  5.588841    False   deviance
+LN       2  210.206496  2.015228   5.053242  0.000000e+00   9.560206  3.234701     True   deviance
+Gam      3  212.745475  2.490928   7.592221  0.000000e+00  11.064777  4.038993     True   deviance
+N        4  217.806610  2.333988  12.653356  0.000000e+00   9.254611  4.570084     True   deviance
+Wei      5  220.543763  2.011634  15.390509  2.442491e-15   7.886227  5.148392     True   deviance
+
+------------------------ END of tdie (aggre_1U_1.0) ------------------------
+
+
+======================== END of aggre_1U_1.0 ========================
+
+======================== BEGIN t_misc_20140211_2.0 ========================
+------------------------ BEGIN tdiv0 (t_misc_20140211_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  101.821  29.876  48.721  159.082      0.114    0.082   69196.0  65953.0   69090.0   65535.0    1.0
+beta1     3.022   0.889   1.454    4.737      0.003    0.002   69239.0  66035.0   69155.0   66919.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.512  0.027    3.46    3.563        0.0      0.0  258503.0  258503.0  262985.0  244804.0    1.0
+sigma1  0.116  0.022    0.08    0.156        0.0      0.0  247320.0  235298.0  266033.0  255497.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     33.710  0.977  31.844   35.533      0.002    0.001  268767.0  268767.0  273634.0  248122.0    1.0
+sigma2   4.127  0.769   2.847    5.575      0.002    0.001  237147.0  224787.0  254865.0  247232.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   7.917  1.265   5.573   10.308      0.003    0.002  226448.0  226448.0  224278.0  233489.0    1.0
+beta2   35.635  1.160  33.433   37.814      0.002    0.002  222404.0  222404.0  223371.0  229801.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.225  0.052   0.132    0.325      0.000      0.0  215557.0  215557.0  210193.0  215780.0    1.0
+c     29.011  0.267  28.538   29.262      0.001      0.0  283803.0  283408.0  208530.0  162727.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      1.729  0.453   0.929    2.648      0.007    0.006    4403.0   2802.0    6214.0    2276.0    1.0
+sigmaLN   0.660  0.274   0.160    1.136      0.002    0.002   12826.0  12826.0    6691.0    2232.0    1.0
+c        26.507  3.135  21.101   29.256      0.079    0.056    1563.0   1563.0    6227.0    2253.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic  delta_se
+rank                                                             
+0     dExp   98.620906  0.801937   7.576941    0.000000  0.000000
+1      dLN  101.804149  2.195539   7.348046    3.183243  3.253341
+2       LN  106.552395  2.330993   8.841743    7.931489  5.696960
+3      Gam  107.768751  2.940494  11.480591    9.147846  7.656870
+4        N  109.487455  2.703706   9.622734   10.866550  6.552543
+5      Wei  115.658196  2.988656   9.866258   17.037291  7.300616
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight         se       dse  warning waic_scale
+dExp     0   98.620906  0.801937   0.000000  9.175934e-01   7.576941  0.000000    False   deviance
+dLN      1  101.804149  2.195539   3.183243  0.000000e+00   7.348046  3.253341     True   deviance
+LN       2  106.552395  2.330993   7.931489  0.000000e+00   8.841743  5.696960     True   deviance
+Gam      3  107.768751  2.940494   9.147846  8.240662e-02  11.480591  7.656870     True   deviance
+N        4  109.487455  2.703706  10.866550  0.000000e+00   9.622734  6.552543     True   deviance
+Wei      5  115.658196  2.988656  17.037291  8.215650e-15   9.866258  7.300616     True   deviance
+
+------------------------ END of tdiv0 (t_misc_20140211_2.0) ------------------------
+
+
+------------------------ BEGIN tdiv (t_misc_20140211_2.0) ------------------------
+CANNOT PROCEED. tdiv HAS NO DATA!
+------------------------ END of tdiv (t_misc_20140211_2.0) ------------------------
+
+
+------------------------ BEGIN tld (t_misc_20140211_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  78.518  23.498  36.836  122.838      0.088    0.064   71122.0  66463.0   72144.0   69253.0    1.0
+beta1    2.282   0.685   1.079    3.586      0.003    0.002   71269.0  66637.0   72198.0   70673.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.532  0.031   3.472    3.590        0.0      0.0  262607.0  262606.0  266985.0  250291.0    1.0
+sigma1  0.132  0.025   0.091    0.179        0.0      0.0  243528.0  230989.0  262108.0  247077.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     34.426  1.136  32.295   36.579      0.002    0.002  265297.0  265297.0  270095.0  243031.0    1.0
+sigma2   4.805  0.896   3.321    6.499      0.002    0.001  248791.0  234733.0  268580.0  247159.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   7.351  1.221   5.078    9.648      0.003    0.002  217764.0  217764.0  215637.0  234963.0    1.0
+beta2   36.621  1.288  34.227   39.078      0.003    0.002  219784.0  219784.0  221213.0  226859.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.194  0.045   0.113    0.280      0.000      0.0  225304.0  225304.0  220675.0  224766.0    1.0
+c     28.971  0.311  28.419   29.262      0.001      0.0  274740.0  274349.0  204187.0  164263.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean  ess_sd  ess_bulk  ess_tail  r_hat
+muLN      1.886  0.486   1.020    2.900      0.018    0.015     733.0   507.0    1170.0     324.0    1.0
+sigmaLN   0.669  0.288   0.142    1.170      0.006    0.004    2139.0  2139.0    1241.0     331.0    1.0
+c        25.835  4.273  18.373   29.258      0.237    0.168     325.0   325.0    1165.0     319.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic        se  delta_waic  delta_se
+rank                                                            
+0     dExp  104.335161  0.814267  7.552930    0.000000  0.000000
+1      dLN  107.702365  2.092914  7.125713    3.367204  3.123214
+2       LN  111.862529  1.967676  7.236864    7.527368  4.779252
+3      Gam  113.021331  2.509580  9.262228    8.686170  5.924244
+4        N  114.484223  2.146253  7.243929   10.149062  5.202099
+5      Wei  118.730630  2.044665  6.365769   14.395469  5.588722
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight        se       dse  warning waic_scale
+dExp     0  104.335161  0.814267   0.000000  1.000000e+00  7.552930  0.000000    False   deviance
+dLN      1  107.702365  2.092914   3.367204  0.000000e+00  7.125713  3.123214    False   deviance
+LN       2  111.862529  1.967676   7.527368  0.000000e+00  7.236864  4.779252     True   deviance
+Gam      3  113.021331  2.509580   8.686170  0.000000e+00  9.262228  5.924244     True   deviance
+N        4  114.484223  2.146253  10.149062  0.000000e+00  7.243929  5.202099     True   deviance
+Wei      5  118.730630  2.044665  14.395469  4.168887e-13  6.365769  5.588722     True   deviance
+
+------------------------ END of tld (t_misc_20140211_2.0) ------------------------
+
+
+------------------------ BEGIN tdie (t_misc_20140211_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  69.951  20.943  33.296  109.753      0.079    0.057   70234.0  67761.0   70716.0   75487.0    1.0
+beta1    1.755   0.527   0.828    2.753      0.002    0.001   70281.0  67905.0   70704.0   76202.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.678  0.034   3.613    3.741        0.0      0.0  261625.0  261606.0  265767.0  246762.0    1.0
+sigma1  0.143  0.027   0.098    0.193        0.0      0.0  249034.0  236910.0  266697.0  251872.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     39.880  1.341  37.355   42.415      0.003    0.002  262664.0  262664.0  267664.0  237122.0    1.0
+sigma2   5.676  1.059   3.877    7.634      0.002    0.002  246689.0  231748.0  267976.0  247098.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   8.011  1.361   5.465   10.553      0.003    0.002  216969.0  216969.0  214326.0  233771.0    1.0
+beta2   42.332  1.363  39.777   44.926      0.003    0.002  219203.0  219203.0  220744.0  223934.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.119  0.028   0.069    0.171      0.000    0.000  238949.0  238949.0  232940.0  226994.0    1.0
+c     30.988  0.505  30.088   31.462      0.001    0.001  286350.0  285885.0  213763.0  165908.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.882  0.441   2.157    3.671      0.002    0.001   55703.0  55466.0   54151.0   74818.0    1.0
+sigmaLN   0.362  0.190   0.110    0.709      0.001    0.001   57982.0  57982.0   55076.0   98255.0    1.0
+c        19.515  7.951   4.214   30.857      0.034    0.024   54830.0  54830.0   52746.0   70226.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic        se  delta_waic  delta_se
+rank                                                            
+0       LN  119.980632  1.653035  5.342880    0.000000  0.000000
+1      Gam  120.286181  2.106015  7.181430    0.305549  1.889741
+2        N  120.398410  1.811128  6.060214    0.417777  1.122910
+3      dLN  121.184973  1.912986  4.851281    1.204341  1.378910
+4     dExp  122.499612  0.466016  5.351167    2.518980  6.428790
+5      Wei  123.209568  2.588688  8.192287    3.228936  3.636156
+>>> PyMC3/Arviz
+      rank        waic    p_waic    d_waic        weight        se       dse  warning waic_scale
+LN       0  119.980632  1.653035  0.000000  1.756842e-16  5.342880  0.000000     True   deviance
+Gam      1  120.286181  2.106015  0.305549  6.449297e-01  7.181430  1.889741     True   deviance
+N        2  120.398410  1.811128  0.417777  3.254660e-16  6.060214  1.122910     True   deviance
+dLN      3  121.184973  1.912986  1.204341  1.007492e-15  4.851281  1.378910     True   deviance
+dExp     4  122.499612  0.466016  2.518980  3.550703e-01  5.351167  6.428790    False   deviance
+Wei      5  123.209568  2.588688  3.228936  4.440892e-16  8.192287  3.636156     True   deviance
+
+------------------------ END of tdie (t_misc_20140211_2.0) ------------------------
+
+
+======================== END of t_misc_20140211_2.0 ========================
+
+======================== BEGIN b_cpg_cpg3_0.0 ========================
+------------------------ BEGIN tdiv0 (b_cpg_cpg3_0.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  67.080  11.209  46.283   87.894      0.044    0.031   64835.0  63612.0   65258.0   72085.0    1.0
+beta1    1.733   0.291   1.204    2.283      0.001    0.001   64720.0  63519.0   65210.0   73146.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.648  0.016   3.619    3.678        0.0      0.0  325925.0  325925.0  326334.0  287234.0    1.0
+sigma1  0.128  0.011   0.107    0.150        0.0      0.0  300144.0  296344.0  303530.0  281317.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     38.712  0.611  37.578   39.871      0.001    0.001  288888.0  288888.0  289361.0  270309.0    1.0
+sigma2   4.985  0.444   4.180    5.822      0.001    0.001  308634.0  302869.0  315005.0  274457.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   8.054  0.709   6.743    9.402      0.001    0.001  235044.0  235044.0  234315.0  259125.0    1.0
+beta2   40.942  0.666  39.696   42.201      0.001    0.001  251870.0  251870.0  251932.0  261658.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.093  0.011   0.072    0.115        0.0      0.0  256916.0  256916.0  254493.0  242333.0    1.0
+c     27.806  0.163  27.511   27.967        0.0      0.0  312516.0  312003.0  212756.0  156869.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      3.219  0.257   2.782    3.651      0.001    0.001   68620.0  68620.0   66132.0   81554.0    1.0
+sigmaLN   0.205  0.060   0.116    0.317      0.000    0.000   68131.0  66186.0   69857.0   84638.0    1.0
+c        12.424  6.236   0.756   22.320      0.024    0.017   69450.0  69450.0   65460.0   82631.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic   delta_se
+rank                                                              
+0       LN  416.340930  2.008094  12.054088    0.000000   0.000000
+1      Gam  416.638025  2.121521  12.891215    0.297095   1.145807
+2      dLN  417.559052  2.351300  12.472437    1.218122   1.629199
+3        N  418.201213  2.063738  12.228236    1.860282   2.247464
+4      Wei  427.951480  2.522615  12.738226   11.610550   5.775063
+5     dExp  468.954074  0.232247   7.522934   52.613144  12.320808
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic    weight         se        dse  warning waic_scale
+LN       0  416.340930  2.008094   0.000000  0.567656  12.054088   0.000000    False   deviance
+Gam      1  416.638025  2.121521   0.297095  0.388535  12.891215   1.145807    False   deviance
+dLN      2  417.559052  2.351300   1.218122  0.000000  12.472437   1.629199     True   deviance
+N        3  418.201213  2.063738   1.860282  0.000000  12.228236   2.247464    False   deviance
+Wei      4  427.951480  2.522615  11.610550  0.000000  12.738226   5.775063     True   deviance
+dExp     5  468.954074  0.232247  52.613144  0.043808   7.522934  12.320808    False   deviance
+
+------------------------ END of tdiv0 (b_cpg_cpg3_0.0) ------------------------
+
+
+------------------------ BEGIN tdiv (b_cpg_cpg3_0.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  20.133  3.699  13.448   27.198      0.013    0.009   78002.0  77090.0   77772.0   86220.0    1.0
+beta1    1.800  0.335   1.191    2.436      0.001    0.001   78258.0  77324.0   78015.0   86728.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     2.389  0.032   2.330    2.449        0.0      0.0  322734.0  322734.0  323431.0  284577.0    1.0
+sigma1  0.233  0.023   0.191    0.277        0.0      0.0  292863.0  287247.0  299203.0  277342.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     11.194  0.382  10.479   11.914      0.001      0.0  300359.0  300359.0  301078.0  270110.0    1.0
+sigma2   2.797  0.279   2.294    3.319      0.000      0.0  315650.0  307877.0  324706.0  280892.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean    sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   3.983  0.37   3.287    4.675      0.001    0.001  235519.0  235519.0  234707.0  260971.0    1.0
+beta2   12.309  0.45  11.459   13.151      0.001    0.001  258458.0  258458.0  257970.0  264199.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+       mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb  0.226  0.031    0.17    0.285        0.0      0.0  249239.0  249239.0  247494.0  251311.0    1.0
+c     6.691  0.083    6.54    6.772        0.0      0.0  312154.0  311290.0  216393.0  157799.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN     1.892  0.230   1.503    2.340      0.001    0.001   78795.0  78088.0   77604.0   92188.0    1.0
+sigmaLN  0.388  0.096   0.223    0.562      0.000    0.000   82341.0  82341.0   81077.0  116325.0    1.0
+c        3.919  1.460   1.047    6.213      0.005    0.004   75735.0  75735.0   75882.0   83795.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic  delta_se
+rank                                                             
+0      dLN  263.443095  2.615125  12.818771    0.000000  0.000000
+1       LN  264.188991  2.229313  13.450044    0.745896  2.716229
+2      Gam  267.117957  2.628384  15.453176    3.674862  4.840126
+3        N  276.124958  3.157568  16.721394   12.681863  7.532910
+4     dExp  281.973068  0.414411   9.243077   18.529972  9.635769
+5      Wei  283.234544  3.484533  16.205733   19.791449  8.412093
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight         se       dse  warning waic_scale
+dLN      0  263.443095  2.615125   0.000000  8.542629e-01  12.818771  0.000000     True   deviance
+LN       1  264.188991  2.229313   0.745896  3.315538e-13  13.450044  2.716229     True   deviance
+Gam      2  267.117957  2.628384   3.674862  3.170259e-02  15.453176  4.840126     True   deviance
+N        3  276.124958  3.157568  12.681863  9.325566e-15  16.721394  7.532910     True   deviance
+dExp     4  281.973068  0.414411  18.529972  1.140345e-01   9.243077  9.635769    False   deviance
+Wei      5  283.234544  3.484533  19.791449  0.000000e+00  16.205733  8.412093     True   deviance
+
+------------------------ END of tdiv (b_cpg_cpg3_0.0) ------------------------
+
+
+------------------------ BEGIN tld (b_cpg_cpg3_0.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  25.866  4.319  17.908   34.013      0.015    0.011   81055.0  79857.0   80954.0   82494.0    1.0
+beta1    0.472  0.079   0.327    0.624      0.000    0.000   80927.0  79776.0   80795.0   82666.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.985  0.026   3.936    4.033        0.0      0.0  298729.0  298729.0  298971.0  279453.0    1.0
+sigma1  0.212  0.019   0.177    0.247        0.0      0.0  315058.0  310003.0  320169.0  286921.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     54.875  1.347  52.324   57.395      0.002    0.002  298354.0  298354.0  298745.0  274580.0    1.0
+sigma2  10.976  0.980   9.203   12.822      0.002    0.001  298870.0  293688.0  304774.0  278368.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   5.722  0.536   4.718    6.729      0.001    0.001  240316.0  240316.0  239558.0  266341.0    1.0
+beta2   59.345  1.355  56.810   61.902      0.003    0.002  249789.0  249789.0  249751.0  262029.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.037  0.005   0.029    0.046      0.000    0.000  275178.0  275178.0  272978.0  252506.0    1.0
+c     27.565  0.411  26.820   27.967      0.001    0.001  314607.0  313802.0  220476.0  160669.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN     3.859  0.106   3.654    4.016      0.000    0.000   83623.0  83623.0   92003.0  101242.0    1.0
+sigmaLN  0.245  0.037   0.185    0.315      0.000    0.000   92993.0  89610.0  104258.0  112570.0    1.0
+c        5.967  4.452   0.000   14.044      0.015    0.011   83869.0  79278.0   85815.0  106363.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic   delta_se
+rank                                                              
+0        N  526.931770  1.894169  11.060067    0.000000   0.000000
+1      Wei  527.784355  1.926563  10.698401    0.852585   2.566455
+2      Gam  529.562299  2.248256  12.918006    2.630529   3.032346
+3       LN  532.347774  2.330800  12.853688    5.416004   3.947472
+4      dLN  534.324915  2.577632  13.500487    7.393145   4.896499
+5     dExp  595.597941  0.184680   6.603229   68.666170  13.144230
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight         se        dse  warning waic_scale
+N        0  526.931770  1.894169   0.000000  9.638551e-01  11.060067   0.000000    False   deviance
+Wei      1  527.784355  1.926563   0.852585  9.143960e-03  10.698401   2.566455     True   deviance
+Gam      2  529.562299  2.248256   2.630529  0.000000e+00  12.918006   3.032346     True   deviance
+LN       3  532.347774  2.330800   5.416004  1.512203e-14  12.853688   3.947472     True   deviance
+dLN      4  534.324915  2.577632   7.393145  1.720827e-14  13.500487   4.896499     True   deviance
+dExp     5  595.597941  0.184680  68.666170  2.700091e-02   6.603229  13.144230    False   deviance
+
+------------------------ END of tld (b_cpg_cpg3_0.0) ------------------------
+
+
+------------------------ BEGIN tdie (b_cpg_cpg3_0.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  33.453  5.578  23.174   43.989      0.021    0.015   70095.0  68975.0   70416.0   78285.0    1.0
+beta1    0.380  0.064   0.262    0.500      0.000    0.000   70142.0  69027.0   70453.0   77956.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     4.462  0.023   4.420    4.505        0.0      0.0  307810.0  307810.0  308174.0  284558.0    1.0
+sigma1  0.184  0.016   0.154    0.215        0.0      0.0  301108.0  295895.0  306700.0  277903.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     88.034  1.923  84.475   91.701      0.003    0.002  306132.0  306132.0  306690.0  280242.0    1.0
+sigma2  15.671  1.398  13.124   18.291      0.003    0.002  297944.0  292244.0  304646.0  277685.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   6.458  0.606   5.336    7.608      0.001    0.001  255351.0  255351.0  254342.0  273005.0    1.0
+beta2   94.584  1.922  90.954   98.170      0.004    0.003  241590.0  241590.0  241777.0  254394.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.029  0.004   0.023    0.036      0.000    0.000  253773.0  253773.0  251798.0  249785.0    1.0
+c     53.051  0.523  52.103   53.567      0.001    0.001  309466.0  308832.0  217194.0  161821.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      4.249   0.162   3.947    4.484      0.001    0.000   72573.0  72573.0   75367.0   89155.0    1.0
+sigmaLN   0.234   0.048   0.162    0.325      0.000    0.000   75362.0  72852.0   84209.0   93458.0    1.0
+c        15.408  10.265   0.000   33.154      0.038    0.027   74004.0  70760.0   72250.0   92089.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic   delta_se
+rank                                                              
+0        N  575.855269  1.697587   9.734437    0.000000   0.000000
+1      Gam  577.050629  1.857389  10.634195    1.195360   2.081266
+2      Wei  577.087434  2.000468  10.431162    1.232165   2.923399
+3       LN  578.558586  1.841887  10.201015    2.703317   2.813633
+4      dLN  580.354455  2.059431  10.666242    4.499186   3.731195
+5     dExp  629.809174  0.223937   7.361751   53.953905  12.376946
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight         se        dse  warning waic_scale
+N        0  575.855269  1.697587   0.000000  2.230084e-17   9.734437   0.000000    False   deviance
+Gam      1  577.050629  1.857389   1.195360  5.366625e-01  10.634195   2.081266    False   deviance
+Wei      2  577.087434  2.000468   1.232165  4.322090e-01  10.431162   2.923399     True   deviance
+LN       3  578.558586  1.841887   2.703317  0.000000e+00  10.201015   2.813633    False   deviance
+dLN      4  580.354455  2.059431   4.499186  2.653535e-16  10.666242   3.731195     True   deviance
+dExp     5  629.809174  0.223937  53.953905  3.112850e-02   7.361751  12.376946    False   deviance
+
+------------------------ END of tdie (b_cpg_cpg3_0.0) ------------------------
+
+
+======================== END of b_cpg_cpg3_0.0 ========================
+
+======================== BEGIN b_cpg_cpg4_0.0 ========================
+------------------------ BEGIN tdiv0 (b_cpg_cpg4_0.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  58.203  9.400  40.946   76.004      0.036    0.026   67767.0  66608.0   68164.0   75336.0    1.0
+beta1    1.389  0.225   0.978    1.818      0.001    0.001   67777.0  66642.0   68144.0   75937.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.726  0.016   3.696    3.758        0.0      0.0  310458.0  310458.0  310968.0  283630.0    1.0
+sigma1  0.138  0.012   0.117    0.161        0.0      0.0  306588.0  301708.0  311625.0  280531.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     41.900  0.682  40.617   43.185      0.001    0.001  312746.0  312746.0  313264.0  277578.0    1.0
+sigma2   5.724  0.495   4.820    6.654      0.001    0.001  294730.0  289753.0  300383.0  270659.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   7.171  0.575   6.106    8.265      0.001    0.001  242130.0  242130.0  241522.0  258969.0    1.0
+beta2   44.413  0.789  42.935   45.900      0.002    0.001  248334.0  248334.0  248305.0  264864.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.059  0.007   0.046    0.072        0.0      0.0  251051.0  251051.0  248650.0  238087.0    1.0
+c     24.593  0.245  24.149   24.833        0.0      0.0  314495.0  313875.0  219444.0  159728.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN     3.549  0.133   3.300    3.741      0.000    0.000   72043.0  72043.0   73205.0   95842.0    1.0
+sigmaLN  0.169  0.029   0.122    0.225      0.000    0.000   77666.0  75858.0   84233.0  100331.0    1.0
+c        6.369  4.312   0.000   13.895      0.016    0.011   72385.0  71762.0   71062.0   96540.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic   delta_se
+rank                                                              
+0      Gam  463.378424  3.150831  19.094172    0.000000   0.000000
+1        N  463.790231  3.058074  18.258483    0.411807   4.712672
+2       LN  464.376169  3.167981  18.505682    0.997746   2.400408
+3      dLN  466.748370  3.828686  19.982298    3.369946   4.452740
+4      Wei  479.884270  5.340700  23.708237   16.505847  14.113727
+5     dExp  563.430601  0.131552   5.602150  100.052178  19.346672
+>>> PyMC3/Arviz
+      rank        waic    p_waic      d_waic    weight         se        dse  warning waic_scale
+Gam      0  463.378424  3.150831    0.000000  0.954917  19.094172   0.000000     True   deviance
+N        1  463.790231  3.058074    0.411807  0.000000  18.258483   4.712672     True   deviance
+LN       2  464.376169  3.167981    0.997746  0.000000  18.505682   2.400408     True   deviance
+dLN      3  466.748370  3.828686    3.369946  0.000000  19.982298   4.452740     True   deviance
+Wei      4  479.884270  5.340700   16.505847  0.000000  23.708237  14.113727     True   deviance
+dExp     5  563.430601  0.131552  100.052178  0.045083   5.602150  19.346672    False   deviance
+
+------------------------ END of tdiv0 (b_cpg_cpg4_0.0) ------------------------
+
+
+------------------------ BEGIN tdiv (b_cpg_cpg4_0.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean    sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  18.544  3.20  12.695   24.640      0.011    0.008   78960.0  77847.0   79144.0   86378.0    1.0
+beta1    1.487  0.26   1.011    1.983      0.001    0.001   78881.0  77764.0   79057.0   86162.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     2.496  0.031   2.436    2.553        0.0      0.0  323647.0  323647.0  324259.0  282089.0    1.0
+sigma1  0.243  0.023   0.202    0.286        0.0      0.0  292252.0  286684.0  298765.0  273503.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     12.480  0.408  11.713   13.247      0.001    0.001  311170.0  311170.0  311745.0  273750.0    1.0
+sigma2   3.178  0.298   2.638    3.737      0.001    0.000  291224.0  285783.0  297489.0  273152.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   4.000  0.356   3.339    4.677      0.001    0.001  246356.0  246356.0  245631.0  265700.0    1.0
+beta2   13.735  0.471  12.855   14.629      0.001    0.001  237193.0  237193.0  236898.0  250947.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+       mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb  0.193  0.025   0.148     0.24        0.0      0.0  266143.0  266143.0  263966.0  249576.0    1.0
+c     7.215  0.087   7.059     7.30        0.0      0.0  314748.0  314025.0  220468.0  161761.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN     2.030  0.225   1.653    2.462      0.001    0.001   78618.0  78252.0   77653.0  100112.0    1.0
+sigmaLN  0.394  0.095   0.232    0.565      0.000    0.000   80833.0  80833.0   79841.0  122950.0    1.0
+c        4.124  1.628   0.947    6.674      0.006    0.004   76681.0  76681.0   75831.0   91289.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic   delta_se
+rank                                                              
+0      dLN  315.219722  2.463152  12.257295    0.000000   0.000000
+1       LN  315.469808  1.952836  12.463263    0.250086   2.705996
+2      Gam  317.782000  2.247020  14.179993    2.562278   4.681915
+3        N  326.056614  2.771231  15.993681   10.836891   8.062548
+4      Wei  332.972820  3.620862  17.140215   17.753098  10.245676
+5     dExp  336.682851  0.389140   9.517246   21.463129   9.380809
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight         se        dse  warning waic_scale
+dLN      0  315.219722  2.463152   0.000000  7.348392e-01  12.257295   0.000000     True   deviance
+LN       1  315.469808  1.952836   0.250086  0.000000e+00  12.463263   2.705996     True   deviance
+Gam      2  317.782000  2.247020   2.562278  1.848962e-01  14.179993   4.681915     True   deviance
+N        3  326.056614  2.771231  10.836891  1.536827e-14  15.993681   8.062548     True   deviance
+Wei      4  332.972820  3.620862  17.753098  1.879118e-14  17.140215  10.245676     True   deviance
+dExp     5  336.682851  0.389140  21.463129  8.026460e-02   9.517246   9.380809    False   deviance
+
+------------------------ END of tdiv (b_cpg_cpg4_0.0) ------------------------
+
+
+------------------------ BEGIN tld (b_cpg_cpg4_0.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  23.758  3.859  16.704   31.079      0.014     0.01   81636.0  80192.0   81967.0   84637.0    1.0
+beta1    0.396  0.065   0.277    0.518      0.000     0.00   81570.0  80089.0   81905.0   85270.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     4.073  0.026   4.025    4.124        0.0      0.0  319581.0  319581.0  319776.0  288376.0    1.0
+sigma1  0.221  0.019   0.186    0.256        0.0      0.0  306394.0  301611.0  311345.0  281973.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     60.067  1.480  57.306   62.863      0.003    0.002  325746.0  325746.0  326338.0  286338.0    1.0
+sigma2  12.401  1.074  10.441   14.418      0.002    0.001  286248.0  282560.0  289974.0  269195.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   5.724  0.537   4.728    6.739      0.001    0.001  244822.0  244822.0  244032.0  269336.0    1.0
+beta2   65.069  1.441  62.349   67.766      0.003    0.002  256856.0  256856.0  256967.0  258987.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.037  0.004   0.029    0.045      0.000      0.0  218334.0  218334.0  216533.0  227254.0    1.0
+c     32.516  0.389  31.811   32.900      0.001      0.0  326006.0  325256.0  233280.0  171842.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN     3.945  0.110   3.729    4.104      0.000    0.000   84813.0  84813.0   93185.0   99346.0    1.0
+sigmaLN  0.256  0.039   0.194    0.331      0.000    0.000   90664.0  86773.0  103578.0  107614.0    1.0
+c        6.604  4.997   0.000   15.688      0.017    0.013   84603.0  79791.0   85492.0  104467.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic   delta_se
+rank                                                              
+0      Wei  573.731131  1.746890  10.062420    0.000000   0.000000
+1        N  575.134010  1.740128  10.253116    1.402879   1.986602
+2      Gam  578.794679  2.024432  11.532834    5.063549   4.148779
+3       LN  582.040629  2.066396  11.225472    8.309498   4.869167
+4      dLN  583.895435  2.170994  11.475565   10.164304   5.373457
+5     dExp  631.381667  0.224814   7.610819   57.650536  13.986893
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic    weight         se        dse  warning waic_scale
+Wei      0  573.731131  1.746890   0.000000  0.949633  10.062420   0.000000    False   deviance
+N        1  575.134010  1.740128   1.402879  0.000000  10.253116   1.986602    False   deviance
+Gam      2  578.794679  2.024432   5.063549  0.000000  11.532834   4.148779    False   deviance
+LN       3  582.040629  2.066396   8.309498  0.000000  11.225472   4.869167    False   deviance
+dLN      4  583.895435  2.170994  10.164304  0.000000  11.475565   5.373457     True   deviance
+dExp     5  631.381667  0.224814  57.650536  0.050367   7.610819  13.986893    False   deviance
+
+------------------------ END of tld (b_cpg_cpg4_0.0) ------------------------
+
+
+------------------------ BEGIN tdie (b_cpg_cpg4_0.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  25.491  4.119  18.007   33.320      0.015     0.01   80295.0  79047.0   80453.0   85340.0    1.0
+beta1    0.288  0.047   0.203    0.377      0.000     0.00   80370.0  79141.0   80495.0   84881.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     4.465  0.026   4.416    4.513        0.0      0.0  304535.0  304535.0  304806.0  281410.0    1.0
+sigma1  0.218  0.019   0.184    0.253        0.0      0.0  316030.0  311276.0  320643.0  282668.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     88.701  2.031  84.846   92.485      0.004    0.003  321039.0  321039.0  321654.0  277630.0    1.0
+sigma2  17.030  1.472  14.331   19.784      0.003    0.002  282717.0  277859.0  288416.0  271781.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   6.320  0.583   5.234    7.417      0.001    0.001  255674.0  255674.0  254862.0  276970.0    1.0
+beta2   95.433  1.907  91.792   98.972      0.004    0.003  260735.0  260735.0  260781.0  262596.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.020  0.002   0.016    0.025      0.000    0.000  284306.0  284306.0  282477.0  264054.0    1.0
+c     38.335  0.713  37.042   39.033      0.001    0.001  303190.0  302363.0  212900.0  156427.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+muLN     4.400  0.064   4.275    4.501      0.000    0.000   94108.0   94108.0  111029.0  104674.0    1.0
+sigmaLN  0.236  0.027   0.190    0.287      0.000    0.000  112929.0  107942.0  125945.0  124723.0    1.0
+c        5.132  4.341   0.000   13.219      0.014    0.011   90914.0   83452.0   96067.0  113330.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic   delta_se
+rank                                                              
+0      Wei  618.141900  2.211036  13.833241    0.000000   0.000000
+1        N  622.093049  2.374049  14.373548    3.951148   3.173097
+2      Gam  632.000687  3.148984  17.587325   13.858787   7.343803
+3       LN  638.963573  3.461045  17.881587   20.821672   8.636675
+4      dLN  640.979639  3.595856  18.330961   22.837738   9.233280
+5     dExp  719.383196  0.136229   5.709234  101.241296  16.689218
+>>> PyMC3/Arviz
+      rank        waic    p_waic      d_waic        weight         se        dse  warning waic_scale
+Wei      0  618.141900  2.211036    0.000000  9.620287e-01  13.833241   0.000000    False   deviance
+N        1  622.093049  2.374049    3.951148  4.697593e-12  14.373548   3.173097     True   deviance
+Gam      2  632.000687  3.148984   13.858787  4.799627e-12  17.587325   7.343803     True   deviance
+LN       3  638.963573  3.461045   20.821672  4.997786e-12  17.881587   8.636675     True   deviance
+dLN      4  640.979639  3.595856   22.837738  5.036444e-12  18.330961   9.233280     True   deviance
+dExp     5  719.383196  0.136229  101.241296  3.797131e-02   5.709234  16.689218    False   deviance
+
+------------------------ END of tdie (b_cpg_cpg4_0.0) ------------------------
+
+
+======================== END of b_cpg_cpg4_0.0 ========================
+
+======================== BEGIN t_misc_20140211_3.0 ========================
+------------------------ BEGIN tdiv0 (t_misc_20140211_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  118.174  32.125  61.428  180.818      0.120    0.086   71929.0  69619.0   70205.0   67125.0    1.0
+beta1     3.583   0.976   1.878    5.504      0.004    0.003   72018.0  69801.0   70463.0   68843.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.492  0.024   3.447    3.537        0.0      0.0  271155.0  271155.0  275753.0  250976.0    1.0
+sigma1  0.105  0.019   0.073    0.140        0.0      0.0  250978.0  238284.0  268355.0  250042.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     33.001  0.858  31.365   34.602      0.002    0.001  247590.0  247590.0  251422.0  233494.0    1.0
+sigma2   3.721  0.672   2.591    4.981      0.001    0.001  253093.0  240123.0  271336.0  257604.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   8.038  1.213   5.765   10.310      0.003    0.002  223694.0  223694.0  222187.0  241757.0    1.0
+beta2   34.784  1.083  32.755   36.834      0.002    0.002  221397.0  221397.0  222198.0  233240.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.249  0.056   0.148    0.357        0.0      0.0  225587.0  225587.0  220368.0  218020.0    1.0
+c     28.773  0.227  28.370   28.987        0.0      0.0  288980.0  288629.0  212233.0  164488.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      1.613  0.392   0.918    2.394      0.006    0.006    3677.0   2369.0    5934.0    2133.0    1.0
+sigmaLN   0.616  0.224   0.210    1.028      0.002    0.002   10678.0  10678.0    5921.0    2128.0    1.0
+c        26.790  2.354  22.903   28.965      0.063    0.044    1401.0   1401.0    5919.0    2111.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic  delta_se
+rank                                                             
+0     dExp   99.509068  0.802781   7.862275    0.000000  0.000000
+1      dLN  100.843559  2.375040   8.687266    1.334490  4.039672
+2       LN  108.241520  2.948624  11.465279    8.732452  6.880552
+3      Gam  109.205856  3.347087  14.075923    9.696788  9.140420
+4        N  112.055283  3.473693  12.683076   12.546215  8.160546
+5      Wei  120.196484  3.732916  12.508205   20.687416  8.501708
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight         se       dse  warning waic_scale
+dExp     0   99.509068  0.802781   0.000000  6.170518e-01   7.862275  0.000000    False   deviance
+dLN      1  100.843559  2.375040   1.334490  3.829482e-01   8.687266  4.039672     True   deviance
+LN       2  108.241520  2.948624   8.732452  8.233844e-14  11.465279  6.880552     True   deviance
+Gam      3  109.205856  3.347087   9.696788  1.032748e-13  14.075923  9.140420     True   deviance
+N        4  112.055283  3.473693  12.546215  7.254101e-14  12.683076  8.160546     True   deviance
+Wei      5  120.196484  3.732916  20.687416  0.000000e+00  12.508205  8.501708     True   deviance
+
+------------------------ END of tdiv0 (t_misc_20140211_3.0) ------------------------
+
+
+------------------------ BEGIN tdiv (t_misc_20140211_3.0) ------------------------
+CANNOT PROCEED. tdiv HAS NO DATA!
+------------------------ END of tdiv (t_misc_20140211_3.0) ------------------------
+
+
+------------------------ BEGIN tld (t_misc_20140211_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  118.174  32.125  61.428  180.818      0.120    0.086   71929.0  69619.0   70205.0   67125.0    1.0
+beta1     3.583   0.976   1.878    5.504      0.004    0.003   72018.0  69801.0   70463.0   68843.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.492  0.024   3.447    3.537        0.0      0.0  271155.0  271155.0  275753.0  250976.0    1.0
+sigma1  0.105  0.019   0.073    0.140        0.0      0.0  250978.0  238284.0  268355.0  250042.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     33.001  0.858  31.365   34.602      0.002    0.001  247590.0  247590.0  251422.0  233494.0    1.0
+sigma2   3.721  0.672   2.591    4.981      0.001    0.001  253093.0  240123.0  271336.0  257604.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   8.038  1.213   5.765   10.310      0.003    0.002  223694.0  223694.0  222187.0  241757.0    1.0
+beta2   34.784  1.083  32.755   36.834      0.002    0.002  221397.0  221397.0  222198.0  233240.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.249  0.056   0.148    0.357        0.0      0.0  225587.0  225587.0  220368.0  218020.0    1.0
+c     28.773  0.227  28.370   28.987        0.0      0.0  288980.0  288629.0  212233.0  164488.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      1.613  0.392   0.918    2.394      0.006    0.006    3677.0   2369.0    5934.0    2133.0    1.0
+sigmaLN   0.616  0.224   0.210    1.028      0.002    0.002   10678.0  10678.0    5921.0    2128.0    1.0
+c        26.790  2.354  22.903   28.965      0.063    0.044    1401.0   1401.0    5919.0    2111.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic  delta_se
+rank                                                             
+0     dExp   99.509068  0.802781   7.862275    0.000000  0.000000
+1      dLN  100.843559  2.375040   8.687266    1.334490  4.039672
+2       LN  108.241520  2.948624  11.465279    8.732452  6.880552
+3      Gam  109.205856  3.347087  14.075923    9.696788  9.140420
+4        N  112.055283  3.473693  12.683076   12.546215  8.160546
+5      Wei  120.196484  3.732916  12.508205   20.687416  8.501708
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight         se       dse  warning waic_scale
+dExp     0   99.509068  0.802781   0.000000  6.170518e-01   7.862275  0.000000    False   deviance
+dLN      1  100.843559  2.375040   1.334490  3.829482e-01   8.687266  4.039672     True   deviance
+LN       2  108.241520  2.948624   8.732452  8.233844e-14  11.465279  6.880552     True   deviance
+Gam      3  109.205856  3.347087   9.696788  1.032748e-13  14.075923  9.140420     True   deviance
+N        4  112.055283  3.473693  12.546215  7.254101e-14  12.683076  8.160546     True   deviance
+Wei      5  120.196484  3.732916  20.687416  0.000000e+00  12.508205  8.501708     True   deviance
+
+------------------------ END of tld (t_misc_20140211_3.0) ------------------------
+
+
+------------------------ BEGIN tdie (t_misc_20140211_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  78.950  23.274  37.716  122.880      0.088    0.064   70080.0  66023.0   71415.0   71505.0    1.0
+beta1    2.134   0.631   1.027    3.336      0.002    0.002   69976.0  66038.0   71255.0   72011.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.604  0.030   3.547    3.662        0.0      0.0  267666.0  267666.0  272287.0  247700.0    1.0
+sigma1  0.132  0.024   0.092    0.177        0.0      0.0  238430.0  226628.0  256195.0  240842.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     37.028  1.146  34.870   39.199      0.002    0.002  263289.0  263289.0  267803.0  239849.0    1.0
+sigma2   4.987  0.896   3.476    6.667      0.002    0.001  256221.0  242058.0  275838.0  252046.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   8.363  1.424   5.747   11.062      0.003    0.002  230064.0  230064.0  227881.0  243277.0    1.0
+beta2   39.243  1.182  37.047   41.503      0.003    0.002  220382.0  220382.0  222155.0  221812.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.149  0.034   0.089    0.213      0.000      0.0  240656.0  240656.0  235017.0  234546.0    1.0
+c     29.958  0.379  29.283   30.317      0.001      0.0  288979.0  288492.0  213213.0  166234.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.439  0.483   1.645    3.429      0.003    0.003   20279.0  17135.0   19792.0    8680.0    1.0
+sigmaLN   0.464  0.222   0.116    0.853      0.001    0.001   34565.0  34565.0   20228.0    9428.0    1.0
+c        23.235  6.489   9.733   30.236      0.058    0.041   12546.0  12546.0   19274.0    8553.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic        se  delta_waic  delta_se
+rank                                                            
+0     dExp  119.778183  0.544937  6.105230    0.000000  0.000000
+1      dLN  119.846536  1.879260  5.535051    0.068353  4.448882
+2       LN  120.069331  1.494026  5.044599    0.291147  5.220833
+3      Gam  120.607858  1.872480  6.334920    0.829675  6.077174
+4        N  121.200929  1.556803  4.933143    1.422746  5.689585
+5      Wei  123.727139  1.670416  4.826701    3.948956  6.467749
+>>> PyMC3/Arviz
+      rank        waic    p_waic    d_waic        weight        se       dse  warning waic_scale
+dExp     0  119.778183  0.544937  0.000000  4.994556e-01  6.105230  0.000000    False   deviance
+dLN      1  119.846536  1.879260  0.068353  3.409729e-16  5.535051  4.448882     True   deviance
+LN       2  120.069331  1.494026  0.291147  1.119811e-16  5.044599  5.220833    False   deviance
+Gam      3  120.607858  1.872480  0.829675  5.005444e-01  6.334920  6.077174     True   deviance
+N        4  121.200929  1.556803  1.422746  0.000000e+00  4.933143  5.689585    False   deviance
+Wei      5  123.727139  1.670416  3.948956  0.000000e+00  4.826701  6.467749     True   deviance
+
+------------------------ END of tdie (t_misc_20140211_3.0) ------------------------
+
+
+======================== END of t_misc_20140211_3.0 ========================
+
+======================== BEGIN aggre_10U_3.0 ========================
+------------------------ BEGIN tdiv0 (aggre_10U_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  30.508  5.945  19.788   41.857      0.022    0.016   74702.0  72785.0   75126.0   78157.0    1.0
+beta1    0.714  0.140   0.461    0.982      0.001    0.000   74856.0  72887.0   75318.0   78340.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.738  0.027   3.687    3.788        0.0      0.0  315609.0  315609.0  316503.0  281358.0    1.0
+sigma1  0.185  0.020   0.150    0.222        0.0      0.0  283214.0  277335.0  289761.0  267818.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     42.732  1.336  40.214   45.240      0.002    0.002  302093.0  302093.0  302757.0  270512.0    1.0
+sigma2   9.267  0.982   7.488   11.098      0.002    0.001  287469.0  280928.0  294940.0  275567.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   4.080  0.370   3.390    4.781      0.001    0.001  234266.0  234266.0  233737.0  256084.0    1.0
+beta2   46.623  1.771  43.315   49.966      0.004    0.003  242563.0  242563.0  242133.0  253571.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.093  0.013   0.069    0.118        0.0      0.0  196522.0  196522.0  194610.0  215270.0    1.0
+c     31.743  0.227  31.335   31.967        0.0      0.0  315246.0  314726.0  222298.0  168272.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.474  0.205   2.107    2.869      0.001    0.001   69791.0  62566.0   84441.0   67631.0    1.0
+sigmaLN   0.576  0.116   0.360    0.797      0.000    0.000   84646.0  84646.0   81065.0   66824.0    1.0
+c        28.617  2.267  24.664   31.565      0.011    0.008   40519.0  40519.0   79489.0   65772.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic   delta_se
+rank                                                              
+0      dLN  334.438845  3.045237  15.174647    0.000000   0.000000
+1     dExp  341.478750  0.743059  12.019113    7.039905   7.490668
+2       LN  349.593630  3.727420  20.315125   15.154785   8.595034
+3      Gam  356.007091  4.804752  24.585577   21.568247  12.804499
+4        N  370.320862  6.017354  27.216910   35.882017  16.288643
+5      Wei  383.586890  5.987375  24.335757   49.148045  14.744415
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic    weight         se        dse  warning waic_scale
+dLN      0  334.438845  3.045237   0.000000  0.821328  15.174647   0.000000     True   deviance
+dExp     1  341.478750  0.743059   7.039905  0.178672  12.019113   7.490668    False   deviance
+LN       2  349.593630  3.727420  15.154785  0.000000  20.315125   8.595034     True   deviance
+Gam      3  356.007091  4.804752  21.568247  0.000000  24.585577  12.804499     True   deviance
+N        4  370.320862  6.017354  35.882017  0.000000  27.216910  16.288643     True   deviance
+Wei      5  383.586890  5.987375  49.148045  0.000000  24.335757  14.744415     True   deviance
+
+------------------------ END of tdiv0 (aggre_10U_3.0) ------------------------
+
+
+------------------------ BEGIN tdiv (aggre_10U_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  44.774  14.525  19.310   72.142      0.056    0.040   68227.0  67181.0   67513.0   76957.0    1.0
+beta1    2.628   0.857   1.124    4.242      0.003    0.002   68256.0  67269.0   67503.0   76843.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     2.823  0.049   2.732    2.916        0.0      0.0  242865.0  242865.0  248799.0  225552.0    1.0
+sigma1  0.189  0.039   0.125    0.263        0.0      0.0  236667.0  221704.0  259022.0  239713.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean    sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     17.059  0.78  15.570   18.521      0.002    0.001  241288.0  241288.0  247062.0  222645.0    1.0
+sigma2   3.021  0.63   1.986    4.195      0.001    0.001  239064.0  224138.0  262559.0  243329.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   7.469  1.476   4.740   10.241      0.003    0.002  216354.0  216354.0  213151.0  234130.0    1.0
+beta2   18.271  0.696  16.966   19.589      0.001    0.001  218570.0  218570.0  221588.0  220742.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.168  0.043   0.093    0.249      0.000    0.000  228979.0  228979.0  223350.0  231561.0    1.0
+c     10.708  0.431   9.945   11.110      0.001    0.001  291262.0  290609.0  224962.0  175819.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN     2.448  0.267   1.962    2.865      0.001    0.001   81611.0  81611.0   84899.0  113596.0    1.0
+sigmaLN  0.304  0.123   0.135    0.529      0.000    0.000   82045.0  82045.0   87840.0  118221.0    1.0
+c        4.764  2.719   0.001    9.028      0.009    0.007   82439.0  80231.0   80365.0  112264.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name       waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      Wei  80.526164  1.964079  6.051402    0.000000  0.000000
+1        N  81.272013  1.822751  5.543730    0.745848  1.594029
+2      Gam  82.966647  2.587787  8.079882    2.440483  3.346220
+3       LN  83.259663  2.070762  5.953336    2.733499  2.620733
+4      dLN  85.244166  2.396471  6.332606    4.718002  3.307057
+5     dExp  92.449316  0.305195  3.579865   11.923152  7.837571
+>>> PyMC3/Arviz
+      rank       waic    p_waic     d_waic    weight        se       dse  warning waic_scale
+Wei      0  80.526164  1.964079   0.000000  0.625654  6.051402  0.000000     True   deviance
+N        1  81.272013  1.822751   0.745848  0.000000  5.543730  1.594029     True   deviance
+Gam      2  82.966647  2.587787   2.440483  0.245092  8.079882  3.346220     True   deviance
+LN       3  83.259663  2.070762   2.733499  0.000000  5.953336  2.620733     True   deviance
+dLN      4  85.244166  2.396471   4.718002  0.000000  6.332606  3.307057     True   deviance
+dExp     5  92.449316  0.305195  11.923152  0.129254  3.579865  7.837571    False   deviance
+
+------------------------ END of tdiv (aggre_10U_3.0) ------------------------
+
+
+------------------------ BEGIN tld (aggre_10U_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  24.145  4.667  15.551   32.885      0.017    0.012   79909.0  78123.0   80145.0   84471.0    1.0
+beta1    0.497  0.097   0.318    0.678      0.000    0.000   79862.0  78071.0   80080.0   83962.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.862  0.031   3.804    3.920        0.0      0.0  304881.0  304881.0  305758.0  274703.0    1.0
+sigma1  0.213  0.023   0.173    0.256        0.0      0.0  285492.0  279091.0  293027.0  269412.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     48.641  1.607  45.646   51.691      0.003    0.002  287491.0  287491.0  288225.0  265216.0    1.0
+sigma2  11.150  1.182   9.015   13.363      0.002    0.002  304942.0  296900.0  314199.0  275874.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   4.395  0.441   3.573    5.228      0.001    0.001  241588.0  241588.0  240389.0  258161.0    1.0
+beta2   53.220  1.871  49.707   56.749      0.004    0.003  225743.0  225743.0  225438.0  237311.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.073  0.010   0.054    0.092      0.000      0.0  231334.0  231334.0  228881.0  230618.0    1.0
+c     34.616  0.292  34.089   34.900      0.001      0.0  304991.0  304434.0  214879.0  163409.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.828  0.290   2.306    3.393      0.001    0.001   63736.0  61358.0   67941.0   65434.0    1.0
+sigmaLN   0.589  0.163   0.285    0.893      0.001    0.000   70944.0  70944.0   67364.0   66567.0    1.0
+c        28.303  4.942  19.269   34.420      0.021    0.015   53842.0  53842.0   65435.0   63999.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic   delta_se
+rank                                                              
+0     dExp  365.743715  0.661392  11.180432    0.000000   0.000000
+1      dLN  369.094174  2.264127  11.131312    3.350460   5.717963
+2       LN  374.331146  1.962153  11.686420    8.587431   8.070649
+3      Gam  377.128968  2.303556  13.206260   11.385253   9.421883
+4        N  384.394966  2.572404  13.355977   18.651251  10.438309
+5      Wei  391.168624  2.885494  13.229818   25.424909  10.994578
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight         se        dse  warning waic_scale
+dExp     0  365.743715  0.661392   0.000000  7.737314e-01  11.180432   0.000000    False   deviance
+dLN      1  369.094174  2.264127   3.350460  2.916417e-14  11.131312   5.717963    False   deviance
+LN       2  374.331146  1.962153   8.587431  3.278090e-14  11.686420   8.070649     True   deviance
+Gam      3  377.128968  2.303556  11.385253  2.262686e-01  13.206260   9.421883     True   deviance
+N        4  384.394966  2.572404  18.651251  1.999770e-14  13.355977  10.438309     True   deviance
+Wei      5  391.168624  2.885494  25.424909  0.000000e+00  13.229818  10.994578     True   deviance
+
+------------------------ END of tld (aggre_10U_3.0) ------------------------
+
+
+------------------------ BEGIN tdie (aggre_10U_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  16.428  3.182  10.607   22.409      0.012    0.008   76227.0  75004.0   76290.0   86400.0    1.0
+beta1    0.249  0.049   0.160    0.341      0.000    0.000   76374.0  75168.0   76404.0   86877.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     4.157  0.038   4.085    4.229        0.0      0.0  315599.0  315599.0  316469.0  279132.0    1.0
+sigma1  0.265  0.028   0.215    0.318        0.0      0.0  288441.0  282251.0  294602.0  273042.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     65.984  2.528  61.222   70.720      0.004    0.003  324689.0  324689.0  325726.0  279265.0    1.0
+sigma2  17.532  1.859  14.192   21.032      0.003    0.003  282509.0  274810.0  292047.0  264030.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   4.155  0.449   3.317    5.001      0.001    0.001  241049.0  241049.0  240016.0  258161.0    1.0
+beta2   72.840  2.711  67.749   77.938      0.005    0.004  244849.0  244849.0  244628.0  249038.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.035  0.005   0.026    0.045      0.000    0.000  259578.0  259578.0  256811.0  247757.0    1.0
+c     37.156  0.599  36.074   37.742      0.001    0.001  311774.0  310931.0  220803.0  163061.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      3.769  0.232   3.367    4.169      0.001    0.001   81195.0  81195.0   80697.0  115530.0    1.0
+sigmaLN   0.404  0.107   0.237    0.603      0.000    0.000   83089.0  83089.0   84087.0  123631.0    1.0
+c        18.403  9.023   1.626   32.800      0.032    0.023   80346.0  80346.0   77676.0  100841.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic        se  delta_waic  delta_se
+rank                                                            
+0       LN  425.048055  1.607095  8.531155    0.000000  0.000000
+1      Gam  425.497260  1.755108  9.211097    0.449205  1.270548
+2      dLN  425.903964  1.952607  8.856669    0.855909  1.529646
+3        N  428.735603  1.750200  8.731706    3.687547  2.809702
+4      Wei  430.333899  1.882499  8.602153    5.285843  3.785581
+5     dExp  437.531476  0.399713  8.506293   12.483421  7.977863
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight        se       dse  warning waic_scale
+LN       0  425.048055  1.607095   0.000000  0.000000e+00  8.531155  0.000000    False   deviance
+Gam      1  425.497260  1.755108   0.449205  8.186570e-01  9.211097  1.270548    False   deviance
+dLN      2  425.903964  1.952607   0.855909  2.040399e-17  8.856669  1.529646     True   deviance
+N        3  428.735603  1.750200   3.687547  0.000000e+00  8.731706  2.809702     True   deviance
+Wei      4  430.333899  1.882499   5.285843  0.000000e+00  8.602153  3.785581     True   deviance
+dExp     5  437.531476  0.399713  12.483421  1.813430e-01  8.506293  7.977863    False   deviance
+
+------------------------ END of tdie (aggre_10U_3.0) ------------------------
+
+
+======================== END of aggre_10U_3.0 ========================
+
+======================== BEGIN t_misc_20140325_4.0 ========================
+------------------------ BEGIN tdiv0 (t_misc_20140325_4.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd   hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  153.045  28.483  105.245  200.000      0.109    0.077   67765.0  67765.0   63735.0   65637.0    1.0
+beta1     4.471   0.835    3.024    5.867      0.003    0.002   67966.0  67966.0   65150.0   70363.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.530  0.017   3.499    3.562        0.0      0.0  289393.0  289393.0  292221.0  267437.0    1.0
+sigma1  0.084  0.013   0.062    0.108        0.0      0.0  265976.0  255905.0  278384.0  259772.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     34.242  0.594  33.116   35.356      0.001    0.001  282637.0  282637.0  285066.0  256106.0    1.0
+sigma2   3.018  0.453   2.232    3.868      0.001    0.001  271916.0  260895.0  286596.0  261612.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2  10.300  1.347   7.804   12.859      0.003    0.002  229229.0  229229.0  227896.0  249106.0    1.0
+beta2   35.707  0.739  34.323   37.108      0.002    0.001  233383.0  233383.0  234005.0  245311.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.278  0.054   0.179    0.380        0.0      0.0  230231.0  230231.0  227185.0  229359.0    1.0
+c     30.497  0.146  30.235   30.637        0.0      0.0  288659.0  288352.0  207300.0  160734.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean  ess_sd  ess_bulk  ess_tail  r_hat
+muLN      1.678  0.441   0.910    2.575      0.011    0.009    1639.0  1110.0    2235.0     725.0    1.0
+sigmaLN   0.537  0.224   0.140    0.936      0.003    0.002    4407.0  4407.0    2267.0     732.0    1.0
+c        27.688  2.924  22.393   30.617      0.109    0.077     726.0   726.0    2238.0     721.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic         se  delta_waic   delta_se
+rank                                                              
+0     dExp  127.044323  0.686936   8.302354    0.000000   0.000000
+1      dLN  130.312036  2.383173   8.393944    3.267714   4.864067
+2      Gam  134.266641  1.843603  10.927873    7.222318   8.012503
+3       LN  135.216560  2.586390  10.986882    8.172237   7.933424
+4        N  138.230373  2.975070  12.068558   11.186050   8.938834
+5      Wei  149.118798  3.726422  13.267985   22.074475  10.430710
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight         se        dse  warning waic_scale
+dExp     0  127.044323  0.686936   0.000000  7.272402e-01   8.302354   0.000000    False   deviance
+dLN      1  130.312036  2.383173   3.267714  0.000000e+00   8.393944   4.864067     True   deviance
+Gam      2  134.266641  1.843603   7.222318  2.727598e-01  10.927873   8.012503     True   deviance
+LN       3  135.216560  2.586390   8.172237  0.000000e+00  10.986882   7.933424     True   deviance
+N        4  138.230373  2.975070  11.186050  0.000000e+00  12.068558   8.938834     True   deviance
+Wei      5  149.118798  3.726422  22.074475  5.051515e-14  13.267985  10.430710     True   deviance
+
+------------------------ END of tdiv0 (t_misc_20140325_4.0) ------------------------
+
+
+------------------------ BEGIN tdiv (t_misc_20140325_4.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  34.819  12.653  13.072   58.600      0.048    0.035   68322.0  65843.0   68223.0   77941.0    1.0
+beta1    2.980   1.090   1.096    5.022      0.004    0.003   68382.0  65996.0   68217.0   77768.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     2.443  0.068   2.314    2.572        0.0      0.0  229420.0  229420.0  238866.0  216795.0    1.0
+sigma1  0.227  0.058   0.136    0.333        0.0      0.0  204505.0  191242.0  229876.0  229450.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     11.709  0.785  10.218   13.186      0.002    0.001  233028.0  233028.0  244723.0  205521.0    1.0
+sigma2   2.605  0.669   1.569    3.842      0.002    0.001  198755.0  183249.0  224771.0  220600.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   6.133  1.454   3.505    8.892      0.003    0.002  210698.0  210698.0  205915.0  225461.0    1.0
+beta2   12.759  0.705  11.419   14.085      0.002    0.001  188202.0  188022.0  194984.0  191628.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+       mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb  0.285  0.084   0.137    0.443      0.000      0.0  232526.0  232526.0  227463.0  240197.0    1.0
+c     7.881  0.358   7.258    8.204      0.001      0.0  259593.0  259593.0  209916.0  170777.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN     1.726  0.419   1.012    2.465      0.002    0.001   63720.0  63720.0   62848.0   93232.0    1.0
+sigmaLN  0.523  0.271   0.159    1.007      0.001    0.001   67183.0  67183.0   61784.0   93862.0    1.0
+c        5.195  2.134   1.130    8.152      0.009    0.006   61442.0  61442.0   59741.0   67653.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name       waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      Wei  56.553019  1.444119  2.853302    0.000000  0.000000
+1        N  56.734512  1.214344  2.376100    0.181492  1.113021
+2       LN  56.819551  1.256267  2.716829    0.266532  2.144973
+3      Gam  56.987042  1.730226  3.861551    0.434023  2.118654
+4     dExp  57.749069  0.536257  4.349206    1.196050  5.859388
+5      dLN  57.988751  1.685188  3.496242    1.435731  3.331826
+>>> PyMC3/Arviz
+      rank       waic    p_waic    d_waic        weight        se       dse  warning waic_scale
+Wei      0  56.553019  1.444119  0.000000  6.143519e-01  2.853302  0.000000    False   deviance
+N        1  56.734512  1.214344  0.181492  1.148041e-17  2.376100  1.113021    False   deviance
+LN       2  56.819551  1.256267  0.266532  4.475634e-16  2.716829  2.144973    False   deviance
+Gam      3  56.987042  1.730226  0.434023  0.000000e+00  3.861551  2.118654     True   deviance
+dExp     4  57.749069  0.536257  1.196050  3.856481e-01  4.349206  5.859388    False   deviance
+dLN      5  57.988751  1.685188  1.435731  0.000000e+00  3.496242  3.331826     True   deviance
+
+------------------------ END of tdiv (t_misc_20140325_4.0) ------------------------
+
+
+------------------------ BEGIN tld (t_misc_20140325_4.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  34.975  9.079  18.562   51.973      0.034    0.024   71402.0  69377.0   71534.0   77148.0    1.0
+beta1    0.880  0.230   0.467    1.314      0.001    0.001   71495.0  69459.0   71633.0   77638.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.668  0.037   3.597    3.737        0.0      0.0  277548.0  277548.0  280369.0  259430.0    1.0
+sigma1  0.188  0.028   0.139    0.242        0.0      0.0  268656.0  257107.0  283584.0  254747.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     39.787  1.571  36.821   42.733      0.003    0.002  277833.0  277833.0  280424.0  249038.0    1.0
+sigma2   7.956  1.194   5.870   10.181      0.002    0.002  272820.0  261053.0  288261.0  258142.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   5.200  0.722   3.844    6.545      0.001    0.001  233382.0  233382.0  231599.0  253852.0    1.0
+beta2   43.197  1.780  39.869   46.563      0.004    0.003  226572.0  226572.0  226631.0  231601.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.112  0.022   0.072    0.153      0.000      0.0  253381.0  253381.0  248636.0  237116.0    1.0
+c     30.518  0.365  29.865   30.867      0.001      0.0  290933.0  290497.0  209805.0  155801.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.325  0.388   1.628    3.107      0.002    0.002   34355.0  27461.0   41166.0   22324.0    1.0
+sigmaLN   0.700  0.246   0.245    1.147      0.001    0.001   51365.0  51365.0   39438.0   22976.0    1.0
+c        26.664  4.366  18.817   30.839      0.034    0.024   16286.0  16286.0   38761.0   22213.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic        se  delta_waic  delta_se
+rank                                                            
+0     dExp  176.042176  0.773033  8.816390    0.000000  0.000000
+1      dLN  180.645060  2.165417  8.292389    4.602884  3.337912
+2       LN  184.922709  1.803727  8.089822    8.880533  5.805489
+3      Gam  186.533345  2.275662  9.806989   10.491169  6.976081
+4        N  189.539080  2.168363  8.711395   13.496904  7.105699
+5      Wei  193.827561  2.366666  8.701924   17.785385  7.776825
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight        se       dse  warning waic_scale
+dExp     0  176.042176  0.773033   0.000000  1.000000e+00  8.816390  0.000000    False   deviance
+dLN      1  180.645060  2.165417   4.602884  2.004230e-13  8.292389  3.337912    False   deviance
+LN       2  184.922709  1.803727   8.880533  9.561796e-14  8.089822  5.805489     True   deviance
+Gam      3  186.533345  2.275662  10.491169  9.606205e-14  9.806989  6.976081     True   deviance
+N        4  189.539080  2.168363  13.496904  5.009881e-14  8.711395  7.105699     True   deviance
+Wei      5  193.827561  2.366666  17.785385  0.000000e+00  8.701924  7.776825     True   deviance
+
+------------------------ END of tld (t_misc_20140325_4.0) ------------------------
+
+
+------------------------ BEGIN tdie (t_misc_20140325_4.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  40.435  10.439  21.703   60.045      0.041    0.029   66354.0  64988.0   66476.0   79402.0    1.0
+beta1    0.916   0.238   0.492    1.366      0.001    0.001   66204.0  64891.0   66328.0   79540.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.775  0.035    3.71    3.840        0.0      0.0  283831.0  283831.0  286018.0  261249.0    1.0
+sigma1  0.176  0.026    0.13    0.225        0.0      0.0  266900.0  256977.0  279198.0  260122.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     44.191  1.593  41.170   47.180      0.003    0.002  266023.0  266023.0  268228.0  250130.0    1.0
+sigma2   8.082  1.216   6.006   10.398      0.002    0.002  285769.0  273387.0  301926.0  267841.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   5.816  0.823   4.307    7.383      0.002    0.001  234866.0  234866.0  232756.0  255909.0    1.0
+beta2   47.686  1.752  44.373   50.970      0.004    0.003  217575.0  217575.0  217619.0  230173.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.094  0.018   0.061    0.129      0.000    0.000  264331.0  264331.0  259968.0  240214.0    1.0
+c     33.157  0.432  32.383   33.571      0.001    0.001  290311.0  289849.0  212925.0  163494.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.748  0.400   2.075     3.57      0.002    0.001   57829.0  56027.0   58705.0   58960.0    1.0
+sigmaLN   0.511  0.199   0.169     0.86      0.001    0.001   65468.0  65468.0   59962.0   63582.0    1.0
+c        25.618  6.851  11.537    33.37      0.030    0.021   51675.0  51675.0   57354.0   58145.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic        se  delta_waic  delta_se
+rank                                                            
+0     dExp  185.231818  0.576475  7.474333    0.000000  0.000000
+1      dLN  185.651432  2.047317  7.242112    0.419614  4.772316
+2       LN  186.942463  1.698965  7.219460    1.710645  5.971472
+3      Gam  188.005493  2.073158  8.648702    2.773675  7.065652
+4        N  190.098859  1.944266  7.591306    4.867041  6.905698
+5      Wei  193.975117  2.137955  7.636243    8.743299  7.502442
+>>> PyMC3/Arviz
+      rank        waic    p_waic    d_waic        weight        se       dse  warning waic_scale
+dExp     0  185.231818  0.576475  0.000000  5.783366e-01  7.474333  0.000000    False   deviance
+dLN      1  185.651432  2.047317  0.419614  0.000000e+00  7.242112  4.772316    False   deviance
+LN       2  186.942463  1.698965  1.710645  0.000000e+00  7.219460  5.971472     True   deviance
+Gam      3  188.005493  2.073158  2.773675  4.216634e-01  8.648702  7.065652     True   deviance
+N        4  190.098859  1.944266  4.867041  0.000000e+00  7.591306  6.905698     True   deviance
+Wei      5  193.975117  2.137955  8.743299  4.551914e-15  7.636243  7.502442     True   deviance
+
+------------------------ END of tdie (t_misc_20140325_4.0) ------------------------
+
+
+======================== END of t_misc_20140325_4.0 ========================
+
+======================== BEGIN t_misc_20140325_3.0 ========================
+------------------------ BEGIN tdiv0 (t_misc_20140325_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd   hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  163.353  27.208  113.953  200.000      0.188    0.133   20921.0  20921.0   26070.0    8693.0    1.0
+beta1     4.726   0.792    3.237    5.875      0.005    0.004   20987.0  20987.0   26251.0    8381.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.541  0.019   3.506    3.577        0.0      0.0  253374.0  253374.0  259078.0  242702.0    1.0
+sigma1  0.075  0.015   0.050    0.104        0.0      0.0  238320.0  223845.0  258781.0  247369.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     34.581  0.661  33.314   35.814      0.001    0.001  248792.0  248792.0  253854.0  232456.0    1.0
+sigma2   2.632  0.530   1.753    3.613      0.001    0.001  233136.0  218620.0  254233.0  242881.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2  14.992  2.766   9.931   20.255      0.006    0.004  220056.0  220056.0  217377.0  239484.0    1.0
+beta2   35.779  0.657  34.520   37.007      0.001    0.001  217493.0  217493.0  220008.0  216681.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.266  0.065   0.148    0.389        0.0      0.0  243542.0  243542.0  237674.0  229535.0    1.0
+c     30.582  0.254  30.131   30.821        0.0      0.0  271836.0  271519.0  202255.0  165286.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean  ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.107  0.583   1.149    3.280      0.018    0.015    1073.0   794.0    1121.0     360.0   1.01
+sigmaLN   0.371  0.217   0.064    0.754      0.004    0.003    2920.0  2920.0    1160.0     393.0   1.01
+c        24.398  6.296  11.327   30.764      0.268    0.190     552.0   552.0    1120.0     357.0   1.01
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name       waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      Gam  79.870973  0.887421  3.764235    0.000000  0.000000
+1       LN  80.874792  1.544232  4.601672    1.003819  0.846558
+2      dLN  81.162809  1.822720  4.856060    1.291835  1.665302
+3        N  81.306075  1.570932  4.545192    1.435102  0.857871
+4     dExp  82.596631  0.490724  5.190009    2.725658  4.920656
+5      Wei  83.767008  1.695096  4.618080    3.896035  1.856059
+>>> PyMC3/Arviz
+      rank       waic    p_waic    d_waic        weight        se       dse  warning waic_scale
+Gam      0  79.870973  0.887421  0.000000  7.587893e-01  3.764235  0.000000    False   deviance
+LN       1  80.874792  1.544232  1.003819  0.000000e+00  4.601672  0.846558    False   deviance
+dLN      2  81.162809  1.822720  1.291835  9.429944e-17  4.856060  1.665302     True   deviance
+N        3  81.306075  1.570932  1.435102  0.000000e+00  4.545192  0.857871     True   deviance
+dExp     4  82.596631  0.490724  2.725658  2.412107e-01  5.190009  4.920656    False   deviance
+Wei      5  83.767008  1.695096  3.896035  6.661338e-16  4.618080  1.856059     True   deviance
+
+------------------------ END of tdiv0 (t_misc_20140325_3.0) ------------------------
+
+
+------------------------ BEGIN tdiv (t_misc_20140325_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  58.493  21.335  21.784   98.745      0.080    0.058   70636.0  67572.0   70711.0   74785.0    1.0
+beta1    5.638   2.065   2.087    9.536      0.008    0.006   70687.0  67684.0   70722.0   74027.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     2.330  0.052   2.232    2.429        0.0      0.0  229520.0  229520.0  239049.0  215127.0    1.0
+sigma1  0.173  0.044   0.103    0.254        0.0      0.0  203668.0  187399.0  229868.0  226611.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     10.393  0.546   9.369   11.436      0.001    0.001  222161.0  222161.0  237335.0  203304.0    1.0
+sigma2   1.815  0.468   1.083    2.664      0.001    0.001  198614.0  182628.0  224375.0  219656.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   7.076  1.564   4.200   10.019      0.003    0.002  209725.0  209725.0  206290.0  227249.0    1.0
+beta2   11.158  0.530  10.159   12.158      0.001    0.001  199841.0  199841.0  204200.0  208690.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+       mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb  0.431  0.126   0.207    0.667        0.0      0.0  245191.0  242995.0  242169.0  245208.0    1.0
+c     7.851  0.236   7.440    8.067        0.0      0.0  270661.0  270661.0  219960.0  178442.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN     1.399  0.485   0.611    2.327      0.005    0.004    8549.0   5853.0    6464.0    1957.0    1.0
+sigmaLN  0.501  0.282   0.119    1.004      0.002    0.001   17919.0  17919.0    6107.0    2310.0    1.0
+c        5.580  2.035   1.397    8.049      0.031    0.022    4351.0   4351.0    5341.0    1793.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name       waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0       LN  47.894360  1.479308  3.819801    0.000000  0.000000
+1     dExp  47.937351  0.577369  4.634224    0.042991  4.292270
+2      Gam  48.462667  2.113153  5.720454    0.568306  1.958683
+3        N  48.483678  1.543226  3.803883    0.589317  0.614250
+4      dLN  48.552752  1.800629  3.981705    0.658392  1.208497
+5      Wei  49.454372  1.689412  4.062016    1.560012  1.368542
+>>> PyMC3/Arviz
+      rank       waic    p_waic    d_waic        weight        se       dse  warning waic_scale
+LN       0  47.894360  1.479308  0.000000  1.719753e-16  3.819801  0.000000    False   deviance
+dExp     1  47.937351  0.577369  0.042991  4.761643e-01  4.634224  4.292270    False   deviance
+Gam      2  48.462667  2.113153  0.568306  5.238357e-01  5.720454  1.958683     True   deviance
+N        3  48.483678  1.543226  0.589317  0.000000e+00  3.803883  0.614250     True   deviance
+dLN      4  48.552752  1.800629  0.658392  0.000000e+00  3.981705  1.208497     True   deviance
+Wei      5  49.454372  1.689412  1.560012  0.000000e+00  4.062016  1.368542     True   deviance
+
+------------------------ END of tdiv (t_misc_20140325_3.0) ------------------------
+
+
+------------------------ BEGIN tld (t_misc_20140325_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  63.790  20.141  28.828  101.791      0.078    0.056   66504.0  64149.0   66451.0   74957.0    1.0
+beta1    1.531   0.485   0.684    2.442      0.002    0.001   66504.0  64227.0   66373.0   74519.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.721  0.038   3.649    3.795        0.0      0.0  251190.0  251190.0  257257.0  235994.0    1.0
+sigma1  0.153  0.031   0.102    0.210        0.0      0.0  233017.0  218781.0  254482.0  242021.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     41.713  1.588  38.742   44.736      0.003    0.002  257155.0  257155.0  263196.0  231320.0    1.0
+sigma2   6.335  1.269   4.246    8.710      0.003    0.002  228811.0  213851.0  251331.0  237234.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   8.163  1.561   5.305   11.120      0.003    0.002  216824.0  216824.0  213866.0  239045.0    1.0
+beta2   44.400  1.502  41.573   47.236      0.003    0.002  219290.0  219290.0  222532.0  222123.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.112  0.028   0.063    0.164      0.000    0.000  239912.0  239912.0  233435.0  226039.0    1.0
+c     32.226  0.603  31.158   32.792      0.001    0.001  279709.0  279158.0  209365.0  164842.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.845  0.471   2.081    3.714      0.002    0.001   57111.0  57111.0   56461.0   88685.0    1.0
+sigmaLN   0.426  0.232   0.119    0.850      0.001    0.001   58624.0  58624.0   56710.0  114019.0    1.0
+c        21.604  8.284   5.445   32.641      0.035    0.024   57210.0  57210.0   55062.0   82330.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic        se  delta_waic  delta_se
+rank                                                            
+0       LN  110.932617  1.406698  3.824275    0.000000  0.000000
+1        N  110.984198  1.414058  3.832427    0.051581  0.758245
+2      Gam  111.106955  1.795250  5.112568    0.174338  1.377398
+3      Wei  111.610213  1.604958  4.326785    0.677596  1.998257
+4     dExp  111.996585  0.504381  5.245145    1.063968  5.590033
+5      dLN  112.189535  1.793561  3.946475    1.256917  1.342749
+>>> PyMC3/Arviz
+      rank        waic    p_waic    d_waic        weight        se       dse  warning waic_scale
+LN       0  110.932617  1.406698  0.000000  7.187096e-16  3.824275  0.000000    False   deviance
+N        1  110.984198  1.414058  0.051581  1.766911e-16  3.832427  0.758245    False   deviance
+Gam      2  111.106955  1.795250  0.174338  3.139236e-01  5.112568  1.377398    False   deviance
+Wei      3  111.610213  1.604958  0.677596  2.885732e-01  4.326785  1.998257     True   deviance
+dExp     4  111.996585  0.504381  1.063968  3.975032e-01  5.245145  5.590033    False   deviance
+dLN      5  112.189535  1.793561  1.256917  0.000000e+00  3.946475  1.342749     True   deviance
+
+------------------------ END of tld (t_misc_20140325_3.0) ------------------------
+
+
+------------------------ BEGIN tdie (t_misc_20140325_3.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  56.221  17.800  25.085   89.894      0.068    0.049   68469.0  66538.0   68284.0   74136.0    1.0
+beta1    1.187   0.377   0.520    1.893      0.001    0.001   68519.0  66647.0   68291.0   73878.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.848  0.041    3.77    3.926        0.0      0.0  252914.0  252914.0  258458.0  234820.0    1.0
+sigma1  0.165  0.033    0.11    0.226        0.0      0.0  238747.0  225475.0  257695.0  246506.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     47.414  1.881  43.856   50.969      0.004    0.003  265599.0  265599.0  271885.0  236227.0    1.0
+sigma2   7.516  1.508   4.998   10.303      0.003    0.002  223306.0  210775.0  244062.0  235629.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   8.301  1.631   5.293   11.363      0.004    0.002  213955.0  213955.0  210628.0  235896.0    1.0
+beta2   50.505  1.677  47.343   53.676      0.004    0.003  214772.0  214772.0  218285.0  216380.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.075  0.018   0.042    0.109      0.000    0.000  238541.0  238541.0  231784.0  229103.0    1.0
+c     33.182  0.903  31.581   34.029      0.002    0.001  294032.0  293613.0  222429.0  170786.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      3.333  0.333   2.744    3.867      0.001    0.001   77783.0  77783.0   78020.0  109931.0    1.0
+sigmaLN   0.309  0.141   0.123    0.571      0.001    0.000   77786.0  77786.0   82146.0  113011.0    1.0
+c        17.026  8.633   1.278   30.649      0.031    0.022   79132.0  78263.0   75610.0  101651.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic        se  delta_waic  delta_se
+rank                                                            
+0      Wei  116.364941  1.694857  5.031038    0.000000  0.000000
+1        N  116.966273  1.540517  4.498045    0.601332  1.477346
+2      Gam  117.941827  2.081635  6.296656    1.576886  2.519612
+3       LN  118.079424  1.670889  4.700467    1.714484  2.273221
+4      dLN  119.839049  1.968285  4.983292    3.474108  2.961266
+5     dExp  125.620512  0.346215  4.116541    9.255571  7.565278
+>>> PyMC3/Arviz
+      rank        waic    p_waic    d_waic    weight        se       dse  warning waic_scale
+Wei      0  116.364941  1.694857  0.000000  0.716252  5.031038  0.000000     True   deviance
+N        1  116.966273  1.540517  0.601332  0.000000  4.498045  1.477346     True   deviance
+Gam      2  117.941827  2.081635  1.576886  0.125229  6.296656  2.519612     True   deviance
+LN       3  118.079424  1.670889  1.714484  0.000000  4.700467  2.273221     True   deviance
+dLN      4  119.839049  1.968285  3.474108  0.000000  4.983292  2.961266     True   deviance
+dExp     5  125.620512  0.346215  9.255571  0.158519  4.116541  7.565278    False   deviance
+
+------------------------ END of tdie (t_misc_20140325_3.0) ------------------------
+
+
+======================== END of t_misc_20140325_3.0 ========================
+
+======================== BEGIN t_misc_20140325_2.0 ========================
+------------------------ BEGIN tdiv0 (t_misc_20140325_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  92.548  33.539  34.078  156.905      0.125    0.092   72291.0  67030.0   72527.0   66159.0    1.0
+beta1    2.345   0.852   0.850    3.972      0.003    0.002   72362.0  67197.0   72471.0   68045.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.670  0.044   3.587    3.753        0.0      0.0  212790.0  212693.0  222764.0  209585.0    1.0
+sigma1  0.139  0.038   0.080    0.209        0.0      0.0  203825.0  184321.0  235846.0  222961.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     39.508  1.805  36.049   42.889      0.004    0.003  206112.0  206112.0  216746.0  195423.0    1.0
+sigma2   5.711  1.567   3.295    8.552      0.004    0.003  195519.0  178117.0  228448.0  215271.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   8.327  1.920   4.808   11.960      0.004    0.003  204661.0  204661.0  201011.0  223568.0    1.0
+beta2   42.012  1.788  38.615   45.372      0.004    0.003  198444.0  198444.0  202814.0  207601.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.224  0.068   0.104    0.352      0.000    0.000  237670.0  237670.0  229432.0  223051.0    1.0
+c     34.584  0.503  33.711   35.037      0.001    0.001  258377.0  258255.0  203148.0  167913.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean  ess_sd  ess_bulk  ess_tail  r_hat
+muLN      1.086  0.583   0.000    2.059      0.010    0.010    3276.0  1882.0    4310.0    1250.0    1.0
+sigmaLN   1.493  0.637   0.367    2.595      0.008    0.005    6751.0  6751.0    3713.0    1108.0    1.0
+c        34.160  1.688  31.811   35.037      0.056    0.039     920.0   920.0    3948.0    1095.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name       waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0     dExp  59.448559  1.288906  7.341200    0.000000  0.000000
+1      dLN  60.752171  2.262251  7.877558    1.303611  1.517789
+2       LN  68.473220  1.381083  3.658911    9.024660  4.579767
+3      Gam  69.008475  1.929398  5.314364    9.559916  4.245517
+4        N  69.509271  1.431059  3.290056   10.060712  5.162178
+5      Wei  70.960602  1.455155  2.857689   11.512042  6.129922
+>>> PyMC3/Arviz
+      rank       waic    p_waic     d_waic        weight        se       dse  warning waic_scale
+dExp     0  59.448559  1.288906   0.000000  1.000000e+00  7.341200  0.000000    False   deviance
+dLN      1  60.752171  2.262251   1.303611  0.000000e+00  7.877558  1.517789     True   deviance
+LN       2  68.473220  1.381083   9.024660  6.211892e-17  3.658911  4.579767    False   deviance
+Gam      3  69.008475  1.929398   9.559916  1.963439e-15  5.314364  4.245517     True   deviance
+N        4  69.509271  1.431059  10.060712  1.678694e-16  3.290056  5.162178     True   deviance
+Wei      5  70.960602  1.455155  11.512042  0.000000e+00  2.857689  6.129922     True   deviance
+
+------------------------ END of tdiv0 (t_misc_20140325_2.0) ------------------------
+
+
+------------------------ BEGIN tdiv (t_misc_20140325_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  19.635  8.744   5.164   35.909      0.032    0.023   73644.0  72503.0   72112.0   84802.0    1.0
+beta1    1.487  0.670   0.369    2.722      0.002    0.002   73624.0  72590.0   72062.0   85533.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     2.551  0.155   2.257    2.841        0.0      0.0  164506.0  164506.0  195080.0  162975.0    1.0
+sigma1  0.377  0.161   0.170    0.647        0.0      0.0  129968.0  123602.0  157548.0  167486.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     13.306  2.145   9.247   17.323      0.006    0.004  139865.0  139865.0  160393.0  121723.0    1.0
+sigma2   5.218  2.184   2.369    8.942      0.006    0.004  139497.0  131498.0  170812.0  177141.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   3.772  1.111   1.761    5.859      0.003    0.002  182966.0  182966.0  177955.0  200536.0    1.0
+beta2   15.332  2.013  11.709   18.954      0.005    0.004  153771.0  137090.0  180609.0  168753.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+       mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb  0.265  0.101   0.091    0.453      0.000    0.000  237814.0  237814.0  228053.0  229213.0    1.0
+c     8.880  0.749   7.607    9.518      0.002    0.001  233935.0  233935.0  218136.0  191127.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN     1.263  1.018   0.000    2.588      0.003    0.002   93221.0  93221.0   65895.0   86657.0    1.0
+sigmaLN  2.839  2.428   0.236    6.941      0.010    0.007   56191.0  56191.0   26161.0   13252.0    1.0
+c        8.667  1.596   5.537    9.518      0.013    0.009   14228.0  14228.0   28434.0   15053.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name       waic     p_waic        se  delta_waic  delta_se
+rank                                                            
+0     dExp  37.089345   1.214341  5.539449    0.000000  0.000000
+1      dLN  40.070599  10.057204  7.314487    2.981254  3.651072
+2       LN  41.493813   1.305565  2.970473    4.404468  3.152397
+3      Gam  42.373964   2.235398  5.288882    5.284619  3.683138
+4      Wei  42.376005   1.544934  2.916681    5.286659  4.384318
+5        N  42.755144   1.416904  2.511072    5.665799  4.165930
+>>> PyMC3/Arviz
+      rank       waic     p_waic    d_waic        weight        se       dse  warning waic_scale
+dExp     0  37.089345   1.214341  0.000000  8.992468e-01  5.539449  0.000000     True   deviance
+dLN      1  40.070599  10.057204  2.981254  1.007532e-01  7.314487  3.651072     True   deviance
+LN       2  41.493813   1.305565  4.404468  0.000000e+00  2.970473  3.152397     True   deviance
+Gam      3  42.373964   2.235398  5.284619  1.298382e-16  5.288882  3.683138     True   deviance
+Wei      4  42.376005   1.544934  5.286659  0.000000e+00  2.916681  4.384318     True   deviance
+N        5  42.755144   1.416904  5.665799  0.000000e+00  2.511072  4.165930     True   deviance
+
+------------------------ END of tdiv (t_misc_20140325_2.0) ------------------------
+
+
+------------------------ BEGIN tld (t_misc_20140325_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  56.920  21.447  20.260   97.512      0.082    0.059   67791.0  65101.0   67905.0   76331.0    1.0
+beta1    1.166   0.441   0.404    1.991      0.002    0.001   67880.0  65230.0   67962.0   77160.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.879  0.058   3.768    3.987        0.0      0.0  216997.0  216997.0  229955.0  209554.0    1.0
+sigma1  0.183  0.050   0.107    0.276        0.0      0.0  200593.0  184553.0  228714.0  223054.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     48.905  2.741  43.748   54.115      0.006    0.004  223456.0  223456.0  235971.0  202879.0    1.0
+sigma2   8.692  2.397   5.062   13.079      0.005    0.004  191478.0  172133.0  221320.0  214037.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   7.807  1.891   4.378   11.385      0.004    0.003  208439.0  208439.0  203794.0  223361.0    1.0
+beta2   52.398  2.399  47.864   56.916      0.006    0.004  184603.0  183914.0  192454.0  194470.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.080  0.024   0.037    0.126      0.000    0.000  228136.0  228136.0  219028.0  224575.0    1.0
+c     35.045  1.418  32.585   36.321      0.003    0.002  274306.0  274306.0  220702.0  173740.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      3.153  0.440   2.401    3.901      0.002    0.001   71167.0  71167.0   70330.0  103179.0    1.0
+sigmaLN   0.448  0.266   0.122    0.922      0.001    0.001   70203.0  70203.0   67420.0  113512.0    1.0
+c        22.152  9.548   4.400   36.015      0.036    0.026   69220.0  69220.0   65960.0   81389.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name       waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      Wei  78.524341  1.689087  3.993577    0.000000  0.000000
+1        N  78.755338  1.447550  3.235977    0.230997  1.094835
+2       LN  79.231961  1.478679  3.165921    0.707620  1.684143
+3      Gam  79.493342  2.133867  5.190182    0.969000  1.836179
+4      dLN  80.831180  1.854491  3.177968    2.306839  2.610589
+5     dExp  81.301682  0.481569  3.791218    2.777341  6.147774
+>>> PyMC3/Arviz
+      rank       waic    p_waic    d_waic    weight        se       dse  warning waic_scale
+Wei      0  78.524341  1.689087  0.000000  0.654057  3.993577  0.000000     True   deviance
+N        1  78.755338  1.447550  0.230997  0.000000  3.235977  1.094835    False   deviance
+LN       2  79.231961  1.478679  0.707620  0.000000  3.165921  1.684143     True   deviance
+Gam      3  79.493342  2.133867  0.969000  0.055388  5.190182  1.836179     True   deviance
+dLN      4  80.831180  1.854491  2.306839  0.000000  3.177968  2.610589     True   deviance
+dExp     5  81.301682  0.481569  2.777341  0.290555  3.791218  6.147774    False   deviance
+
+------------------------ END of tld (t_misc_20140325_2.0) ------------------------
+
+
+------------------------ BEGIN tdie (t_misc_20140325_2.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  108.740  36.901  44.029  179.941      0.135    0.097   74200.0  72060.0   72221.0   69811.0    1.0
+beta1     1.995   0.679   0.815    3.314      0.002    0.002   74299.0  72255.0   72550.0   72499.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.994  0.041   3.917    4.070        0.0      0.0  217884.0  217884.0  230868.0  209952.0    1.0
+sigma1  0.128  0.035   0.074    0.192        0.0      0.0  195492.0  178769.0  224920.0  223295.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     54.543  2.209  50.370   58.741      0.005    0.003  213814.0  213814.0  226543.0  203555.0    1.0
+sigma2   6.988  1.927   4.016   10.468      0.004    0.003  196676.0  178928.0  228736.0  219693.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   9.843  2.263   5.697   14.111      0.005    0.004  207325.0  207325.0  203110.0  218543.0    1.0
+beta2   57.509  2.063  53.560   61.349      0.005    0.003  198791.0  198791.0  203814.0  206554.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.109  0.033   0.050    0.172      0.000    0.000  250290.0  250290.0  239501.0  224931.0    1.0
+c     44.438  1.035  42.637   45.373      0.002    0.001  263652.0  263652.0  209813.0  166204.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.899   0.559   2.011    3.979      0.003    0.002   43597.0  41128.0   40546.0   31327.0    1.0
+sigmaLN   0.467   0.310   0.085    1.014      0.001    0.001   52868.0  52868.0   37755.0   32063.0    1.0
+c        32.525  11.065   9.893   45.373      0.059    0.041   35564.0  35564.0   38537.0   29990.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name       waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0      Gam  73.835532  1.929292  5.482918    0.000000  0.000000
+1       LN  73.962207  1.537221  3.648678    0.126675  1.861830
+2        N  74.155612  1.590254  3.823895    0.320080  1.686827
+3     dExp  74.436144  0.551192  4.224339    0.600611  6.078740
+4      dLN  75.029330  1.878883  3.383393    1.193797  2.738522
+5      Wei  75.279765  1.927321  4.826278    1.444233  1.525735
+>>> PyMC3/Arviz
+      rank       waic    p_waic    d_waic        weight        se       dse  warning waic_scale
+Gam      0  73.835532  1.929292  0.000000  5.996395e-01  5.482918  0.000000     True   deviance
+LN       1  73.962207  1.537221  0.126675  1.630707e-16  3.648678  1.861830     True   deviance
+N        2  74.155612  1.590254  0.320080  5.912441e-16  3.823895  1.686827     True   deviance
+dExp     3  74.436144  0.551192  0.600611  4.003605e-01  4.224339  6.078740    False   deviance
+dLN      4  75.029330  1.878883  1.193797  1.194483e-16  3.383393  2.738522     True   deviance
+Wei      5  75.279765  1.927321  1.444233  0.000000e+00  4.826278  1.525735     True   deviance
+
+------------------------ END of tdie (t_misc_20140325_2.0) ------------------------
+
+
+======================== END of t_misc_20140325_2.0 ========================
+
+======================== BEGIN t_misc_20140211_4.0 ========================
+------------------------ BEGIN tdiv0 (t_misc_20140211_4.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  115.593  28.430  64.291  170.675      0.110    0.079   67296.0  64593.0   66922.0   59709.0    1.0
+beta1     3.217   0.793   1.786    4.753      0.003    0.002   67300.0  64644.0   66973.0   61046.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.577  0.020   3.540    3.615        0.0      0.0  274012.0  274012.0  276128.0  259139.0    1.0
+sigma1  0.104  0.015   0.077    0.133        0.0      0.0  270955.0  260684.0  283135.0  262679.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     35.947  0.728  34.563   37.306      0.001    0.001  276965.0  276965.0  279585.0  253843.0    1.0
+sigma2   3.761  0.553   2.809    4.809      0.001    0.001  274572.0  263571.0  288795.0  262764.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2  10.643  1.527   7.828   13.545      0.003    0.002  230219.0  230219.0  228164.0  247423.0    1.0
+beta2   37.650  0.742  36.257   39.052      0.002    0.001  232005.0  232005.0  233336.0  236766.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.175  0.033   0.114    0.238        0.0      0.0  226240.0  226240.0  222639.0  233012.0    1.0
+c     30.010  0.223  29.611   30.225        0.0      0.0  297448.0  297042.0  215898.0  167338.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.583  0.478   1.838    3.533      0.003    0.002   33991.0  31475.0   30318.0   17376.0    1.0
+sigmaLN   0.318  0.161   0.087    0.607      0.001    0.001   42290.0  42290.0   30530.0   22049.0    1.0
+c        20.608  7.097   6.112   29.782      0.043    0.031   26920.0  26920.0   29857.0   17079.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic        se  delta_waic  delta_se
+rank                                                            
+0       LN  153.259208  1.574992  5.936444    0.000000  0.000000
+1      Gam  153.397282  1.772509  6.980833    0.138074  1.096908
+2        N  153.895667  1.612497  5.983931    0.636459  0.747365
+3      dLN  153.941381  1.856706  6.025305    0.682173  1.392549
+4     dExp  157.204862  0.443886  6.536659    3.945654  7.147844
+5      Wei  157.215437  1.865556  6.461070    3.956229  2.732837
+>>> PyMC3/Arviz
+      rank        waic    p_waic    d_waic        weight        se       dse  warning waic_scale
+LN       0  153.259208  1.574992  0.000000  0.000000e+00  5.936444  0.000000    False   deviance
+Gam      1  153.397282  1.772509  0.138074  6.887988e-01  6.980833  1.096908    False   deviance
+N        2  153.895667  1.612497  0.636459  0.000000e+00  5.983931  0.747365    False   deviance
+dLN      3  153.941381  1.856706  0.682173  1.780646e-16  6.025305  1.392549    False   deviance
+dExp     4  157.204862  0.443886  3.945654  3.112012e-01  6.536659  7.147844    False   deviance
+Wei      5  157.215437  1.865556  3.956229  1.110223e-16  6.461070  2.732837     True   deviance
+
+------------------------ END of tdiv0 (t_misc_20140211_4.0) ------------------------
+
+
+------------------------ BEGIN tdiv (t_misc_20140211_4.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+           mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  135.156  42.698  61.412  199.999      0.159    0.113   71948.0  71948.0   71069.0   73382.0    1.0
+beta1     8.414   2.678   3.537   12.675      0.010    0.007   72213.0  72213.0   72732.0   71758.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+mu1     2.779  0.243   2.552    2.994      0.001    0.001   33349.0  33349.0   79070.0   63224.0    1.0
+sigma1  0.202  0.465   0.042    0.462      0.002    0.002   36273.0  36273.0   76621.0   66292.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+mu2     16.137  2.240  12.510   19.587      0.010    0.007   53806.0  53806.0   93994.0   63547.0    1.0
+sigma2   3.135  3.674   0.684    7.336      0.015    0.011   57269.0  57269.0   79472.0   76991.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2  13.077  5.297   3.917   23.078      0.014    0.010  139141.0  139141.0  129273.0  142000.0    1.0
+beta2   16.953  1.046  15.173   18.741      0.004    0.003   80269.0   69748.0  131120.0  111214.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.741  0.360   0.148    1.424      0.001    0.001  188131.0  169297.0  192521.0  179364.0    1.0
+c     14.305  0.627  13.368   14.758      0.002    0.001  168015.0  168015.0  171456.0  173251.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      1.749  3.473   0.000    4.445      0.012    0.009   83297.0  83297.0   10835.0   96305.0    1.0
+sigmaLN   3.620  7.163   0.070   11.649      0.034    0.024   43940.0  43940.0    1429.0     426.0    1.0
+c        13.316  2.465   8.442   14.758      0.106    0.075     545.0    545.0    1611.0     480.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name       waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0     dExp  14.827825  1.255758  4.045516    0.000000  0.000000
+1      dLN  15.228781  7.136912  6.793936    0.400956  4.150425
+2      Gam  15.962073  1.075138  1.726159    1.134248  3.081955
+3      Wei  17.859660  1.512127  1.523751    3.031835  4.226519
+4        N  19.373401  1.609212  0.773346    4.545575  3.595205
+5       LN  19.399724  1.654147  0.923639    4.571899  3.323698
+>>> PyMC3/Arviz
+      rank       waic    p_waic    d_waic        weight        se       dse  warning waic_scale
+dExp     0  14.827825  1.255758  0.000000  3.916579e-02  4.045516  0.000000     True   deviance
+dLN      1  15.228781  7.136912  0.400956  4.232254e-01  6.793936  4.150425     True   deviance
+Gam      2  15.962073  1.075138  1.134248  5.376089e-01  1.726159  3.081955     True   deviance
+Wei      3  17.859660  1.512127  3.031835  0.000000e+00  1.523751  4.226519     True   deviance
+N        4  19.373401  1.609212  4.545575  1.972152e-31  0.773346  3.595205     True   deviance
+LN       5  19.399724  1.654147  4.571899  0.000000e+00  0.923639  3.323698     True   deviance
+
+------------------------ END of tdiv (t_misc_20140211_4.0) ------------------------
+
+
+------------------------ BEGIN tld (t_misc_20140211_4.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  61.028  15.499  33.312   90.534      0.060    0.043   67190.0  65301.0   67530.0   75162.0    1.0
+beta1    1.623   0.414   0.876    2.403      0.002    0.001   67336.0  65492.0   67644.0   74958.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.619  0.028   3.567    3.671        0.0      0.0  290159.0  290159.0  292146.0  268103.0    1.0
+sigma1  0.143  0.021   0.107    0.183        0.0      0.0  268320.0  258158.0  280615.0  254521.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     37.629  1.076  35.623   39.669      0.002    0.001  285172.0  285172.0  287757.0  255458.0    1.0
+sigma2   5.546  0.816   4.128    7.082      0.002    0.001  266795.0  255526.0  281937.0  256890.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   7.133  0.985   5.309    8.994      0.002    0.001  224145.0  224145.0  222543.0  243336.0    1.0
+beta2   40.101  1.181  37.899   42.348      0.002    0.002  232450.0  232450.0  233219.0  236932.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.135  0.026   0.089    0.185      0.000      0.0  272090.0  272090.0  268396.0  253710.0    1.0
+c     29.948  0.288  29.428   30.225      0.001      0.0  287483.0  287013.0  206138.0  158434.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.507  0.427   1.783    3.382      0.003    0.002   26287.0  22871.0   26452.0   14172.0    1.0
+sigmaLN   0.461  0.194   0.137    0.801      0.001    0.001   40239.0  40239.0   27659.0   14626.0    1.0
+c        23.124  6.012  10.813   30.039      0.046    0.032   17332.0  17332.0   25676.0   13921.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic        se  delta_waic  delta_se
+rank                                                            
+0     dExp  171.743221  0.557822  7.497350    0.000000  0.000000
+1      dLN  172.460762  2.009192  7.147283    0.717542  5.319216
+2       LN  173.525210  1.717909  7.229542    1.781990  6.480694
+3      Gam  174.408113  2.067453  8.677262    2.664892  7.530367
+4        N  175.998601  1.914374  7.641071    4.255381  7.274885
+5      Wei  180.990388  2.308000  8.342833    9.247167  8.375704
+>>> PyMC3/Arviz
+      rank        waic    p_waic    d_waic        weight        se       dse  warning waic_scale
+dExp     0  171.743221  0.557822  0.000000  5.472268e-01  7.497350  0.000000    False   deviance
+dLN      1  172.460762  2.009192  0.717542  0.000000e+00  7.147283  5.319216    False   deviance
+LN       2  173.525210  1.717909  1.781990  0.000000e+00  7.229542  6.480694     True   deviance
+Gam      3  174.408113  2.067453  2.664892  4.527732e-01  8.677262  7.530367     True   deviance
+N        4  175.998601  1.914374  4.255381  0.000000e+00  7.641071  7.274885     True   deviance
+Wei      5  180.990388  2.308000  9.247167  2.220446e-16  8.342833  8.375704     True   deviance
+
+------------------------ END of tld (t_misc_20140211_4.0) ------------------------
+
+
+------------------------ BEGIN tdie (t_misc_20140211_4.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  34.370  8.750  18.775   51.008      0.033    0.024   70994.0  68852.0   71401.0   76997.0    1.0
+beta1    0.772  0.198   0.419    1.149      0.001    0.001   70838.0  68716.0   71216.0   76401.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.781  0.037   3.711    3.850        0.0      0.0  280582.0  280582.0  282876.0  265169.0    1.0
+sigma1  0.190  0.028   0.141    0.243        0.0      0.0  264905.0  254606.0  278483.0  257043.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     44.555  1.705  41.347   47.774      0.003    0.002  287914.0  287914.0  290404.0  257902.0    1.0
+sigma2   8.798  1.294   6.566   11.249      0.002    0.002  276477.0  265663.0  290609.0  261065.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   5.420  0.752   4.016    6.833      0.002    0.001  234993.0  234993.0  233179.0  251121.0    1.0
+beta2   48.298  1.867  44.820   51.854      0.004    0.003  219964.0  219964.0  219875.0  232383.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.081  0.015   0.052     0.11      0.000    0.000  226727.0  226727.0  221079.0  219360.0    1.0
+c     31.683  0.484  30.818    32.15      0.001    0.001  306476.0  305874.0  228289.0  173806.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      3.011  0.353   2.436    3.719      0.001    0.001   62012.0  60962.0   62041.0   78504.0    1.0
+sigmaLN   0.431  0.162   0.169    0.719      0.001    0.000   66442.0  66442.0   62620.0   90109.0    1.0
+c        21.437  7.287   6.672   31.334      0.030    0.021   58060.0  58060.0   60991.0   75133.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic        se  delta_waic  delta_se
+rank                                                            
+0      dLN  198.254770  2.022505  7.550179    0.000000  0.000000
+1       LN  198.648291  1.731914  7.433826    0.393521  1.763749
+2      Gam  199.702982  2.096887  8.817818    1.448213  2.814269
+3     dExp  200.592735  0.507532  7.102261    2.337965  5.877358
+4        N  201.906010  1.952730  7.686294    3.651240  3.214974
+5      Wei  205.310071  2.045909  7.441088    7.055301  4.142832
+>>> PyMC3/Arviz
+      rank        waic    p_waic    d_waic        weight        se       dse  warning waic_scale
+dLN      0  198.254770  2.022505  0.000000  3.250829e-01  7.550179  0.000000    False   deviance
+LN       1  198.648291  1.731914  0.393521  4.657363e-15  7.433826  1.763749    False   deviance
+Gam      2  199.702982  2.096887  1.448213  3.518817e-01  8.817818  2.814269     True   deviance
+dExp     3  200.592735  0.507532  2.337965  3.230354e-01  7.102261  5.877358    False   deviance
+N        4  201.906010  1.952730  3.651240  7.383600e-15  7.686294  3.214974     True   deviance
+Wei      5  205.310071  2.045909  7.055301  0.000000e+00  7.441088  4.142832     True   deviance
+
+------------------------ END of tdie (t_misc_20140211_4.0) ------------------------
+
+
+======================== END of t_misc_20140211_4.0 ========================
+
+======================== BEGIN t_misc_20140211_1.0 ========================
+------------------------ BEGIN tdiv0 (t_misc_20140211_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean      sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  94.818  22.288  54.371  136.855      0.083    0.060   71628.0  68443.0   72418.0   70446.0    1.0
+beta1    2.764   0.652   1.597    4.009      0.002    0.002   71777.0  68633.0   72549.0   71527.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.530  0.020   3.492    3.568        0.0      0.0  288999.0  288999.0  290452.0  266907.0    1.0
+sigma1  0.114  0.015   0.087    0.142        0.0      0.0  279820.0  270997.0  290331.0  270293.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     34.311  0.694  32.987   35.597      0.001    0.001  292821.0  292821.0  294740.0  260983.0    1.0
+sigma2   3.893  0.522   2.962    4.860      0.001    0.001  285398.0  275183.0  298178.0  268163.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2  10.150  1.371   7.583   12.711      0.003    0.002  239812.0  239812.0  237823.0  258987.0    1.0
+beta2   36.045  0.682  34.765   37.331      0.001    0.001  231518.0  231518.0  232501.0  237154.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.193  0.034   0.130    0.256        0.0      0.0  206517.0  206517.0  203236.0  217570.0    1.0
+c     28.961  0.170  28.655   29.125        0.0      0.0  307501.0  307075.0  218391.0  167499.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.397  0.556   1.523    3.478      0.005    0.004   12588.0   9794.0    7421.0    2825.0    1.0
+sigmaLN   0.415  0.238   0.095    0.847      0.001    0.001   26733.0  26733.0   10223.0    3562.0    1.0
+c        20.821  6.952   6.487   29.017      0.088    0.063    6175.0   6175.0    6730.0    2838.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic        se  delta_waic   delta_se
+rank                                                             
+0     dExp  178.301994  0.567120  8.174347    0.000000   0.000000
+1       LN  183.030851  1.390822  5.198371    4.728857   8.254018
+2      Gam  183.138858  1.585725  6.082122    4.836864   8.975926
+3        N  183.402274  1.445542  5.439110    5.100280   9.047769
+4      dLN  184.554625  2.326091  5.293858    6.252632   6.079399
+5      Wei  185.750523  1.831655  6.679139    7.448530  10.720689
+>>> PyMC3/Arviz
+      rank        waic    p_waic    d_waic        weight        se        dse  warning waic_scale
+dExp     0  178.301994  0.567120  0.000000  6.015308e-01  8.174347   0.000000    False   deviance
+LN       1  183.030851  1.390822  4.728857  3.034084e-16  5.198371   8.254018    False   deviance
+Gam      2  183.138858  1.585725  4.836864  0.000000e+00  6.082122   8.975926    False   deviance
+N        3  183.402274  1.445542  5.100280  1.090154e-15  5.439110   9.047769    False   deviance
+dLN      4  184.554625  2.326091  6.252632  4.153654e-15  5.293858   6.079399    False   deviance
+Wei      5  185.750523  1.831655  7.448530  3.984692e-01  6.679139  10.720689     True   deviance
+
+------------------------ END of tdiv0 (t_misc_20140211_1.0) ------------------------
+
+
+------------------------ BEGIN tdiv (t_misc_20140211_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  26.834  9.508  10.412   44.599      0.034    0.025   76735.0  72142.0   77751.0   81167.0    1.0
+beta1    1.874  0.669   0.709    3.118      0.002    0.002   77038.0  72384.0   78110.0   82361.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     2.641  0.072   2.505    2.776        0.0      0.0  229916.0  229916.0  239417.0  213818.0    1.0
+sigma1  0.249  0.060   0.152    0.358        0.0      0.0  212648.0  196664.0  239274.0  229408.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     14.365  1.066  12.361   16.392      0.002    0.002  237011.0  237011.0  245766.0  209807.0    1.0
+sigma2   3.697  0.894   2.270    5.332      0.002    0.001  207870.0  193812.0  230931.0  229152.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   4.701  0.993   2.884    6.585      0.002    0.002  213607.0  213607.0  210367.0  230115.0    1.0
+beta2   15.877  1.088  13.813   17.903      0.002    0.002  208113.0  208113.0  211540.0  213906.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+       mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb  0.235  0.066   0.118    0.360      0.000    0.000  238921.0  238921.0  233043.0  238467.0    1.0
+c     9.747  0.393   9.059   10.106      0.001    0.001  281112.0  281112.0  224074.0  178208.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN     1.782  0.444   1.036    2.633      0.002    0.001   63093.0  61867.0   61684.0   68734.0    1.0
+sigmaLN  0.632  0.309   0.187    1.183      0.001    0.001   66456.0  66456.0   57348.0   72831.0    1.0
+c        7.137  2.433   2.201   10.097      0.010    0.007   55402.0  55402.0   57197.0   57182.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name       waic    p_waic        se  delta_waic  delta_se
+rank                                                           
+0     dExp  67.485855  0.692317  5.494675    0.000000  0.000000
+1      dLN  69.414147  1.819830  4.810191    1.928293  3.110750
+2       LN  69.438029  1.473287  4.450228    1.952174  3.819685
+3      Gam  70.285891  2.087181  6.190288    2.800036  5.004431
+4        N  71.070523  1.582239  4.242647    3.584669  4.512214
+5      Wei  71.816772  1.684750  4.365356    4.330917  4.947554
+>>> PyMC3/Arviz
+      rank       waic    p_waic    d_waic        weight        se       dse  warning waic_scale
+dExp     0  67.485855  0.692317  0.000000  7.195781e-01  5.494675  0.000000    False   deviance
+dLN      1  69.414147  1.819830  1.928293  1.411669e-16  4.810191  3.110750     True   deviance
+LN       2  69.438029  1.473287  1.952174  2.241402e-16  4.450228  3.819685     True   deviance
+Gam      3  70.285891  2.087181  2.800036  2.804219e-01  6.190288  5.004431     True   deviance
+N        4  71.070523  1.582239  3.584669  0.000000e+00  4.242647  4.512214     True   deviance
+Wei      5  71.816772  1.684750  4.330917  0.000000e+00  4.365356  4.947554     True   deviance
+
+------------------------ END of tdiv (t_misc_20140211_1.0) ------------------------
+
+
+------------------------ BEGIN tld (t_misc_20140211_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  22.642  5.312  13.077   32.667      0.019    0.014   78722.0  75123.0   79676.0   82926.0    1.0
+beta1    0.554  0.131   0.318    0.802      0.000    0.000   78487.0  75193.0   79680.0   82326.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.688  0.041   3.611    3.766        0.0      0.0  296545.0  296545.0  298284.0  269089.0    1.0
+sigma1  0.231  0.031   0.176    0.288        0.0      0.0  259192.0  251099.0  269429.0  253809.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     40.962  1.752  37.672   44.272      0.003    0.002  305817.0  305817.0  307295.0  265959.0    1.0
+sigma2   9.816  1.317   7.492   12.278      0.002    0.002  289922.0  278749.0  303200.0  266667.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   4.544  0.593   3.447    5.665      0.001    0.001  243319.0  243319.0  241676.0  266977.0    1.0
+beta2   44.972  1.911  41.425   48.626      0.004    0.003  231602.0  231602.0  231613.0  236466.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.085  0.015   0.057    0.113      0.000    0.000  239745.0  239745.0  235982.0  236573.0    1.0
+c     28.750  0.388  28.054   29.125      0.001    0.001  301300.0  300581.0  214806.0  158594.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      2.768  0.375   2.119    3.534      0.001    0.001   71701.0  70364.0   71775.0   77548.0    1.0
+sigmaLN   0.600  0.225   0.219    0.996      0.001    0.001   75399.0  75399.0   72069.0   87070.0    1.0
+c        21.528  5.959   9.367   28.873      0.023    0.016   65890.0  65890.0   69698.0   75594.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic        se  delta_waic  delta_se
+rank                                                            
+0     dExp  232.850093  0.682475  9.112268    0.000000  0.000000
+1      dLN  239.081288  2.104350  7.971678    6.231194  4.598363
+2       LN  240.418629  1.583975  7.508484    7.568536  6.438001
+3      Gam  241.647077  1.862044  8.482248    8.796983  7.299946
+4        N  244.883226  1.807071  7.453867   12.033133  7.696558
+5      Wei  247.196441  1.801654  6.961148   14.346348  8.049091
+>>> PyMC3/Arviz
+      rank        waic    p_waic     d_waic        weight        se       dse  warning waic_scale
+dExp     0  232.850093  0.682475   0.000000  8.684706e-01  9.112268  0.000000    False   deviance
+dLN      1  239.081288  2.104350   6.231194  0.000000e+00  7.971678  4.598363    False   deviance
+LN       2  240.418629  1.583975   7.568536  3.477467e-16  7.508484  6.438001    False   deviance
+Gam      3  241.647077  1.862044   8.796983  1.315294e-01  8.482248  7.299946     True   deviance
+N        4  244.883226  1.807071  12.033133  5.787133e-16  7.453867  7.696558     True   deviance
+Wei      5  247.196441  1.801654  14.346348  0.000000e+00  6.961148  8.049091     True   deviance
+
+------------------------ END of tld (t_misc_20140211_1.0) ------------------------
+
+
+------------------------ BEGIN tdie (t_misc_20140211_1.0) ------------------------
+-->>>>>> GAMMA
+█> Result GAMMA:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+alpha1  26.910  6.353  15.634   39.110      0.023    0.016   76454.0  74619.0   76532.0   80716.0    1.0
+beta1    0.548  0.131   0.311    0.793      0.000    0.000   76432.0  74555.0   76514.0   81094.0    1.0
+
+-->>>>>> LOGNORMAL
+█> Result LOGNORMAL:
+         mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu1     3.875  0.038   3.804    3.946        0.0      0.0  299976.0  299976.0  301518.0  269660.0    1.0
+sigma1  0.212  0.028   0.162    0.265        0.0      0.0  278252.0  269504.0  288659.0  264211.0    1.0
+
+-->>>>>> NORMAL
+█> Result NORMAL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+mu2     49.175  1.912  45.546   52.745      0.004    0.003  286621.0  286621.0  288251.0  259855.0    1.0
+sigma2  10.732  1.434   8.203   13.421      0.003    0.002  284444.0  274100.0  296484.0  267653.0    1.0
+
+-->>>>>> WEIBULL
+█> Result WEIBULL:
+          mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+alpha2   5.003  0.657   3.787    6.246      0.001    0.001  228575.0  228575.0  227116.0  247417.0    1.0
+beta2   53.647  2.065  49.774   57.554      0.004    0.003  236503.0  236503.0  236885.0  245454.0    1.0
+
+-->>>>>> DELAYED EXPONENTIAL
+█> Result DELAYED EXPONENTIAL:
+        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean    ess_sd  ess_bulk  ess_tail  r_hat
+lamb   0.071  0.012   0.048    0.094      0.000    0.000  230103.0  230103.0  226455.0  228683.0    1.0
+c     34.566  0.463  33.733   35.015      0.001    0.001  308347.0  307542.0  223654.0  170831.0    1.0
+
+-->>>>>> DELAYED LOGNORMAL
+█> Result DELAYED LOGNORAML:
+           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean   ess_sd  ess_bulk  ess_tail  r_hat
+muLN      3.007  0.363   2.392    3.740      0.001    0.001   71192.0  70261.0   71176.0   83166.0    1.0
+sigmaLN   0.524  0.190   0.203    0.865      0.001    0.000   74540.0  74540.0   71936.0   95407.0    1.0
+c        25.282  7.498  10.017   34.678      0.029    0.020   66984.0  66984.0   68855.0   80508.0    1.0
+
+-->>>>>> MODEL SELECTION: WAIC
+>>> Compare WAIC
+      name        waic    p_waic        se  delta_waic  delta_se
+rank                                                            
+0     dExp  244.595645  0.575235  8.304486    0.000000  0.000000
+1      dLN  246.146957  1.997938  7.632496    1.551312  5.051114
+2       LN  247.070337  1.564312  7.198133    2.474692  6.357354
+3      Gam  248.100829  1.838276  8.155491    3.505184  7.234399
+4        N  250.686149  1.741792  7.164606    6.090505  7.467472
+5      Wei  253.369450  1.781888  6.737102    8.773806  7.882743
+>>> PyMC3/Arviz
+      rank        waic    p_waic    d_waic        weight        se       dse  warning waic_scale
+dExp     0  244.595645  0.575235  0.000000  6.085481e-01  8.304486  0.000000    False   deviance
+dLN      1  246.146957  1.997938  1.551312  0.000000e+00  7.632496  5.051114    False   deviance
+LN       2  247.070337  1.564312  2.474692  0.000000e+00  7.198133  6.357354    False   deviance
+Gam      3  248.100829  1.838276  3.505184  3.914519e-01  8.155491  7.234399    False   deviance
+N        4  250.686149  1.741792  6.090505  0.000000e+00  7.164606  7.467472    False   deviance
+Wei      5  253.369450  1.781888  8.773806  8.881784e-16  6.737102  7.882743     True   deviance
+
+------------------------ END of tdie (t_misc_20140211_1.0) ------------------------
+
+
+======================== END of t_misc_20140211_1.0 ========================
