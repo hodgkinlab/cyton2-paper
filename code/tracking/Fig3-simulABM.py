@@ -204,13 +204,12 @@ def plot_tree(tree, ax, tf, y, ystep):
 		ax.plot([xRight, xRight], [yTop, yBtm], lw=2, color=color)
 		return plot_tree(tree.left, ax, tf, yTop, ystep/2), plot_tree(tree.right, ax, tf, yBtm, ystep/2)
 
-# def run_simulation(name, df, par, t0, tf, n_sim):
 def run_simulation(inputs):
 	def diag(x, **kws):  # access diagonal plots in seaborn's PairGrid object
 		ax = plt.gca()
 		ax.set_rasterized(True)
 		lab = kws['label']
-		if lab == 'Obs. time':
+		if lab == 'Observable sample time':
 			ax.annotate(f"$N_{{Obs.}}={len(x)}$", xy=(0.02, 0.88), xycoords=ax.transAxes, color=kws['color'], fontsize=16)
 		ax.set_xlim(left=0)
 
@@ -274,10 +273,10 @@ def run_simulation(inputs):
 			elif np.isnan(bf01):
 				string = r"BF$_{01}$ NaN"; color = "#000000"
 
-		if lab == 'True time':
+		if lab == 'True sample time':
 			ax.annotate("[True] " + string, xy=(.02, .88), xycoords=ax.transAxes, color=color, fontsize='medium')
 			# ax.annotate(r"[True] $r$" + f" = {freqr[0,1]:.4f}", xy=(0.02, 0.18), xycoords=ax.transAxes, fontsize='medium')
-		elif lab == 'Obs. time':
+		elif lab == 'Observable sample time':
 			ax.annotate("[Obs.] " + string, xy=(.02, .75), xycoords=ax.transAxes, color=color, fontsize='medium')
 			# ax.annotate(r"[Obs.] $r$" + f" = {freqr[0,1]:.4f}", xy=(0.02, 0.05), xycoords=ax.transAxes, fontsize='medium')
 
@@ -311,7 +310,7 @@ def run_simulation(inputs):
 	if not os.path.exists(save_path_real): os.mkdir(save_path_real)
 	else: pass
 
-	random_clones = rng.randint(low=1, high=n_sim, size=1000)  # select 100 random clones to plot trees
+	random_clones = rng.randint(low=1, high=n_sim, size=1000)  # select 1000 random clones to plot trees
 	for counter in tqdm.trange(n_sim, desc=f"[{name}] Generate Trees", leave=False, position=pos+1):
 		# TIMERS SETTING
 		T0 = sps.lognorm.rvs(sT0, scale=mT0, random_state=rng)  	   # sample time to first division
@@ -341,13 +340,13 @@ def run_simulation(inputs):
 		TIME_TO_SUB_DIV.append(T)
 		TIME_TO_DESTINY.append(D)
 		TIME_TO_DIE.append(X)
-		LABEL.append("True time")
+		LABEL.append("True sample time")
 
 		TIME_TO_FIRST_DIV.append(tdiv0)
 		TIME_TO_SUB_DIV.append(tdiv)
 		TIME_TO_DESTINY.append(tld)
 		TIME_TO_DIE.append(tdie)
-		LABEL.append("Obs. time")
+		LABEL.append("Observable sample time")
 
 		# Get family members
 		if counter in random_clones:
@@ -444,7 +443,6 @@ def run_simulation(inputs):
 			fig.tight_layout(rect=(0, 0, 1, 1))
 			fig.subplots_adjust(hspace=0, wspace=0)
 
-			# fig.savefig(f"{save_path_real}/c{counter}_v2.pdf", dpi=300)
 			fig.savefig(f"{save_path_real}/c{counter}.pdf", dpi=300)
 			plt.close(fig)
 
@@ -490,7 +488,7 @@ def run_simulation(inputs):
 		if i == 1 and j == 0:
 			g.axes[i,j].spines['top'].set_visible(True)
 			g.axes[i,j].spines['right'].set_visible(True)
-			g.axes[i,j].scatter(df['tdiv0'], df['tdiv'], c=data_color, marker='o', ec='k', lw=0.5, s=18, label='Data', rasterized=True)
+			g.axes[i,j].scatter(df['tdiv0'], df['tdiv'], c=data_color, marker='o', ec='k', lw=0.5, s=18, label="Measurement", rasterized=True)
 			g.axes[i,j].set_ylabel(r"$T_{div}^{k\geq 1}$", fontsize=22)
 		elif i == 2 and j == 0:
 			g.axes[i,j].spines['top'].set_visible(True)
@@ -530,7 +528,7 @@ def run_simulation(inputs):
 					   loc='center right',
 					   markerscale=2,
 					   columnspacing=1, handletextpad=0.1,
-					   bbox_to_anchor=(0.9, 0.45), fontsize=16, ncol=1)  # with data (different anchor value)
+					   bbox_to_anchor=(1, 0.45), fontsize=16, ncol=1)  # with data (different anchor value)
 	for lh in leg.legendHandles:
 		lh.set_alpha(1)
 	g.fig.set_size_inches(12, 9)
@@ -544,7 +542,7 @@ def run_simulation(inputs):
 
 	plt.rcParams.update({'ytick.labelsize': 14})
 	tt = np.linspace(t0, tf, num=1000)
-	in_ax.set_title(f"Cyton distribution (Fitted parameters)")
+	in_ax.set_title("Fitted Cyton distribution")
 	in_ax.set_ylabel("Density", fontsize=14)
 	in_ax.set_xlabel("Time (hour)", fontsize=14)
 	in_ax.fill_between(tt, sps.lognorm.pdf(tt, sT0, scale=mT0), color='blue', label=f'$T_{{div}}^0 \sim LN({mT0}, {sT0})$', alpha=0.3, rasterized=True)
