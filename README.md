@@ -1,4 +1,5 @@
 # Information
+Click [this](https://doi.org/10.3389/fbinf.2021.723337) to get the paper, titled "Cyton2: A Model of Immune Cell Population Dynamics That Includes Familial Instructional Inheritance".
 - Python v3.8.6
 - Ubuntu 20.04.2 LTS - 2x Intel(R) Xeon(R) Silver 4116 CPU @ 2.10GHz (12 Cores)
 - List of third party libraries is in "code/requirements.txt"  
