@@ -71,7 +71,7 @@ code
 ```
 FACS Data:
 - SH1.119.xlsx (Figure 5)
-- EX127.xlsx (Figure 6; data from Marchingo et al. Science 2014)
+- EX127.xlsx (Figure 6; data from [Marchingo et al. Science 2014](https://www.science.org/doi/10.1126/science.1260044?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed))
 - EX130.xlsx (Repeat of EX127.xlsx)
 
 Before fitting the cyton2 model to FACS datasets, please compile Cython file (`model.pyx`) in "code/cyton2/src" folder using custom Cython setup file, `_setup.py`. Typical command is `python _setup.py build_ext --inplace` in Mac/Linux terminal.
